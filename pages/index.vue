@@ -5,11 +5,10 @@
         <!-- <img :src="currentBlok.filename" :alt="currentBlok.alt" /> -->
         <SanityImage :asset-id="currentImage.url" auto="format" />
       </div>
-      <NuxtLink to="/personal" :class="`${myClasses[index]}__link`">
+      <NuxtLink :to="`/${myClasses[index]}`" :class="`${myClasses[index]}__link`">
         <span :class="`${myClasses[index]}__link--text`">{{myClasses[index]}}</span>
       </NuxtLink>
     </div>
-    <span>test tings</span>
   </div>
 </template>
   

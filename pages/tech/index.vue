@@ -1,5 +1,12 @@
 <template>
-  <SanityContent :blocks="introText" />
+  <div class="about">
+    <h3 class="about__title">{{titleCategory}} Posts</h3>
+    <SanityContent :blocks="introText" />
+
+    <!-- <NuxtLink :to="`/${currentButton.cached_url}`" v-for="(currentButton, index) in state.buttons" :key="currentButton.id" target="_blank" class="button--green">
+      {{changeBtnNames(index)}}
+    </NuxtLink> -->
+  </div>
 </template>
 
 <script setup>
@@ -22,7 +29,46 @@ console.log(techIntro);
  * tested. it works
  */
 const introText = techIntro.aboutText;
+
+// ====================================
+const route = useRoute();
+const routeName = route.name;
+console.log(routeName);
+
+const titleCategory = computed(() => {
+  return routeName.charAt(0).toUpperCase() + routeName.slice(1);
+});
+
+const changeBtnNames = (unofficialName) => {
+  switch (unofficialName) {
+    case "button":
+      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Page`;
+      break;
+    case "button2":
+      unofficialName = `${routeName === "personal" ? "Personal" : "Tech"} Posts`;
+      break;
+    case "button3":
+      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Posts`;
+    default:
+      break;
+  }
+  return unofficialName;
+};
 </script>
 
-<style lang="scss" scoped>
+<style>
+.about {
+  width: 80vw;
+  margin: auto;
+}
+
+.about__title {
+  margin: 4rem 0;
+  text-align: center;
+  font-size: 4rem;
+}
+
+.about__paragraph {
+  margin-bottom: 1.5rem;
+}
 </style>
