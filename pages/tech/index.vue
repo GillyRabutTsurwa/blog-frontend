@@ -3,9 +3,11 @@
     <h3 class="about__title">{{titleCategory}} Posts</h3>
     <SanityContent :blocks="introText" />
 
-    <!-- <NuxtLink :to="`/${currentButton.cached_url}`" v-for="(currentButton, index) in state.buttons" :key="currentButton.id" target="_blank" class="button--green">
-      {{changeBtnNames(index)}}
-    </NuxtLink> -->
+    <Vue3Marquee>
+      <span v-for="(word, index) in helloArray" :key="index" class="word-style" :class="{ word: true, odd: index % 2 === 0, even: index % 2 === 1 }">
+        {{ word }}
+      </span>
+    </Vue3Marquee>
   </div>
 </template>
 
@@ -39,6 +41,9 @@ const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
 });
 
+const helloArray = ["hello", "jambo", "bonjour", "こんにちは", "obrigado", "안녕하세요"];
+
+// NOTE: not using this function right now
 const changeBtnNames = (unofficialName) => {
   switch (unofficialName) {
     case "button":
@@ -70,5 +75,17 @@ const changeBtnNames = (unofficialName) => {
 
 .about__paragraph {
   margin-bottom: 1.5rem;
+}
+
+/* TESTING vue3marquee settings */
+.word {
+  font-size: 30px;
+  margin: 0 10px;
+}
+.odd {
+  color: rgb(68, 77, 84);
+}
+.even {
+  color: rgb(137, 147, 156);
 }
 </style>
