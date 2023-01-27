@@ -2,10 +2,9 @@
   <div class="about">
     <h3 class="about__title">{{titleCategory}} Posts</h3>
     <SanityContent :blocks="introText" />
+    <ImageCards />
+    <Map />
 
-    <!-- <NuxtLink :to="`/${currentButton.cached_url}`" v-for="(currentButton, index) in state.buttons" :key="currentButton.id" target="_blank" class="button--green">
-        {{changeBtnNames(index)}}
-      </NuxtLink> -->
   </div>
 </template>
   

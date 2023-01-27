@@ -3,11 +3,15 @@
     <h3 class="about__title">{{titleCategory}} Posts</h3>
     <SanityContent :blocks="introText" />
 
-    <Vue3Marquee>
-      <span v-for="(word, index) in helloArray" :key="index" class="word-style" :class="{ word: true, odd: index % 2 === 0, even: index % 2 === 1 }">
-        {{ word }}
-      </span>
+    <Vue3Marquee :pauseOnHover="true">
+      <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)" class="word" @mouseover="iconHovered = true" @mouseleave="iconHovered = false"></i>
     </Vue3Marquee>
+
+    <!-- NOTE: until I learn about links: https://www.sanity.io/guides/portable-text-internal-and-external-links, this will do for now -->
+    <NuxtLink to="/personal">Personal Page</NuxtLink>
+    <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
+    <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
+
   </div>
 </template>
 
@@ -20,16 +24,6 @@ const techIntro = allIntros.find((currentIntro) => {
   return currentIntro.aboutTitle.includes("Tech");
 });
 console.log(techIntro);
-// IMPORTANTNOTE:
-/**
- * the value of the blocks prop text should be the array of the rendered blockContent/plain text
- * in this case, looking at the data, the value is the aboutText object property
- * better put, the value of the prop should be the name of the blockContent field defined whilst making the schema (look at about.js)
- * I believe that this should take care of modified text within, like bolded, underlined and italicised content
- * but I am yet to test this
- * ...
- * tested. it works
- */
 const introText = techIntro.aboutText;
 
 // ====================================
@@ -41,23 +35,32 @@ const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
 });
 
-const helloArray = ["hello", "jambo", "bonjour", "こんにちは", "obrigado", "안녕하세요"];
+const iconNames = [
+  "html5",
+  "css3",
+  "sass",
+  "tailwindcss",
+  "javascript",
+  "typescript",
+  "jquery",
+  "vuejs",
+  "nuxtjs",
+  "svelte",
+  "react",
+  "gulp",
+  "git",
+  "github",
+  "netlify",
+  "vercel",
+];
 
-// NOTE: not using this function right now
-const changeBtnNames = (unofficialName) => {
-  switch (unofficialName) {
-    case "button":
-      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Page`;
-      break;
-    case "button2":
-      unofficialName = `${routeName === "personal" ? "Personal" : "Tech"} Posts`;
-      break;
-    case "button3":
-      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Posts`;
-    default:
-      break;
-  }
-  return unofficialName;
+const iconHovered = ref(false);
+const colouredOrBW = computed(() => {
+  return iconHovered.value === true ? "plain colored" : "plain";
+});
+
+const setIconName = (iconName) => {
+  return `devicon-${iconName}-${colouredOrBW.value}`;
 };
 </script>
 
@@ -79,8 +82,16 @@ const changeBtnNames = (unofficialName) => {
 
 /* TESTING vue3marquee settings */
 .word {
-  font-size: 30px;
-  margin: 0 10px;
+  font-size: 60px;
+  margin: 0 30px;
+}
+
+.word:first-child {
+  margin-left: 0;
+}
+
+.word:last-child {
+  margin-right: 0;
 }
 .odd {
   color: rgb(68, 77, 84);

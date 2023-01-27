@@ -8,10 +8,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "leaflet": "^1.9.3",
     "nuxt": "3.0.0"
   },
   "dependencies": {
     "@nuxtjs/sanity": "^1.5.0",
+    "vue3-carousel": "^0.2.9",
     "vue3-marquee": "^3.1.2"
   }
 }
