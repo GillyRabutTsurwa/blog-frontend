@@ -13,7 +13,7 @@ const state = reactive({
 onMounted(() => {
   // const coordinates = [latitude, longitude];
   // NOTE: this value was originally in the setView method, but i'm putting it in a variable for more clarity. change it to play around with it
-  const zoomLevel = 13;
+  const zoomLevel = 10;
 
   // NOTE: it seems this is the entry point of rendering the map
   state.map = L.map("mapContainer").setView([39.18566, -78.163334], zoomLevel); // ("map") signifie un element dans notre HTML ayant le ID de "map"
