@@ -1,7 +1,7 @@
 <template>
   <Carousel :wrapAround="true">
     <Slide v-for="(currentImage, index) in images" :key="index">
-      <div class="card" style="width: 80%; height: 100%; padding-top: 1rem;">
+      <div class="card" style="width: 85%; height: 100%; padding-top: 1rem;">
         <figure class="card-img">
           <img :src="types[currentImage.name]">
           <figcaption>{{ currentImage.caption }}</figcaption>
@@ -56,7 +56,7 @@ const images = [
 ];
 </script>
   
-  <style scoped>
+<style scoped>
 /* NOTE: styles added by me */
 .carousel {
   width: 500px;

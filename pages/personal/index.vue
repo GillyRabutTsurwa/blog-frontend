@@ -1,10 +1,20 @@
 <template>
   <div class="about">
-    <h3 class="about__title">{{titleCategory}} Posts</h3>
-    <SanityContent :blocks="introText" />
-    <ImageCards />
-    <Map />
-
+    <div class="about-content">
+      <h3 class="about__title">{{ titleCategory }} Posts</h3>
+      <div class="about__paragraph">
+        <SanityContent :blocks="introText" />
+      </div>
+      <div class="about__links">
+        <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
+        <NuxtLink to="/tech">Tech Page</NuxtLink>
+        <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
+      </div>
+    </div>
+    <div class="image-n-map">
+      <!-- <Map /> -->
+      <ImageCards />
+    </div>
   </div>
 </template>
   
@@ -55,10 +65,20 @@ const changeBtnNames = (unofficialName) => {
 };
 </script>
   
-  <style>
+<style scoped>
 .about {
-  width: 80vw;
-  margin: auto;
+  width: 100%;
+  height: 100%;
+  /* margin: auto; */
+  display: flex;
+}
+
+.about-content {
+  flex: 1 1 60%;
+}
+
+.about-content:not(.about-content .about__title) {
+  margin-left: 4rem;
 }
 
 .about__title {
@@ -67,7 +87,52 @@ const changeBtnNames = (unofficialName) => {
   font-size: 4rem;
 }
 
+.about__paragraph,
+.about__links {
+  width: 80%;
+  margin: auto;
+}
+
 .about__paragraph {
-  margin-bottom: 1.5rem;
+  line-height: 2;
+}
+
+.about__links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about__links a,
+.about__links a:link,
+.about__links a:visited {
+  display: inline-block;
+  border: 2px solid #1a2934;
+  /*NOTE: debating between current colour and this colour: #071242. same for tech page */
+  border-radius: 1rem;
+  font-size: 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 1.5rem 3rem;
+  margin-top: 3rem;
+  background-color: #1a2934;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.about__links a:hover,
+.about__links a:active {
+  background-color: #fff;
+  color: #1a2934;
+}
+
+
+.image-n-map {
+  /* to eventually centre the dynamic components */
+  display: grid;
+  place-items: center;
+
+  flex: 1 0 40%;
+  height: 100%;
 }
 </style>

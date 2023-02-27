@@ -15,9 +15,34 @@
 </template>
     
   <script setup>
+// TESTING:
+const router = useRouter();
+console.log(router);
+
 const route = useRoute();
+console.log(route);
+
 const url = route.params.slug;
+// TESTING add new property needsAuth
+if (url === "resting-times") route.meta.needsAuth = true;
 console.log(url);
+
+// TESTING:
+router.beforeEach((to, from) => {
+  console.log(to);
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.needsAuth) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: "/secret",
+      // save the location we were at to come back later
+      query: { redirect: to.fullPath },
+    };
+  }
+});
+//
 
 const state = reactive({
   post: {},

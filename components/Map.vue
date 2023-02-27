@@ -32,9 +32,10 @@ onMounted(() => {
 });
 </script>
   
-  <style>
+<style>
 #mapContainer {
+  /* NOTEIMPORTANT: largeur et longeur doivent être définées pour afficher la carte */
   width: 40vw;
-  height: 50vh;
+  height: 100%;
 }
 </style>
