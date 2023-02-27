@@ -9,16 +9,22 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
+        <button @click="toggleComponent">Toggle Map</button>
       </div>
     </div>
-    <div class="image-n-map">
+    <div class="about__card-or-map">
       <!-- <Map /> -->
-      <ImageCards />
+      <!-- <ImageCards /> -->
+      <component :is="currentComponent"></component>
     </div>
   </div>
 </template>
   
 <script setup>
+const randomNumber = ref(0);
+const Map = resolveComponent("Map");
+const ImageCards = resolveComponent("ImageCards");
+
 const query = groq`*[_type == "about"]`;
 const { data } = await useSanityQuery(query);
 console.log(data.value);
@@ -26,20 +32,9 @@ const allIntros = data.value;
 const techIntro = allIntros.find((currentIntro) => {
   return currentIntro.aboutTitle.includes("Personal");
 });
-console.log(techIntro);
-// IMPORTANTNOTE:
-/**
- * the value of the blocks prop text should be the array of the rendered blockContent/plain text
- * in this case, looking at the data, the value is the aboutText object property
- * better put, the value of the prop should be the name of the blockContent field defined whilst making the schema (look at about.js)
- * I believe that this should take care of modified text within, like bolded, underlined and italicised content
- * but I am yet to test this
- * ...
- * tested. it works
- */
 const introText = techIntro.aboutText;
 
-// ====================================
+
 const route = useRoute();
 const routeName = route.name;
 console.log(routeName);
@@ -48,21 +43,30 @@ const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
 });
 
-const changeBtnNames = (unofficialName) => {
-  switch (unofficialName) {
-    case "button":
-      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Page`;
-      break;
-    case "button2":
-      unofficialName = `${routeName === "personal" ? "Personal" : "Tech"} Posts`;
-      break;
-    case "button3":
-      unofficialName = `${routeName === "personal" ? "Tech" : "Personal"} Posts`;
-    default:
-      break;
+const currentComponent = computed(() => {
+  return randomNumber.value % 2 === 0 ? ImageCards : Map;
+});
+
+const toggleComponent = () => {
+  // NOTE: if randomNumber is even, make it odd on click
+  if (randomNumber.value % 2 === 0) {
+    randomNumber.value = 1;
   }
-  return unofficialName;
-};
+  // otherwise, it will be odd and make it even on click
+  // NOTEIMPORTANT: else clause is needed. if statement and continuing to write code without else/else if will not work
+  else {
+    randomNumber.value = 0;
+  }
+  // NOTE: this, as well as the rest of the code in this commit, will also alow us to switch between our dynamic components on button click, and not just on mount
+}
+
+// NEW:
+onMounted(() => {
+  // NOTE: when component mount, generate a random number between 0 and 10
+  //NOTE: even numbers will generate one component and odd will generate another
+  randomNumber.value = Math.floor(Math.random() * 10);
+})
+
 </script>
   
 <style scoped>
@@ -100,11 +104,13 @@ const changeBtnNames = (unofficialName) => {
 .about__links {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .about__links a,
 .about__links a:link,
-.about__links a:visited {
+.about__links a:visited,
+.about__links button {
   display: inline-block;
   border: 2px solid #1a2934;
   /*NOTE: debating between current colour and this colour: #071242. same for tech page */
@@ -121,14 +127,14 @@ const changeBtnNames = (unofficialName) => {
 }
 
 .about__links a:hover,
-.about__links a:active {
+.about__links a:active,
+.about__links button:hover {
   background-color: #fff;
   color: #1a2934;
 }
 
 
-.image-n-map {
-  /* to eventually centre the dynamic components */
+.about__card-or-map {
   display: grid;
   place-items: center;
 
