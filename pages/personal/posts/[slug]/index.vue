@@ -5,8 +5,9 @@
     </div>
 
     <div class="blog-content">
-      <h1 class="blog-content__title">{{title}}</h1>
-      <h3 class="blog-content__date-published"><span>Date Published: </span>{{formatDate(_createdAt) || formatDate(publishedAt) }}</h3>
+      <h1 class="blog-content__title">{{ title }}</h1>
+      <h3 class="blog-content__date-published"><span>Date Published: </span>{{ formatDate(_createdAt) ||
+        formatDate(publishedAt) }}</h3>
       <div class="blog-content__description">
         <SanityContent :blocks="body" />
       </div>
@@ -14,35 +15,11 @@
   </article>
 </template>
     
-  <script setup>
-// TESTING:
-const router = useRouter();
-console.log(router);
-
+<script setup>
 const route = useRoute();
-console.log(route);
-
 const url = route.params.slug;
-// TESTING add new property needsAuth
-if (url === "resting-times") route.meta.needsAuth = true;
 console.log(url);
 
-// TESTING:
-router.beforeEach((to, from) => {
-  console.log(to);
-  // instead of having to check every route record with
-  // to.matched.some(record => record.meta.requiresAuth)
-  if (to.meta.needsAuth) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    return {
-      path: "/secret",
-      // save the location we were at to come back later
-      query: { redirect: to.fullPath },
-    };
-  }
-});
-//
 
 const state = reactive({
   post: {},

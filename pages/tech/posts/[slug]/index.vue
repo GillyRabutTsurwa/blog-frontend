@@ -5,8 +5,9 @@
     </div>
 
     <div class="blog-content">
-      <h1 class="blog-content__title">{{title}}</h1>
-      <h3 class="blog-content__date-published"><span>Date Published: </span>{{formatDate(_createdAt) || formatDate(publishedAt) }}</h3>
+      <h1 class="blog-content__title">{{ title }}</h1>
+      <h3 class="blog-content__date-published"><span>Date Published: </span>{{ formatDate(_createdAt) ||
+        formatDate(publishedAt) }}</h3>
       <div class="blog-content__description">
         <SanityContent :blocks="body" />
       </div>
@@ -14,7 +15,7 @@
   </article>
 </template>
       
-    <script setup>
+<script setup>
 const route = useRoute();
 const url = route.params.slug;
 console.log(url);
@@ -51,7 +52,7 @@ const formatDate = (currentDate) => {
 };
 </script>
       
-  <style>
+<style>
 .blog-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
