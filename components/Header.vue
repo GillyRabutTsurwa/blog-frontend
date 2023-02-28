@@ -16,9 +16,6 @@
         <li>
           <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         </li>
-        <li>
-          <NuxtLink to="/auth">Sign Up</NuxtLink>
-        </li>
       </ul>
     </nav>
   </header>

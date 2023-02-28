@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    // NOTE: adding devicons for marquee on personal/index.vue page
+    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase"],
+    sanity: {
+        projectId: "g014cs9v",
+    },
     app: {
         head: {
             meta: [
@@ -35,9 +38,5 @@ export default defineNuxtConfig({
                 },
             ],
         },
-    },
-    modules: ["@nuxtjs/sanity"],
-    sanity: {
-        projectId: "g014cs9v",
     },
 });

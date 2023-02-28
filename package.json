@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/sanity": "^1.5.0",
+    "@nuxtjs/supabase": "^0.3.0",
     "leaflet": "^1.7.1",
     "vue3-carousel": "^0.2.9",
     "vue3-marquee": "^3.1.2"
