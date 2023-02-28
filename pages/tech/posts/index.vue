@@ -43,10 +43,4 @@ const goBack = () => {
 }
 </script>
   
-<style>
-/* TESTING */
-img {
-  width: 5rem;
-  height: 5rem;
-}
-</style>
+<style></style>
