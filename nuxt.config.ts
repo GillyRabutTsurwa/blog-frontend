@@ -40,6 +40,4 @@ export default defineNuxtConfig({
     sanity: {
         projectId: "g014cs9v",
     },
-    // TESTING:
-    ssr: false, //NOTE: this prevents the "window not defined" error that leaflet keeps throwing NEW: will remove this and test the dynamic import
 });
