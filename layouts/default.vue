@@ -1,6 +1,6 @@
 <template>
-  <!-- <Header v-if="isHeaderPlaced" />
-    <pre>{{ $route.name }}</pre> -->
+  <Header v-if="isHeaderPlaced" />
+  <!-- <pre>{{ $route.name }}</pre> -->
   <slot />
 </template>
 
@@ -12,7 +12,7 @@ console.log(route.fullPath);
 //NOTE: this code works great but i don't have a nice looking header. will comment it out until then
 const isHeaderPlaced = computed(() => {
   // NOTE: locations that I do NOT want the Header to show
-  return route.fullPath !== "/" && route.name !== "tech-posts-slug" && route.name !== "personal-posts-slug";
+  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal";
 });
 </script>
 

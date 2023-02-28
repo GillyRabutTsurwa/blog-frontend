@@ -40,7 +40,7 @@ ul {
 
 h3 {
   text-align: center;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   font-size: 1.75rem;
 }
 
