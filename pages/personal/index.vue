@@ -59,12 +59,6 @@ const toggleComponent = () => {
   // NOTE: this, as well as the rest of the code in this commit, will also alow us to switch between our dynamic components on button click, and not just on mount
 }
 
-onMounted(() => {
-  // NOTE: when component mount, generate a random number between 0 and 10
-  //NOTE: even numbers will generate one component and odd will generate another
-  randomNumber.value = Math.floor(Math.random() * 10);
-})
-
 
 watch(currentComponent, (newValue, oldValue) => {
   // NOTE: this is neat: i inspected the dynamic component object to fetch the name of the dynamic component to use in my template
@@ -90,7 +84,31 @@ if (process.client) {
   })
 }
 
+onMounted(() => {
+  // NOTE: when component mount, generate a random number between 0 and 10
+  //NOTE: even numbers will generate one component and odd will generate another
+  randomNumber.value = Math.floor(Math.random() * 10);
 
+  /** TESTING
+   * PASS: @note - now upon page load screen sizes will be checked for
+   * NOTE: this means that the components that need to be hidden will be hidden upon page load based on screen size
+   * this was not initially the case, as i was using the window resize eventlistener...
+   * .. which, obviously, will not fire on page load (which was what I needed)
+   */
+  if (process.client) {
+    const mediaQueryList = window.matchMedia('(max-width: 1023px)');
+
+    if (mediaQueryList.matches) {
+      console.log('Window is max 1023px');
+      showMarquee.value = true;
+    }
+    else {
+      console.log('Window is over 1023px');
+      showMarquee.value = false;
+    }
+  }
+
+})
 </script>
   
 <style lang="scss" scoped>

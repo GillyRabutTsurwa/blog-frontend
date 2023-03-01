@@ -37,7 +37,7 @@ const myClasses = ["personal", "tech"];
 <style lang="scss">
 .container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: grid;
   /* grid-template-columns: repeat(2, 1fr); ne marche pas bien prkwa?*/
   grid-template-columns: repeat(2, calc(100% / 2));
@@ -76,9 +76,13 @@ const myClasses = ["personal", "tech"];
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    // opacity: 0;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
+    @media (hover: hover) {
+      opacity: 0;
+    }
 
     &--text {
       position: absolute;
@@ -90,16 +94,24 @@ const myClasses = ["personal", "tech"];
       padding: 3rem 1.5rem;
       background-color: rgba(31, 19, 21, 0.6);
       color: rgb(197, 197, 199);
+
+      @include breakpoint(767) {
+        padding: 2rem 1rem;
+        font-size: 3.5rem;
+      }
     }
   }
 
   &__img {
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
+    @media (hover: hover) {
+      -webkit-filter: blur(10px);
+      filter: blur(10px);
+    }
 
     img {
       width: 100%;
@@ -108,12 +120,14 @@ const myClasses = ["personal", "tech"];
     }
   }
 
-  &:hover &__img {
-    filter: blur(0);
-  }
+  @media (hover: hover) {
+    &:hover &__img {
+      filter: blur(0);
+    }
 
-  &:hover &__link {
-    opacity: 1;
+    &:hover &__link {
+      opacity: 1;
+    }
   }
 }
 
@@ -139,9 +153,14 @@ const myClasses = ["personal", "tech"];
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    // opacity: 0;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
+    @media (hover: hover) {
+      opacity: 0;
+    }
+
 
     &--text {
       position: absolute;
@@ -153,16 +172,24 @@ const myClasses = ["personal", "tech"];
       padding: 3rem 1.5rem;
       background-color: rgba(31, 19, 21, 0.6);
       color: rgb(197, 197, 199);
+
+      @include breakpoint(767) {
+        padding: 2rem 1rem;
+        font-size: 3.5rem;
+      }
     }
   }
 
   &__img {
     width: 100%;
     height: 100%;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
+    @media (hover: hover) {
+      -webkit-filter: blur(10px);
+      filter: blur(10px);
+    }
 
 
     img {
@@ -172,12 +199,14 @@ const myClasses = ["personal", "tech"];
     }
   }
 
-  &:hover &__img {
-    filter: blur(0);
-  }
+  @media (hover: hover) {
+    &:hover &__img {
+      filter: blur(0);
+    }
 
-  &:hover &__link {
-    opacity: 1;
+    &:hover &__link {
+      opacity: 1;
+    }
   }
 }
 </style>
