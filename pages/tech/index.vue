@@ -132,9 +132,9 @@ if (process.client) {
   font-size: 2rem;
   line-height: 2;
 
-  @include breakpoint(767) {
-    font-size: 1rem;
-  }
+  // @include breakpoint(767) {
+  //   font-size: 1rem;
+  // }
 }
 
 .marquee-container {

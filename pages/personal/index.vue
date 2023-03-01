@@ -9,10 +9,11 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
-        <button @click="toggleComponent">Show {{ currentComponent.__name === "Map" ? "Card Pics" : "Map" }}</button>
+        <button @click="toggleComponent" v-if="!showMarquee">Show {{ currentComponent.__name === "Map" ? "Card Pics" :
+          "Map" }}</button>
       </div>
     </div>
-    <div class="about__card-or-map">
+    <div class="about__card-or-map" v-if="!showMarquee">
       <component :is="currentComponent"></component>
     </div>
   </div>
@@ -58,7 +59,6 @@ const toggleComponent = () => {
   // NOTE: this, as well as the rest of the code in this commit, will also alow us to switch between our dynamic components on button click, and not just on mount
 }
 
-// NEW:
 onMounted(() => {
   // NOTE: when component mount, generate a random number between 0 and 10
   //NOTE: even numbers will generate one component and odd will generate another
@@ -71,6 +71,26 @@ watch(currentComponent, (newValue, oldValue) => {
   console.log(newValue);
 })
 
+// NEW:
+// NOTE: this code works well using it in tech/index.vue
+// will later put in composable
+const showMarquee = ref(null);
+if (process.client) {
+  const mediaQueryList = window.matchMedia('(max-width: 1023px)');
+
+  window.addEventListener("resize", () => {
+    if (mediaQueryList.matches) {
+      console.log('Window is max 1023px');
+      showMarquee.value = true;
+    }
+    else {
+      console.log('Window is over 1023px');
+      showMarquee.value = false;
+    }
+  })
+}
+
+
 </script>
   
 <style lang="scss" scoped>
@@ -79,7 +99,6 @@ watch(currentComponent, (newValue, oldValue) => {
   height: 100%;
   /* margin: auto; */
   display: flex;
-  margin-top: 3rem;
 
   @include breakpoint(1023) {
     flex-direction: column;
@@ -92,10 +111,14 @@ watch(currentComponent, (newValue, oldValue) => {
 
 .about-content:not(.about-content .about__title) {
   margin-left: 4rem;
+
+  @include breakpoint(1023) {
+    margin-left: 0;
+  }
 }
 
 .about__title {
-  margin: 4rem 0;
+  margin: 6rem 0 4rem 0;
   text-align: center;
   font-size: 4rem;
 }
@@ -111,7 +134,7 @@ watch(currentComponent, (newValue, oldValue) => {
   line-height: 2;
 
   @include breakpoint(1023) {
-    font-size: 1.25rem;
+    font-size: 2rem;
   }
 }
 
@@ -122,7 +145,8 @@ watch(currentComponent, (newValue, oldValue) => {
 
   @include breakpoint(1023) {
     flex-wrap: wrap;
-    margin: 0 0 6rem 0;
+    margin: 1rem auto 4rem auto;
+    width: 80%;
   }
 }
 
@@ -143,6 +167,11 @@ watch(currentComponent, (newValue, oldValue) => {
   background-color: #1a2934;
   cursor: pointer;
   z-index: 10000;
+
+  @include breakpoint(1023) {
+    font-size: 1.25rem;
+    padding: 1.75rem 2.25rem;
+  }
 }
 
 .about__links a:hover,

@@ -40,13 +40,13 @@ const myClasses = ["personal", "tech"];
   height: 100vh;
   display: grid;
   /* grid-template-columns: repeat(2, 1fr); ne marche pas bien prkwa?*/
-  grid-template-columns: repeat(2, calc(100vw / 2));
+  grid-template-columns: repeat(2, calc(100% / 2));
   grid-auto-rows: 1fr;
   overflow: hidden;
 
   @include breakpoint(767) {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, calc(100vh / 2));
+    grid-template-rows: repeat(2, calc(100% / 2));
   }
 
   &>* {
