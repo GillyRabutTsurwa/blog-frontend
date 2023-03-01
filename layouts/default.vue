@@ -17,23 +17,5 @@ const isHeaderPlaced = computed(() => {
 </script>
 
 <style>
-/* TODO: déplacer ce code vers qq'part plus approprié */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body,
-#__nuxt {
-  width: 100%;
-  height: 100%;
-}
-
-#__nuxt {
-  font-family: "Spartan", sans-serif;
-}
-
 /* ================================================= */
 </style>

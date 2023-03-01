@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase"],
+    modules: ["@nuxtjs/sanity"],
     sanity: {
         projectId: "g014cs9v",
     },
@@ -37,6 +37,19 @@ export default defineNuxtConfig({
                     href: "https://fonts.googleapis.com/css2?family=Antonio:wght@500&amp;family=Spartan:wght@400;700&amp;display=swap",
                 },
             ],
+        },
+    },
+    vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: `
+              @import "@/assets/sass/abstracts/_variables.scss";
+              @import "@/assets/sass/abstracts/_mixins.scss";
+              @import "@/assets/sass/base/_reset.scss";
+              `,
+                },
+            },
         },
     },
 });
