@@ -119,5 +119,10 @@ const images = [
   height: 100%;
   object-fit: cover;
 }
+
+figcaption {
+  margin-top: 3rem;
+  line-height: 1.5;
+}
 </style>
   

@@ -9,12 +9,10 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
-        <button @click="toggleComponent">Toggle Map</button>
+        <button @click="toggleComponent">Show {{ currentComponent.__name === "Map" ? "Card Pics" : "Map" }}</button>
       </div>
     </div>
     <div class="about__card-or-map">
-      <!-- <Map /> -->
-      <!-- <ImageCards /> -->
       <component :is="currentComponent"></component>
     </div>
   </div>
@@ -67,6 +65,12 @@ onMounted(() => {
   randomNumber.value = Math.floor(Math.random() * 10);
 })
 
+
+watch(currentComponent, (newValue, oldValue) => {
+  // NOTE: this is neat: i inspected the dynamic component object to fetch the name of the dynamic component to use in my template
+  console.log(newValue);
+})
+
 </script>
   
 <style scoped>
@@ -75,6 +79,7 @@ onMounted(() => {
   height: 100%;
   /* margin: auto; */
   display: flex;
+  margin-top: 3rem;
 }
 
 .about-content {
@@ -98,6 +103,7 @@ onMounted(() => {
 }
 
 .about__paragraph {
+  font-size: 2rem;
   line-height: 2;
 }
 
@@ -115,11 +121,11 @@ onMounted(() => {
   border: 2px solid #1a2934;
   /*NOTE: debating between current colour and this colour: #071242. same for tech page */
   border-radius: 1rem;
-  font-size: 1rem;
+  font-size: 1.6rem;
   text-decoration: none;
   text-transform: uppercase;
   color: #fff;
-  padding: 1.5rem 3rem;
+  padding: 2rem 3rem;
   margin-top: 3rem;
   background-color: #1a2934;
   cursor: pointer;
