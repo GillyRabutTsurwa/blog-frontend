@@ -127,6 +127,11 @@ if (process.client) {
 .about__links {
   width: 80%;
   margin: auto;
+
+  @include breakpoint(767) {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .about__paragraph {

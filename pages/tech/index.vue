@@ -112,11 +112,11 @@ if (process.client) {
   margin: auto;
   position: relative;
 
-  /* overflow: hidden; */
   @include breakpoint(767) {
-    overflow: hidden;
     padding: 0;
     margin: 0;
+    text-align: center;
+    width: 100%;
   }
 }
 
@@ -192,6 +192,12 @@ if (process.client) {
   @include breakpoint(1023) {
     flex-wrap: wrap;
     margin: 0 0 6rem 0;
+  }
+
+  @include breakpoint(767) {
+    flex-direction: column;
+    width: 80%;
+    margin: 1rem auto 4rem auto;
   }
 }
 
