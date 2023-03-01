@@ -73,13 +73,17 @@ watch(currentComponent, (newValue, oldValue) => {
 
 </script>
   
-<style scoped>
+<style lang="scss" scoped>
 .about {
   width: 100%;
   height: 100%;
   /* margin: auto; */
   display: flex;
   margin-top: 3rem;
+
+  @include breakpoint(1023) {
+    flex-direction: column;
+  }
 }
 
 .about-content {
@@ -105,12 +109,21 @@ watch(currentComponent, (newValue, oldValue) => {
 .about__paragraph {
   font-size: 2rem;
   line-height: 2;
+
+  @include breakpoint(1023) {
+    font-size: 1.25rem;
+  }
 }
 
 .about__links {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+
+  @include breakpoint(1023) {
+    flex-wrap: wrap;
+    margin: 0 0 6rem 0;
+  }
 }
 
 .about__links a,

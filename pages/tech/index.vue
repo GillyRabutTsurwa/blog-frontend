@@ -5,8 +5,9 @@
       <SanityContent :blocks="introText" />
     </div>
 
-    <div class="marquee-container">
-      <Vue3Marquee :pauseOnHover="true" v-for="index in 4" :key="index" :data-order="index">
+    <div class="marquee-container" :class="{ hide: showMarquee }">
+      <!-- <div class="marquee-container" v-if="showMarquee"> -->
+      <Vue3Marquee :pauseOnHover="true">
         <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)" class="word"
           @mouseover="iconHovered = true" @mouseleave="iconHovered = false"></i>
       </Vue3Marquee>
@@ -74,16 +75,49 @@ const colouredOrBW = computed(() => {
 const setIconName = (iconName) => {
   return `devicon-${iconName}-${colouredOrBW.value}`;
 };
+
+// TESTING
+// const currentWidth = ref(0);
+
+// NOTE: it works!
+const showMarquee = ref(null);
+if (process.client) {
+  const mediaQueryList = window.matchMedia('(max-width: 767px)');
+
+  window.addEventListener("resize", () => {
+    if (mediaQueryList.matches) {
+      console.log('Window is max 767px');
+      showMarquee.value = true;
+    }
+    else {
+      console.log('Window is over 767px');
+      showMarquee.value = false;
+    }
+  })
+}
+
+
+
+// onMounted(() => {
+//   console.log(currentWidth.value)
+// })
+
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .about {
   /* NOTE: or make width: 100% or 100vw (or at least 90) and remove margin: auto. see what looks better */
   width: 80vw;
   height: 100vh;
   margin: auto;
   position: relative;
+
   /* overflow: hidden; */
+  @include breakpoint(767) {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .about__title {
@@ -95,8 +129,17 @@ const setIconName = (iconName) => {
 .about__text {
   width: 80%;
   margin: 0 auto;
-  font-size: 1.25rem;
+  font-size: 2rem;
   line-height: 2;
+
+  @include breakpoint(767) {
+    font-size: 1rem;
+  }
+}
+
+.marquee-container {
+  height: 7.5rem;
+  margin: 4rem 0;
 }
 
 /* = */
@@ -145,6 +188,11 @@ const setIconName = (iconName) => {
   margin: 0 4rem 3rem 4rem;
   display: flex;
   justify-content: space-around;
+
+  @include breakpoint(1023) {
+    flex-wrap: wrap;
+    margin: 0 0 6rem 0;
+  }
 }
 
 .about__links a,
@@ -153,7 +201,7 @@ const setIconName = (iconName) => {
   display: inline-block;
   border: 2px solid #1a2934;
   border-radius: 1rem;
-  font-size: 1rem;
+  font-size: 1.6rem;
   text-decoration: none;
   text-transform: uppercase;
   color: #fff;
@@ -162,6 +210,11 @@ const setIconName = (iconName) => {
   background-color: #1a2934;
   cursor: pointer;
   z-index: 10000;
+
+  @include breakpoint(1023) {
+    font-size: 1.25rem;
+    padding: 1.25rem 2.5rem;
+  }
 }
 
 .about__links a:hover,
@@ -193,4 +246,8 @@ const setIconName = (iconName) => {
   transform: rotate(90deg);
   width: 95vw;
 } */
+.hide {
+  display: none;
+  visibility: hidden;
+}
 </style>

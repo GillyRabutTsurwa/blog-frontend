@@ -24,7 +24,7 @@
 <script setup>
 </script>
 
-<style>
+<style lang="scss">
 .header {
   display: flex;
   justify-content: space-between;
@@ -54,8 +54,13 @@
 
 
 
-img {
-  width: 9rem;
-  height: 9rem;
+figure {
+  width: 11rem;
+  height: 11rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

@@ -44,6 +44,11 @@ const myClasses = ["personal", "tech"];
   grid-auto-rows: 1fr;
   overflow: hidden;
 
+  @include breakpoint(767) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, calc(100vh / 2));
+  }
+
   &>* {
     width: 100%;
     height: inherit;
@@ -54,8 +59,12 @@ const myClasses = ["personal", "tech"];
 // @todo - address duplicate code for personal and tech blocks. put them in mixins
 
 .personal {
-  border-left: 0.5rem black solid;
   grid-column: 1 / 2;
+
+  @include breakpoint(767) {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
 
   &__link {
     position: absolute;
@@ -114,6 +123,12 @@ const myClasses = ["personal", "tech"];
   border-left: 0.5rem black solid;
   grid-column: 2 / 3;
 
+  @include breakpoint(767) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    border-left: none;
+  }
+
   &__link {
     position: absolute;
     top: 0;
@@ -148,6 +163,7 @@ const myClasses = ["personal", "tech"];
     filter: blur(10px);
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+
 
     img {
       width: 100%;
