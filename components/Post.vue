@@ -8,12 +8,18 @@ const props = defineProps({
 const { title, body, author, mainImage: imgURL, _createdAt, _updatedAt } = props.postData;
 const { formatDate } = useFormatDate();
 
+/** NOTE:
+ * you can also import the component manually, but with this is cleaner Nuxt solution
+ * if I was using plain Vue, I would have imported it instead
+ * more on resolveComponent helper function here: https://vuejs.org/api/render-function.html#resolvecomponent
+ */
 const CustomText = resolveComponent("CustomText");
 const serializers = {
   types: {
     text: CustomText
   }
 }
+console.log(serializers)
 </script>
 
 <template>

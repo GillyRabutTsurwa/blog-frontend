@@ -1,6 +1,6 @@
 <script lang="ts" setup></script>
 
-<template>
+<template function>
   <p>
     <slot />
   </p>
@@ -8,6 +8,7 @@
 
 <style>
 p {
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
+  line-height: 1.75;
 }
 </style>
