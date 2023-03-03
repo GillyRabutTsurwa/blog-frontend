@@ -5,10 +5,15 @@ const props = defineProps({
     required: true
   }
 });
-const { title, body, author, mainImage: imgURL, _createdAt } = props.postData;
-
-
+const { title, body, author, mainImage: imgURL, _createdAt, _updatedAt } = props.postData;
 const { formatDate } = useFormatDate();
+
+const CustomText = resolveComponent("CustomText");
+const serializers = {
+  types: {
+    text: CustomText
+  }
+}
 </script>
 
 <template>
@@ -19,10 +24,18 @@ const { formatDate } = useFormatDate();
 
     <div class="blog-content">
       <h1 class="blog-content__title">{{ title }}</h1>
-      <h3 class="blog-content__author"><span>By: </span><span>{{ author.name }}</span></h3>
-      <h3 class="blog-content__date-published"><span>Date Published: </span><span>{{ formatDate(_createdAt) }}</span></h3>
+      <h3 class="blog-content__author">
+        <span>By: </span>
+        <NuxtLink :to="`/authours/${author.slug.current}`">
+          <span>{{ author.name }}</span>
+        </NuxtLink>
+      </h3>
+      <h3 class="blog-content__date-published">
+        <span>Date Published: </span>
+        <span>{{ formatDate(_updatedAt) || formatDate(_createdAt) }}</span>
+      </h3>
       <div class="blog-content__description">
-        <SanityContent :blocks="body" />
+        <SanityContent :blocks="body" :serializers="serializers" />
       </div>
     </div>
   </article>
@@ -56,8 +69,7 @@ const { formatDate } = useFormatDate();
 
 .blog-content {
   position: relative;
-  /* TESTING */
-  padding-bottom: 7.5rem;
+  padding: 0 3rem 2rem 3rem;
   overflow: hidden scroll;
 }
 
@@ -74,7 +86,10 @@ const { formatDate } = useFormatDate();
   font-weight: normal;
 }
 
-.blog-content__author span:nth-child(2) {
+.blog-content__author a,
+.blog-content__author a:link,
+.blog-content__author a:visited {
+  color: currentColor;
   text-decoration: underline;
 }
 

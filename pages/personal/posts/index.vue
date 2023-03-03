@@ -5,7 +5,7 @@
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`">
         <SanityImage :asset-id="currentPost.mainImage.asset._ref" auto="format" />
         <h4>{{ currentPost.title }}</h4>
-        <p>{{ formatDate(currentPost.publishedAt) }}</p>
+        <p>{{ formatDate(currentPost._updatedAt) || formatDate(currentPost._createdAt) }}</p>
       </NuxtLink>
     </li>
   </ul>
@@ -36,11 +36,12 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(10rem, 15rem));
   padding: 3rem;
+  margin-top: 5rem;
 }
 
 h3 {
   text-align: center;
-  /* margin-top: 2rem; */
+  margin-top: 4rem;
   font-size: 1.75rem;
 }
 

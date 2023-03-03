@@ -1,5 +1,5 @@
 <template>
-  <Header v-if="isHeaderPlaced" />
+  <Logo v-if="isHeaderPlaced" />
   <!-- <pre>{{ $route.name }}</pre> -->
   <slot />
 </template>

@@ -5,7 +5,7 @@
         <img src="../assets/img/svg/my-logo.svg" alt="">
       </NuxtLink>
     </figure>
-    <nav class="header__navigation">
+    <!-- <nav class="header__navigation">
       <ul class="header__navigation-list">
         <li>
           <NuxtLink to="/">Go Back</NuxtLink>
@@ -17,7 +17,7 @@
           <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         </li>
       </ul>
-    </nav>
+    </nav> -->
   </header>
 </template>
 
@@ -55,8 +55,8 @@
 
 
 figure {
-  width: 11rem;
-  height: 11rem;
+  width: 8rem;
+  height: 8rem;
 
   img {
     width: 100%;
