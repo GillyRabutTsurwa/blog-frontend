@@ -5,8 +5,7 @@
       <SanityContent :blocks="introText" />
     </div>
 
-    <div class="marquee-container" :class="{ hide: showMarquee }">
-      <!-- <div class="marquee-container" v-if="showMarquee"> -->
+    <div class="marquee-container" v-if="!showElement">
       <Vue3Marquee :pauseOnHover="true">
         <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)" class="word"
           @mouseover="iconHovered = true" @mouseleave="iconHovered = false"></i>
@@ -76,31 +75,12 @@ const setIconName = (iconName) => {
   return `devicon-${iconName}-${colouredOrBW.value}`;
 };
 
-// TESTING
-// const currentWidth = ref(0);
+const { showElement, toggleElementOnResize } = useBreakpoints();
+if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(767)));
 
-// NOTE: it works!
-const showMarquee = ref(null);
-if (process.client) {
-  const mediaQueryList = window.matchMedia('(max-width: 767px)');
-
-  window.addEventListener("resize", () => {
-    if (mediaQueryList.matches) {
-      console.log('Window is max 767px');
-      showMarquee.value = true;
-    }
-    else {
-      console.log('Window is over 767px');
-      showMarquee.value = false;
-    }
-  })
-}
-
-
-
-// onMounted(() => {
-//   console.log(currentWidth.value)
-// })
+onMounted(() => {
+  if (process.client) toggleElementOnResize(767);
+})
 
 </script>
 

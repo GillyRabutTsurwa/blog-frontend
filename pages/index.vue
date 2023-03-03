@@ -1,10 +1,9 @@
 <template>
   <div class="container">
     <div v-for="(currentImage, index) in images" :key="currentImage.id" :class="myClasses[index]">
-      <div :class="`${myClasses[index]}__img`">
-        <!-- <img :src="currentBlok.filename" :alt="currentBlok.alt" /> -->
+      <figure :class="`${myClasses[index]}__img`">
         <SanityImage :asset-id="currentImage.url" auto="format" />
-      </div>
+      </figure>
       <NuxtLink :to="`/${myClasses[index]}`" :class="`${myClasses[index]}__link`">
         <span :class="`${myClasses[index]}__link--text`">{{ myClasses[index] }}</span>
       </NuxtLink>
@@ -13,7 +12,6 @@
 </template>
   
 <script setup>
-// (async () => {
 const query = groq`*[_type == "homeGrid"] {
     gridImages
 }`;
@@ -28,18 +26,14 @@ const images = imageData.gridImages.map((currentImage) => {
   };
 });
 console.log(images);
-// })();
-
-// const myClasses = ["tech", "personal"];
 const myClasses = ["personal", "tech"];
 </script>
   
 <style lang="scss">
 .container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: grid;
-  /* grid-template-columns: repeat(2, 1fr); ne marche pas bien prkwa?*/
   grid-template-columns: repeat(2, calc(100% / 2));
   grid-auto-rows: 1fr;
   overflow: hidden;

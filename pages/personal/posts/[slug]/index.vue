@@ -25,7 +25,7 @@ const state = reactive({
   post: {},
 });
 
-const query = `*[_type == "personal-post" && slug.current == "${url}"]`;
+const query = groq`*[_type == "personal-post" && slug.current == "${url}"]`;
 const { data, error } = await useSanityQuery(query);
 state.post = data.value[0];
 console.log(state.post);

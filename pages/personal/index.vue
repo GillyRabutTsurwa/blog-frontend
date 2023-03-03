@@ -9,11 +9,11 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
-        <button @click="toggleComponent" v-if="!showMarquee">Show {{ currentComponent.__name === "Map" ? "Card Pics" :
+        <button @click="toggleComponent" v-if="!showElement">Show {{ currentComponent.__name === "Map" ? "Card Pics" :
           "Map" }}</button>
       </div>
     </div>
-    <div class="about__card-or-map" v-if="!showMarquee">
+    <div class="about__card-or-map" v-if="!showElement">
       <component :is="currentComponent"></component>
     </div>
   </div>
@@ -47,66 +47,26 @@ const currentComponent = computed(() => {
 });
 
 const toggleComponent = () => {
-  // NOTE: if randomNumber is even, make it odd on click
   if (randomNumber.value % 2 === 0) {
     randomNumber.value = 1;
   }
-  // otherwise, it will be odd and make it even on click
-  // NOTEIMPORTANT: else clause is needed. if statement and continuing to write code without else/else if will not work
   else {
     randomNumber.value = 0;
   }
-  // NOTE: this, as well as the rest of the code in this commit, will also alow us to switch between our dynamic components on button click, and not just on mount
 }
 
-
-watch(currentComponent, (newValue, oldValue) => {
-  // NOTE: this is neat: i inspected the dynamic component object to fetch the name of the dynamic component to use in my template
-  console.log(newValue);
-})
-
-// NEW:
-// NOTE: this code works well using it in tech/index.vue
-// will later put in composable
-const showMarquee = ref(null);
-if (process.client) {
-  const mediaQueryList = window.matchMedia('(max-width: 1023px)');
-
-  window.addEventListener("resize", () => {
-    if (mediaQueryList.matches) {
-      console.log('Window is max 1023px');
-      showMarquee.value = true;
-    }
-    else {
-      console.log('Window is over 1023px');
-      showMarquee.value = false;
-    }
-  })
-}
+const { showElement, toggleElementOnResize } = useBreakpoints();
+if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(1023)));
 
 onMounted(() => {
-  // NOTE: when component mount, generate a random number between 0 and 10
-  //NOTE: even numbers will generate one component and odd will generate another
   randomNumber.value = Math.floor(Math.random() * 10);
-
   /** TESTING
    * PASS: @note - now upon page load screen sizes will be checked for
    * NOTE: this means that the components that need to be hidden will be hidden upon page load based on screen size
    * this was not initially the case, as i was using the window resize eventlistener...
    * .. which, obviously, will not fire on page load (which was what I needed)
    */
-  if (process.client) {
-    const mediaQueryList = window.matchMedia('(max-width: 1023px)');
-
-    if (mediaQueryList.matches) {
-      console.log('Window is max 1023px');
-      showMarquee.value = true;
-    }
-    else {
-      console.log('Window is over 1023px');
-      showMarquee.value = false;
-    }
-  }
+  if (process.client) toggleElementOnResize(1023);
 
 })
 </script>
