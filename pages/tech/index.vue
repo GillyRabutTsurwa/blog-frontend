@@ -90,7 +90,7 @@ onMounted(() => {
 .about {
   /* NOTE: or make width: 100% or 100vw (or at least 90) and remove margin: auto. see what looks better */
   width: 80vw;
-  height: 100vh;
+  height: 100%;
   margin: auto;
   position: relative;
 
@@ -167,7 +167,6 @@ onMounted(() => {
 }
 
 .about__links {
-  margin: 0 4rem 3rem 4rem;
   display: flex;
   justify-content: space-around;
 

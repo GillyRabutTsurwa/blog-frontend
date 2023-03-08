@@ -43,6 +43,7 @@ const myClasses = ["personal", "tech"];
   @include abstracts.breakpoint(767) {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, calc(100% / 2));
+    height: 100%;
   }
 
   &>* {

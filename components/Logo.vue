@@ -11,8 +11,8 @@
 <style lang="scss" scoped>
 figure {
   position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
+  top: 0;
+  left: 1rem;
   display: inline-block;
   width: 8rem;
   height: 8rem;
