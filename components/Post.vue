@@ -54,7 +54,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-@use "@/assets/sass/abstracts"; //NOTE: wait, this works now
+@use "@/assets/sass/abstracts";
 
 .blog-container {
   display: grid;
@@ -66,6 +66,7 @@ onMounted(() => {
   @include abstracts.breakpoint(1023) {
     grid-template-columns: 1fr;
     grid-template-rows: 35% 1fr;
+    min-height: 100vh;
   }
 
   @include abstracts.breakpoint(480) {
