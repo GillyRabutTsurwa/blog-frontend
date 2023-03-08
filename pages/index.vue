@@ -30,6 +30,8 @@ const myClasses = ["personal", "tech"];
 </script>
   
 <style lang="scss">
+@use "@/assets/sass/abstracts/" as abstracts;
+
 .container {
   width: 100%;
   height: 100vh;
@@ -38,7 +40,7 @@ const myClasses = ["personal", "tech"];
   grid-auto-rows: 1fr;
   overflow: hidden;
 
-  @include breakpoint(767) {
+  @include abstracts.breakpoint(767) {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, calc(100% / 2));
   }
@@ -55,7 +57,7 @@ const myClasses = ["personal", "tech"];
 .personal {
   grid-column: 1 / 2;
 
-  @include breakpoint(767) {
+  @include abstracts.breakpoint(767) {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
@@ -89,7 +91,7 @@ const myClasses = ["personal", "tech"];
       background-color: rgba(31, 19, 21, 0.6);
       color: rgb(197, 197, 199);
 
-      @include breakpoint(767) {
+      @include abstracts.breakpoint(767) {
         padding: 2rem 1rem;
         font-size: 3.5rem;
       }
@@ -131,7 +133,7 @@ const myClasses = ["personal", "tech"];
   border-left: 0.5rem black solid;
   grid-column: 2 / 3;
 
-  @include breakpoint(767) {
+  @include abstracts.breakpoint(767) {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     border-left: none;
@@ -167,7 +169,7 @@ const myClasses = ["personal", "tech"];
       background-color: rgba(31, 19, 21, 0.6);
       color: rgb(197, 197, 199);
 
-      @include breakpoint(767) {
+      @include abstracts.breakpoint(767) {
         padding: 2rem 1rem;
         font-size: 3.5rem;
       }

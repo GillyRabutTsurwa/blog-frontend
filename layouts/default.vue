@@ -15,3 +15,5 @@ const isHeaderPlaced = computed(() => {
   return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug";
 });
 </script>
+
+<style></style>

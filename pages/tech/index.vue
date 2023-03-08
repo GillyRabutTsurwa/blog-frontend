@@ -85,6 +85,8 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts/" as abstracts;
+
 .about {
   /* NOTE: or make width: 100% or 100vw (or at least 90) and remove margin: auto. see what looks better */
   width: 80vw;
@@ -92,7 +94,7 @@ onMounted(() => {
   margin: auto;
   position: relative;
 
-  @include breakpoint(767) {
+  @include abstracts.breakpoint(767) {
     padding: 0;
     margin: 0;
     text-align: center;
@@ -112,7 +114,7 @@ onMounted(() => {
   font-size: 2rem;
   line-height: 2;
 
-  // @include breakpoint(767) {
+  // @include abstracts.breakpoint(767) {
   //   font-size: 1rem;
   // }
 }
@@ -169,12 +171,12 @@ onMounted(() => {
   display: flex;
   justify-content: space-around;
 
-  @include breakpoint(1023) {
+  @include abstracts.breakpoint(1023) {
     flex-wrap: wrap;
     margin: 0 0 6rem 0;
   }
 
-  @include breakpoint(767) {
+  @include abstracts.breakpoint(767) {
     flex-direction: column;
     width: 80%;
     margin: 1rem auto 4rem auto;
@@ -197,7 +199,7 @@ onMounted(() => {
   cursor: pointer;
   z-index: 10000;
 
-  @include breakpoint(1023) {
+  @include abstracts.breakpoint(1023) {
     font-size: 1.25rem;
     padding: 1.25rem 2.5rem;
   }

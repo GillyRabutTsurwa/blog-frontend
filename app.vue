@@ -17,7 +17,10 @@ console.log(data);
 <!-- for the sake of it, i'll move this code from the reset sass helper file, here -->
 
 <style lang="scss">
+@use "@/assets/sass/abstracts/" as abstracts;
+@import "@/assets/sass/main.scss";
+
 #__nuxt {
-  font-family: $primaryFontStack;
+  font-family: abstracts.$primaryFontStack;
 }
 </style>

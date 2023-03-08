@@ -39,19 +39,5 @@ export default defineNuxtConfig({
             ],
         },
     },
-    vite: {
-        css: {
-            preprocessorOptions: {
-                scss: {
-                    additionalData: `
-              @import "@/assets/sass/abstracts/_variables.scss";
-              @import "@/assets/sass/abstracts/_mixins.scss";
-              @import "@/assets/sass/base/_base.scss";
-              @import "@/assets/sass/base/_reset.scss";
-              @import "@/assets/sass/base/_typography.scss";
-              `,
-                },
-            },
-        },
-    },
+    css: ["@/assets/sass/main.scss"],
 });
