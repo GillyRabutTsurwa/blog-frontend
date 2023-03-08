@@ -20,13 +20,19 @@ const serializers = {
   }
 }
 console.log(serializers)
+
+const { showElement, toggleElementOnResize } = useBreakpoints();
+if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(480)));
+onMounted(() => {
+  if (process.client) toggleElementOnResize(480);
+})
 </script>
 
 <template>
   <article class="blog-container">
-    <div class="blog-img-container">
+    <figure class="blog-img-container" v-if="!showElement">
       <SanityImage :asset-id="imgURL.asset._ref" auto="format" />
-    </div>
+    </figure>
 
     <div class="blog-content">
       <h1 class="blog-content__title">{{ title }}</h1>
@@ -47,86 +53,94 @@ console.log(serializers)
   </article>
 </template>
 
-<style>
+<style lang="scss">
+@use "@/assets/sass/abstracts"; //NOTE: wait, this works now
+
 .blog-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 2rem;
   height: 100vh;
-}
 
-.blog-img-container,
-.blog-content {
-  height: 100%;
-}
 
-.blog-img-container {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
+  @include abstracts.breakpoint(1023) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 35% 1fr;
+  }
 
-.blog-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  @include abstracts.breakpoint(480) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
 
-.blog-content {
-  position: relative;
-  padding: 0 3rem 2rem 3rem;
-  overflow: hidden scroll;
-}
+  .blog-img-container,
+  .blog-content {
+    height: 100%;
+  }
 
-.blog-content__title {
-  font-weight: bolder;
-  font-size: 5rem;
-  margin: 4.5rem 0 1rem 0;
-}
+  .blog-img-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
 
-.blog-content__author,
-.blog-content__date-published {
-  font-style: italic;
-  color: #888;
-  font-weight: normal;
-}
+    @include abstracts.breakpoint(1023) {
+      grid-row: 1 / 2;
+      height: 100%;
+    }
 
-.blog-content__author a,
-.blog-content__author a:link,
-.blog-content__author a:visited {
-  color: currentColor;
-  text-decoration: underline;
-}
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 
-.blog-content__description {
-  font-size: 1.75rem;
-  margin: 3rem 0;
-  line-height: 1.5;
-}
+  .blog-content {
+    position: relative;
+    padding: 0 3rem 2rem 3rem;
+    overflow: hidden scroll;
 
-.blog-content__date {
-  font-weight: bold;
-  font-style: italic;
-}
+    @include abstracts.breakpoint(1023) {
+      grid-row: 2 / 3;
+    }
 
-.blog-content__navigation {
-  width: 50rem;
-  margin: 0 auto;
-}
+    &__title,
+    &__author,
+    &__date-published {
+      @include abstracts.breakpoint(480) {
+        text-align: center;
+      }
+    }
 
-.blog-content__navigation--title {
-  text-align: center;
-  font-weight: bold;
-}
+    &__title {
+      font-weight: bolder;
+      font-size: 5rem;
+      margin: 4.5rem 0 1rem 0;
+    }
 
-.blog-content__navigation--toc {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+    &__author,
+    &__date-published {
+      font-style: italic;
+      color: #888;
+      font-weight: normal;
+    }
 
-.blog-content__navigation--toc li {
-  margin: 0.55rem;
+    &__author {
+
+      a,
+      a:link,
+      a:visited {
+        color: currentColor;
+        text-decoration: underline;
+      }
+    }
+
+    &__description {
+      font-size: 1.75rem;
+      margin: 3rem 0;
+      line-height: 1.5;
+    }
+  }
 }
 </style>
