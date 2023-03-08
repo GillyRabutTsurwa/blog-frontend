@@ -73,11 +73,6 @@ onMounted(() => {
     grid-template-rows: 1fr;
   }
 
-  .blog-img-container,
-  .blog-content {
-    height: 100%;
-  }
-
   .blog-img-container {
     position: sticky;
     top: 0;
@@ -85,6 +80,7 @@ onMounted(() => {
     overflow: hidden;
 
     @include abstracts.breakpoint(1023) {
+      position: relative;
       grid-row: 1 / 2;
       height: 100%;
     }
