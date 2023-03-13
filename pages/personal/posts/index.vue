@@ -1,6 +1,6 @@
 <template>
   <h3>Personal Posts</h3>
-  <ul>
+  <ul v-if="user">
     <li v-for="(currentPost) in state.posts" :key="currentPost._id" class="">
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`">
         <SanityImage :asset-id="currentPost.mainImage.asset._ref" auto="format" />
@@ -16,6 +16,10 @@
 const state = reactive({
   posts: [],
 });
+
+// TESTING
+const user = useSupabaseUser();
+console.log(user.value);
 
 const query = `*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
