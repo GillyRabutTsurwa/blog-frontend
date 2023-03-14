@@ -7,6 +7,7 @@
       </div>
       <div class="about__links">
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
+        <NuxtLink :to="{ path: `/personal/posts`, query: { type: `unfiltered` } }">Unfiltered Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>
@@ -109,6 +110,8 @@ onMounted(() => {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  width: 100%;
+  margin-top: 4rem;
 
   @include abstracts.breakpoint(1023) {
     flex-wrap: wrap;
@@ -125,11 +128,11 @@ onMounted(() => {
   border: 2px solid #1a2934;
   /*NOTE: debating between current colour and this colour: #071242. same for tech page */
   border-radius: 1rem;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   text-decoration: none;
   text-transform: uppercase;
   color: #fff;
-  padding: 2rem 3rem;
+  padding: 1.75rem 3rem;
   margin-top: 3rem;
   background-color: #1a2934;
   cursor: pointer;

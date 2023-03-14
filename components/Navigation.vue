@@ -5,7 +5,7 @@ const user = useSupabaseUser(); //NOTE: using to render posts according to user 
 const supabase = useSupabaseClient(); //NOTE: using to logout
 
 const isHeaderPlaced = computed(() => {
-  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "auth" && route.name !== "authours-slug";
+  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "authentication" && route.name !== "authours-slug";
 });
 
 const logOut = async () => {
@@ -13,20 +13,22 @@ const logOut = async () => {
   const { error } = await supabase.auth.signOut();
   if (!error) router.go(0); //NOTE: essentially refresh the page. seems to work although found no evidence that it actually does that
 }
+
+const goBack = () => (router.back());
 </script>
 
 <template>
   <nav v-if="isHeaderPlaced" class="navigation">
     <ul class="navigation__list">
       <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/auth">Login</NuxtLink>
+        <NuxtLink v-if="!user" to="/authentication">Login</NuxtLink>
         <span v-else @click="logOut">Logout</span>
       </li>
       <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/auth">Register</NuxtLink>
+        <NuxtLink v-if="!user" to="/authentication">Register</NuxtLink>
       </li>
       <li class="navigation__list--item">
-        <NuxtLink to="/auth">Back</NuxtLink>
+        <a @click="goBack">Back</a>
       </li>
     </ul>
   </nav>

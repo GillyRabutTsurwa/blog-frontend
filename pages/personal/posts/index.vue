@@ -13,28 +13,17 @@
     
     
 <script setup>
+definePageMeta({
+  middleware: ["auth"]
+});
+
 const state = reactive({
   posts: [],
 });
 
-// TESTING
-const user = useSupabaseUser();
-console.log(user.value);
-console.log(user)
-
 const query = `*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
 state.posts = data.value;
-
-// if there's no user
-if (!user.value) {
-  // NOTE: show only the posts that don't need authentication to be read
-  state.posts = state.posts.filter((currentPost) => !currentPost.needsAuthentication)
-}
-else {
-  //NOTE: otherwise, show all the posts
-  state.posts = state.posts;
-}
 
 const { formatDate } = useFormatDate();
 </script> 
