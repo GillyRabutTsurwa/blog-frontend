@@ -49,7 +49,7 @@ const removeRightPanel = () => {
 <template>
     <div class="container" id="container" ref="container">
         <div class="form-container sign-up-container">
-            <form @submit.prevent="signUp">
+            <form @submit.prevent="signUp" netlify>
                 <h1 style="margin-bottom: 2rem;">Create Login</h1>
                 <!-- hide for now -->
                 <div class="social-container" style="display: none; visibility: hidden;">
