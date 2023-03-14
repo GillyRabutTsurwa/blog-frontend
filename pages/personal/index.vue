@@ -7,7 +7,7 @@
       </div>
       <div class="about__links">
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
-        <NuxtLink :to="{ path: `/personal/posts`, query: { type: `unfiltered` } }">Unfiltered Posts</NuxtLink>
+        <NuxtLink to="/uncensored">Unfiltered Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>

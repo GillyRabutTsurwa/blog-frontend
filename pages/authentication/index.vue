@@ -14,6 +14,8 @@ console.log(supabase);
 const router = useRouter();
 console.log(router);
 
+const user = useSupabaseUser();
+
 
 const signUp = async () => {
     console.log("signup");
@@ -23,7 +25,7 @@ const signUp = async () => {
     });
     console.log(user);
     console.log(error);
-    if (!error) router.back();
+    if (!error) await navigateTo("/personal");
 }
 
 const login = async () => {
@@ -34,7 +36,12 @@ const login = async () => {
     });
     console.log(user);
     console.log(error);
-    if (!error) router.back();
+    if (error) {
+        console.log(error.cause, error.message);
+    }
+    else {
+        await navigateTo("/personal");
+    };
 }
 
 const addRightPanel = () => {
@@ -44,6 +51,8 @@ const addRightPanel = () => {
 const removeRightPanel = () => {
     container.value.classList.remove("right-panel-active")
 }
+
+const goBack = () => (router.back());
 </script>
 
 <template>
@@ -86,6 +95,7 @@ const removeRightPanel = () => {
                 <a href="#">Forgot your password?</a>
                 <button>Sign In</button>
             </form>
+            <span @click="goBack" style="position: absolute; bottom: 2rem; left: 2rem;">Back</span>
         </div>
         <div class="overlay-container">
             <div class="overlay">

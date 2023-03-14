@@ -1,5 +1,5 @@
 <template>
-  <h3>{{ route.query.type ? capitalise(route.query.type) : "Personal" }} Posts</h3>
+  <h3>Personal Posts</h3>
   <ul>
     <li v-for="(currentPost) in state.posts" :key="currentPost._id" class="">
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`">
@@ -13,16 +13,9 @@
     
     
 <script setup>
-definePageMeta({
-  middleware: ["auth"]
-});
-
 const state = reactive({
   posts: [],
 });
-
-const route = useRoute();
-const capitalise = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 const query = `*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);

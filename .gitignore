@@ -10,6 +10,3 @@ dist
 package-lock.json
 # Local Netlify folder
 .netlify
-
-# Temporary till the issue gets fixed
-pages/auth/index.vue

@@ -3,8 +3,10 @@ export default defineNuxtRouteMiddleware((to) => {
 
     //IMPORTANT: le mot-clé return est obligatoire selon les documentation
     //NOTE: got to this solution thanks to LearnVue's Nuxt/Supabase YouTube video & the Nuxt middleware docs
-
-    if (!user.value && to.name === "personal-posts" && to.query.type) {
-        return navigateTo("/authentication");
+    if (process.server) {
+        if (to.name === "uncensored") {
+            //NOTE: using ternary instead of if else, again return keyword necessary
+            return !user.value ? navigateTo("/authentication") : navigateTo("/uncensored");
+        }
     }
 });
