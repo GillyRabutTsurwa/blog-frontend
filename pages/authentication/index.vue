@@ -8,14 +8,10 @@ const credentials = reactive({
 
 })
 
-const supabase = useSupabaseClient(); //IMPORTANT: works now after changing script to script setup
+const supabase = useSupabaseAuthClient(); //IMPORTANT: changing to this from useSupabaseClient()
 console.log(supabase);
 
 const router = useRouter();
-console.log(router);
-
-const user = useSupabaseUser();
-
 
 const signUp = async () => {
     console.log("signup");

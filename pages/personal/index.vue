@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <div class="about-content">
-      <h3 class="about__title">{{ titleCategory }} Posts</h3>
+      <h3 class="about__title">{{ titleCategory }} Page</h3>
       <div class="about__paragraph">
         <SanityContent :blocks="introText" />
       </div>
