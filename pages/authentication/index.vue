@@ -6,7 +6,7 @@ const credentials = reactive({
     loginEmail: "",
     loginPassword: ""
 
-})
+});
 
 const supabase = useSupabaseAuthClient(); //IMPORTANT: changing to this from useSupabaseClient()
 console.log(supabase);

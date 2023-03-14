@@ -9,7 +9,7 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/uncensored">Unfiltered Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
-        <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
+        <a @click="accessLockedPage">Unfiltered Posts</a>
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>
       </div>
     </div>
@@ -20,37 +20,36 @@
 </template>
   
 <script setup>
+// sanity logic
 const query = groq`*[_type == "about"]`;
 const { data } = await useSanityQuery(query);
-console.log(data.value);
 const allIntros = data.value;
 const techIntro = allIntros.find((currentIntro) => {
   return currentIntro.aboutTitle.includes("Personal");
 });
 const introText = techIntro.aboutText;
 
+const user = useSupabaseUser();
+const accessLockedPage = () => {
+  if (user.value) {
+    navigateTo("/uncensored");
+  }
+}
+
+
 
 const route = useRoute();
 const routeName = route.name;
-console.log(routeName);
 
 const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
 });
 
-
 const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(1023)));
 
 onMounted(() => {
-  /** TESTING
-   * PASS: @note - now upon page load screen sizes will be checked for
-   * NOTE: this means that the components that need to be hidden will be hidden upon page load based on screen size
-   * this was not initially the case, as i was using the window resize eventlistener...
-   * .. which, obviously, will not fire on page load (which was what I needed)
-   */
   if (process.client) toggleElementOnResize(1023);
-
 })
 </script>
   
