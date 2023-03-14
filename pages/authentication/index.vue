@@ -50,7 +50,7 @@ const removeRightPanel = () => {
     <div class="container" id="container" ref="container">
         <div class="form-container sign-up-container">
             <form @submit.prevent="signUp">
-                <h1 style="margin-bottom: 2rem;">Create Account</h1>
+                <h1 style="margin-bottom: 2rem;">Create Login</h1>
                 <!-- hide for now -->
                 <div class="social-container" style="display: none; visibility: hidden;">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -173,6 +173,8 @@ input {
     overflow: hidden;
     /* width: 768px; */
     width: 100%;
+    height: 100%;
+    overflow: hidden;
     max-width: 100%;
     min-height: 480px;
 }
