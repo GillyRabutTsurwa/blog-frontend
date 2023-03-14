@@ -4,6 +4,7 @@ const url = route.params.slug;
 const state = reactive({
     authour: {},
 });
+const randomNumber = ref(0);
 
 const query = groq`*[_type == "author" && slug.current == "${url}"]`;
 const { data, pending, error } = await useSanityQuery(query);
@@ -11,6 +12,16 @@ state.authour = data.value[0];
 console.log(state.authour);
 
 const { name, bio, image } = state.authour;
+
+// NOTE: NEW toggle element
+const toggleElement = () => {
+    if (randomNumber.value % 2 === 0) {
+        randomNumber.value = 1;
+    }
+    else {
+        randomNumber.value = 0;
+    }
+}
 
 const CustomText = resolveComponent("CustomText");
 const serializers = {
@@ -26,6 +37,8 @@ onMounted(() => {
     if (process.client) toggleElementOnResize(480);
 })
 
+
+
 </script>
         
 <template>
@@ -35,10 +48,14 @@ onMounted(() => {
             <div class="authour__content--text">
                 <SanityContent :blocks="bio" :serializers="serializers" />
             </div>
+            <button @click="toggleElement">Toggle</button>
         </div>
-        <figure class="authour__img" v-if="!showElement">
-            <SanityImage :asset-id="image.asset._ref" auto="format" />
-        </figure>
+        <div class="authour__assets" v-if="!showElement">
+            <figure class="authour__img" v-if="randomNumber % 2 === 0">
+                <SanityImage :asset-id="image.asset._ref" auto="format" />
+            </figure>
+            <Map v-else />
+        </div>
     </div>
 </template>
 

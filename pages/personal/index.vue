@@ -9,21 +9,16 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
         <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
-        <button @click="toggleComponent" v-if="!showElement">Show {{ currentComponent.__name === "Map" ? "Card Pics" :
-          "Map" }}</button>
+        <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>
       </div>
     </div>
     <div class="about__card-or-map" v-if="!showElement">
-      <component :is="currentComponent"></component>
+      <ImageCards />
     </div>
   </div>
 </template>
   
 <script setup>
-const randomNumber = ref(0);
-const Map = resolveComponent("Map");
-const ImageCards = resolveComponent("ImageCards");
-
 const query = groq`*[_type == "about"]`;
 const { data } = await useSanityQuery(query);
 console.log(data.value);
@@ -42,24 +37,11 @@ const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);
 });
 
-const currentComponent = computed(() => {
-  return randomNumber.value % 2 === 0 ? ImageCards : Map;
-});
-
-const toggleComponent = () => {
-  if (randomNumber.value % 2 === 0) {
-    randomNumber.value = 1;
-  }
-  else {
-    randomNumber.value = 0;
-  }
-}
 
 const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(1023)));
 
 onMounted(() => {
-  randomNumber.value = Math.floor(Math.random() * 10);
   /** TESTING
    * PASS: @note - now upon page load screen sizes will be checked for
    * NOTE: this means that the components that need to be hidden will be hidden upon page load based on screen size

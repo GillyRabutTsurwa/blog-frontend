@@ -1,11 +1,11 @@
 <template>
   <h3>Personal Posts</h3>
-  <ul v-if="user">
+  <ul>
     <li v-for="(currentPost) in state.posts" :key="currentPost._id" class="">
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`">
         <SanityImage :asset-id="currentPost.mainImage.asset._ref" auto="format" />
         <h4>{{ currentPost.title }}</h4>
-        <p>{{ formatDate(currentPost._updatedAt) || formatDate(currentPost._createdAt) }}</p>
+        <p>{{ formatDate(currentPost.publishedAt) }}</p>
       </NuxtLink>
     </li>
   </ul>
@@ -20,18 +20,23 @@ const state = reactive({
 // TESTING
 const user = useSupabaseUser();
 console.log(user.value);
+console.log(user)
 
 const query = `*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
 state.posts = data.value;
-console.log(state.posts);
+
+// if there's no user
+if (!user.value) {
+  // NOTE: show only the posts that don't need authentication to be read
+  state.posts = state.posts.filter((currentPost) => !currentPost.needsAuthentication)
+}
+else {
+  //NOTE: otherwise, show all the posts
+  state.posts = state.posts;
+}
 
 const { formatDate } = useFormatDate();
-console.log(formatDate)
-state.posts.forEach((currentPost) => {
-  console.log(formatDate(currentPost.publishedAt))
-})
-//PASS: composable works fine
 </script> 
     
 <style scoped>

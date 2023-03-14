@@ -1,25 +1,31 @@
 <script setup>
 const route = useRoute();
-console.log(route);
-console.log(route.fullPath);
+const router = useRouter();
+const user = useSupabaseUser(); //NOTE: using to render posts according to user status
+const supabase = useSupabaseClient(); //NOTE: using to logout
 
-//NOTE: this code works great but i don't have a nice looking header. will comment it out until then
 const isHeaderPlaced = computed(() => {
-  // NOTE: locations that I do NOT want the Header to show
-  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "auth";
+  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "auth" && route.name !== "authours-slug";
 });
+
+const logOut = async () => {
+  console.log("logout");
+  const { error } = await supabase.auth.signOut();
+  if (!error) router.go(0); //NOTE: essentially refresh the page. seems to work although found no evidence that it actually does that
+}
 </script>
 
 <template>
   <nav v-if="isHeaderPlaced" class="navigation">
     <ul class="navigation__list">
-      <li>
-        <NuxtLink to="/auth">Login</NuxtLink>
+      <li class="navigation__list--item">
+        <NuxtLink v-if="!user" to="/auth">Login</NuxtLink>
+        <span v-else @click="logOut">Logout</span>
       </li>
-      <li>
-        <NuxtLink to="/auth">Register</NuxtLink>
+      <li class="navigation__list--item">
+        <NuxtLink v-if="!user" to="/auth">Register</NuxtLink>
       </li>
-      <li>
+      <li class="navigation__list--item">
         <NuxtLink to="/auth">Back</NuxtLink>
       </li>
     </ul>
@@ -30,20 +36,36 @@ const isHeaderPlaced = computed(() => {
 .navigation {
   position: absolute;
   top: 3rem;
-  right: 45%;
+  right: 5%;
 
   &__list {
     list-style: none;
     display: flex;
 
-    li {
+    &--item {
       margin-left: 1rem;
+
+      span {
+        cursor: pointer;
+      }
+
+      a,
+      span {
+
+        &,
+        &:link,
+        &:visited {
+          color: currentColor;
+          text-decoration: none;
+          font-weight: normal;
+        }
+
+        &:hover,
+        &:active {
+          font-weight: bold;
+        }
+      }
     }
   }
 }
-
-//dynamic classes
-.centre {}
-
-.right {}
 </style>

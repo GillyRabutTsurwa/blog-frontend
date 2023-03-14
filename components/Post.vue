@@ -5,7 +5,7 @@ const props = defineProps({
     required: true
   }
 });
-const { title, body, author, mainImage: imgURL, _createdAt, _updatedAt } = props.postData;
+const { title, body, author, publishedAt, mainImage: imgURL } = props.postData;
 const { formatDate } = useFormatDate();
 
 /** NOTE:
@@ -44,7 +44,7 @@ onMounted(() => {
       </h3>
       <h3 class="blog-content__date-published">
         <span>Date Published: </span>
-        <span>{{ formatDate(_updatedAt) || formatDate(_createdAt) }}</span>
+        <span>{{ formatDate(publishedAt) }}</span>
       </h3>
       <div class="blog-content__description">
         <SanityContent :blocks="body" :serializers="serializers" />
