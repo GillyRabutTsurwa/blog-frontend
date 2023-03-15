@@ -11,8 +11,8 @@ onMounted(() => {
         if (!user.value) {
             navigateTo("/authentication");
         }
-    })
-})
+    });
+});
 </script>
 
 <template>
