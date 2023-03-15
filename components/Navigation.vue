@@ -15,18 +15,29 @@ const logOut = async () => {
   navigateTo("/authentication");
 }
 
+const isDropDownHovered = ref(false);
+
 const goBack = () => (router.back());
 </script>
 
 <template>
   <nav v-if="isHeaderPlaced" class="navigation">
     <ul class="navigation__list">
-      <!-- <li class="navigation__list--item"><NuxtLink v-if="!user" to="/authentication">Login</NuxtLink><a v-else @click="logOut">Logout</a></li>-->
-      <!-- <li class="navigation__list--item"><NuxtLink v-if="!user" to="/authentication">Register</NuxtLink></li> -->
       <li class="navigation__list--item">
+        <NuxtLink v-if="!user" to="/authentication">Login</NuxtLink>
+      </li>
+      <li class="navigation__list--item">
+        <NuxtLink v-if="!user" to="/authentication">Register</NuxtLink>
+      </li>
+      <li class="navigation__list--item" v-if="route.name !== 'personal'">
         <a @click="goBack">Back</a>
       </li>
-      <!--<li class="navigation__list--item"><span v-if="user">{{ user.email }}</span></li> -->
+      <li class="navigation__list--item">
+        <span @mouseover="isDropDownHovered = true" v-if="user" class="account-name">
+          <span>{{ user.email }}</span>
+          <a v-if="isDropDownHovered" @click="logOut" @mouseleave="isDropDownHovered = false">Logout</a>
+        </span>
+      </li>
     </ul>
   </nav>
 </template>
@@ -43,6 +54,11 @@ const goBack = () => (router.back());
 
     &--item {
       margin-left: 1rem;
+
+      a,
+      span {
+        cursor: pointer;
+      }
 
       span {
         font-weight: bolder;
@@ -61,6 +77,16 @@ const goBack = () => (router.back());
         &:hover,
         &:active {
           font-weight: bold;
+        }
+      }
+
+      .account-name {
+        position: relative;
+
+        a {
+          position: absolute;
+          top: 2rem;
+          right: 8rem;
         }
       }
     }

@@ -9,7 +9,6 @@
         <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
         <NuxtLink to="/uncensored">Unfiltered Posts</NuxtLink>
         <NuxtLink to="/tech">Tech Page</NuxtLink>
-        <a @click="accessLockedPage">Unfiltered Posts</a>
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>
       </div>
     </div>
@@ -33,14 +32,6 @@ const user = useSupabaseUser();
 console.log("=======================")
 console.log(user.value);
 console.log("=======================")
-
-const accessLockedPage = () => {
-  console.log("clicked");
-  if (user.value.role === "authenticated") {
-    return navigateTo("/uncensored");
-  }
-}
-
 
 
 const route = useRoute();
