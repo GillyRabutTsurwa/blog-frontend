@@ -33,7 +33,7 @@ const login = async () => {
     console.log(user);
     console.log(error);
     if (error) {
-        console.log(error.cause, error.message);
+        console.log(error.status, error.name, error.message);
     }
     else {
         await navigateTo("/personal");

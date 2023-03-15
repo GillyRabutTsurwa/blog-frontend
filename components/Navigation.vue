@@ -21,19 +21,12 @@ const goBack = () => (router.back());
 <template>
   <nav v-if="isHeaderPlaced" class="navigation">
     <ul class="navigation__list">
-      <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/authentication">Login</NuxtLink>
-        <a v-else @click="logOut">Logout</a>
-      </li>
-      <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/authentication">Register</NuxtLink>
-      </li>
+      <!-- <li class="navigation__list--item"><NuxtLink v-if="!user" to="/authentication">Login</NuxtLink><a v-else @click="logOut">Logout</a></li>-->
+      <!-- <li class="navigation__list--item"><NuxtLink v-if="!user" to="/authentication">Register</NuxtLink></li> -->
       <li class="navigation__list--item">
         <a @click="goBack">Back</a>
       </li>
-      <li class="navigation__list--item">
-        <span v-if="user">{{ user.email }}</span>
-      </li>
+      <!--<li class="navigation__list--item"><span v-if="user">{{ user.email }}</span></li> -->
     </ul>
   </nav>
 </template>

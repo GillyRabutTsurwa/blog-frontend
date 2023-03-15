@@ -30,9 +30,14 @@ const techIntro = allIntros.find((currentIntro) => {
 const introText = techIntro.aboutText;
 
 const user = useSupabaseUser();
+console.log("=======================")
+console.log(user.value);
+console.log("=======================")
+
 const accessLockedPage = () => {
-  if (user.value) {
-    navigateTo("/uncensored");
+  console.log("clicked");
+  if (user.value.role === "authenticated") {
+    return navigateTo("/uncensored");
   }
 }
 
