@@ -36,6 +36,9 @@ const login = async () => {
         console.log(error.status, error.name, error.message);
     }
     else {
+        await new Promise((resolve) => {
+            setTimeout(resolve, 150);
+        });
         await navigateTo("/personal");
     };
 }
