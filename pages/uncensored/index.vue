@@ -2,10 +2,8 @@
 definePageMeta({
     middleware: ["auth"]
 });
-
 const user = useSupabaseUser();
 
-// TESTING
 onMounted(() => {
     watchEffect(() => {
         if (!user.value) {
