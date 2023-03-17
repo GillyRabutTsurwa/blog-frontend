@@ -13,9 +13,10 @@ const user = useSupabaseUser();
 router.beforeEach(async () => {
   console.clear();
   console.log("SUPERBASE");
-  console.log(user.value);
-  await new Promise((resolve) => {
-    setTimeout(resolve, 150);
-  });
+  const timer = setInterval(() => {
+    if (user && user.id) {
+      clearInterval(timer);
+    }
+  }, 100);
 });
 </script>

@@ -36,10 +36,13 @@ const login = async () => {
         console.log(error.status, error.name, error.message);
     }
     else {
-        await new Promise((resolve) => {
-            setTimeout(resolve, 150);
-        });
-        await navigateTo("/personal");
+        const timer = setInterval(() => {
+            if (user && user.id) {
+                clearInterval(timer);
+                return navigateTo("/personal"); //NOTE: changed from await to return
+            }
+        }, 100);
+        // await navigateTo("/personal");
     };
 }
 
