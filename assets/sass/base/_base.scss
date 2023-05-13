@@ -1,4 +1,4 @@
-@use "../abstracts/" as abstracts;
+@use "../abstracts" as abstracts;
 html {
     font-size: 62.5%; // 1rem = 10px(desired px definition); 10px/16px = 62.5%;
 
@@ -12,5 +12,10 @@ html {
 }
 
 body {
+    position: relative;
     font-size: 1.6rem;
+}
+
+.main {
+    padding: 0 10rem;
 }
