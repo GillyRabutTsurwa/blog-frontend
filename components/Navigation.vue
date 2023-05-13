@@ -21,75 +21,51 @@ const goBack = () => (router.back());
 </script>
 
 <template>
-  <nav v-if="isHeaderPlaced" class="navigation">
+  <nav class="navigation">
+    <Logo />
     <ul class="navigation__list">
       <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/authentication">Login</NuxtLink>
+        <a href="#">Home</a>
       </li>
       <li class="navigation__list--item">
-        <NuxtLink v-if="!user" to="/authentication">Register</NuxtLink>
-      </li>
-      <li class="navigation__list--item" v-if="route.name !== 'personal'">
-        <a @click="goBack">Back</a>
+        <a href="#">Category</a>
       </li>
       <li class="navigation__list--item">
-        <span @mouseover="isDropDownHovered = true" v-if="user" class="account-name">
-          <span>{{ user.email }}</span>
-          <a v-if="isDropDownHovered" @click="logOut" @mouseleave="isDropDownHovered = false">Logout</a>
-        </span>
+        <a href="#">Archive</a>
+      </li>
+      <li class="navigation__list--item">
+        <a href="#">Pages</a>
+      </li>
+      <li class="navigation__list--item">
+        <a href="#">Contact Us</a>
+      </li>
+    </ul>
+    <ul class="navigation__icons">
+      <li class="navigation__icons--icon">
+        <a href="#">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+      <li class="navigation__icons--icon">
+        <a href="#">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </li>
+      <li class="navigation__icons--icon">
+        <a href="#">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+
+      <li class="navigation__icons--icon">
+        <a href="#">
+          <i class="fab fa-youtube"></i>
+        </a>
       </li>
     </ul>
   </nav>
 </template>
 
 <style lang="scss" scoped>
-.navigation {
-  position: absolute;
-  top: 3rem;
-  right: 5%;
-
-  &__list {
-    list-style: none;
-    display: flex;
-
-    &--item {
-      margin-left: 1rem;
-
-      a,
-      span {
-        cursor: pointer;
-      }
-
-      span {
-        font-weight: bolder;
-      }
-
-      a {
-
-        &,
-        &:link,
-        &:visited {
-          color: currentColor;
-          text-decoration: none;
-          font-weight: normal;
-        }
-
-        &:hover,
-        &:active {
-          font-weight: bold;
-        }
-      }
-
-      .account-name {
-        position: relative;
-
-        a {
-          position: absolute;
-          top: 2rem;
-          right: 8rem;
-        }
-      }
-    }
-  }
-}
+// @use "@/assets/sass/components/navigation";
 </style>

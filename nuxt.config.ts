@@ -37,6 +37,12 @@ export default defineNuxtConfig({
                     href: "https://fonts.googleapis.com/css2?family=Antonio:wght@500&amp;family=Spartan:wght@400;700&amp;display=swap",
                 },
             ],
+            script: [
+                {
+                    src: "https://kit.fontawesome.com/7a26a17053.js",
+                    crossorigin: "anonymous",
+                },
+            ],
         },
     },
     css: ["@/assets/sass/main.scss"],

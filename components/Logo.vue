@@ -20,12 +20,9 @@ const isHeaderPlaced = computed(() => {
 
 <style lang="scss" scoped>
 figure {
-  position: absolute;
-  top: 0;
-  left: 1rem;
   display: inline-block;
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   z-index: 1000;
 
   img {

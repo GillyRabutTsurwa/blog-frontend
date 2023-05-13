@@ -1,21 +1,6 @@
 <template>
-  <div class="about">
-    <div class="about-content">
-      <h3 class="about__title">{{ titleCategory }} Page</h3>
-      <div class="about__paragraph">
-        <SanityContent :blocks="introText" />
-      </div>
-      <div class="about__links">
-        <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
-        <!-- <NuxtLink to="/uncensored">Unfiltered Posts</NuxtLink> -->
-        <NuxtLink to="/tech">Tech Page</NuxtLink>
-        <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer">My Website</a>
-      </div>
-    </div>
-    <div class="about__card-or-map" v-if="!showElement">
-      <ImageCards />
-    </div>
-  </div>
+  <Header />
+  <PictureCategory />
 </template>
   
 <script setup>

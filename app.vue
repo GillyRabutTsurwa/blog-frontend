@@ -18,7 +18,7 @@ console.log(data);
 
 <style lang="scss">
 @use "@/assets/sass/abstracts/" as abstracts;
-@import "@/assets/sass/main.scss";
+// @import "@/assets/sass/main.scss";
 
 #__nuxt {
   font-family: abstracts.$primaryFontStack;

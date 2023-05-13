@@ -18,12 +18,12 @@
 .picture-category {
     margin: 3rem 0;
     border-bottom: 2px solid #333;
-    padding-bottom: 3rem;
+    padding: 5rem;
 
     display: grid;
-    grid-template-columns: 65% 32%;
+    grid-template-columns: repeat(2, 55rem);
     // grid-template-columns: 1fr; will be great for responsiveness
-    -webkit-column-gap: 3%;
+    -moz-column-gap: 3%;
     column-gap: 3%;
     grid-template-rows: repeat(2, -webkit-min-content);
     grid-template-rows: repeat(2, min-content);
@@ -46,23 +46,14 @@
     }
 
     &__category {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-box-pack: start;
-        -ms-flex-pack: start;
         justify-content: flex-start;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
+        margin-bottom: 4rem;
 
         &--title {
-            -ms-flex-item-align: start;
-            align-self: flex-start;
+            align-self: center;
         }
 
         &--list {
@@ -75,32 +66,18 @@
                 background-image: abstracts.$sky;
                 padding: 1.1rem 1.5rem;
                 border-radius: 1rem;
-                display: -webkit-box;
-                display: -ms-flexbox;
                 display: flex;
-                -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
                 justify-content: space-between;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
                 align-items: center;
             }
         }
     }
 
     &__caption {
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
         flex-direction: column;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
         justify-content: space-between;
-        -webkit-box-align: start;
-        -ms-flex-align: start;
+        // align-items: flex-start;
         align-items: flex-start;
     }
 

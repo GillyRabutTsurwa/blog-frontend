@@ -1,7 +1,4 @@
 <template>
-  <Logo />
-  <DevOnly>
-    <Navigation />
-  </DevOnly>
+  <Navigation />
   <slot />
 </template>
