@@ -1,0 +1,33 @@
+@use "../abstracts" as abstracts;
+
+.button-primary {
+    // cursor: pointer;
+    // border: none;
+    // outline: none;
+    // padding: 1.5rem 3.5rem;
+    // border-radius: 3rem;
+    // font-size: 1.5rem;
+    @include abstracts.button-config(1.5rem, 3.5rem, 3rem);
+    font-size: 1.5rem;
+
+    background-image: abstracts.$sky;
+    transition: transform 0.5s ease;
+
+    &:active {
+        transform: translateY(0.5rem);
+    }
+}
+
+.button-secondary {
+    @include abstracts.button-config(1rem, 2.2rem, 0.5rem);
+    background-image: abstracts.$sky;
+    // padding: 1rem 2.2rem;
+    // border-radius: 0.5rem;
+    // border: none;
+    // outline: none;
+    // cursor: pointer;
+
+    span {
+        padding-right: 0.15rem;
+    }
+}

@@ -36,13 +36,7 @@ const login = async () => {
         console.log(error.status, error.name, error.message);
     }
     else {
-        const timer = setInterval(() => {
-            if (user && user.id) {
-                clearInterval(timer);
-                return navigateTo("/personal"); //NOTE: changed from await to return
-            }
-        }, 100);
-        // await navigateTo("/personal");
+        await navigateTo("/personal");
     };
 }
 
