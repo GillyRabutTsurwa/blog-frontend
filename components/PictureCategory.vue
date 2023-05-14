@@ -1,8 +1,7 @@
 <script setup>
-const config = useRuntimeConfig();
-console.log(config);
-const { data: instaposts } = useAsyncData("instaposts", () => $fetch(`https://graph.instagram.com/me/media?fields=id,caption,permalink,media_type,media_url,username&access_token=${config.instagramAPIKey}`));
+const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
 
+console.log(instaposts.value);
 // NOTE: still cannot manipulate the data as needed, but this works for now. Trying to shuffle the instagram posts
 // NOTE: but for now it is working very well and I am pleased
 
