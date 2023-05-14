@@ -26,7 +26,6 @@
 <script setup>
 const query = groq`*[_type == "about"]`;
 const { data } = await useSanityQuery(query);
-console.log(data.value);
 const allIntros = data.value;
 const techIntro = allIntros.find((currentIntro) => {
   return currentIntro.aboutTitle.includes("Tech");
@@ -37,7 +36,6 @@ const introText = techIntro.aboutText;
 // ====================================
 const route = useRoute();
 const routeName = route.name;
-console.log(routeName);
 
 const titleCategory = computed(() => {
   return routeName.charAt(0).toUpperCase() + routeName.slice(1);

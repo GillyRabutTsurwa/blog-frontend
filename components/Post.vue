@@ -19,7 +19,6 @@ const serializers = {
     text: CustomText
   }
 }
-console.log(serializers)
 
 const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(480)));

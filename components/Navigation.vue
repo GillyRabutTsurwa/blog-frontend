@@ -2,7 +2,6 @@
 const route = useRoute();
 const router = useRouter();
 const user = useSupabaseUser(); //NOTE: using to render posts according to user status
-console.log(user.value);
 const supabase = useSupabaseAuthClient(); //NOTE: using to logout
 
 const isHeaderPlaced = computed(() => {
@@ -10,7 +9,6 @@ const isHeaderPlaced = computed(() => {
 });
 
 const logOut = async () => {
-  console.log("logout");
   const { error } = await supabase.auth.signOut();
   navigateTo("/authentication");
 }
@@ -42,24 +40,24 @@ const goBack = () => (router.back());
     </ul>
     <ul class="navigation__icons">
       <li class="navigation__icons--icon">
-        <a href="#">
+        <a href="https://www.facebook.com/rabuttsurwa" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-facebook-f"></i>
         </a>
       </li>
       <li class="navigation__icons--icon">
-        <a href="#">
+        <a href="https://www.instagram.com/rabuttsurwa96" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-instagram"></i>
         </a>
       </li>
       <li class="navigation__icons--icon">
-        <a href="#">
-          <i class="fab fa-twitter"></i>
+        <a href="https://open.spotify.com/user/tsurwagilly" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-spotify"></i>
         </a>
       </li>
 
       <li class="navigation__icons--icon">
-        <a href="#">
-          <i class="fab fa-youtube"></i>
+        <a href="https://www.linkedin.com/in/gilberttsurwa" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-linkedin"></i>
         </a>
       </li>
     </ul>

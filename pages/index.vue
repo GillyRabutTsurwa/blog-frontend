@@ -17,7 +17,6 @@ const query = groq`*[_type == "homeGrid"] {
 }`;
 const { data } = await useSanityQuery(query);
 const imageData = data.value[0]; //NOTE: il n'y qu'un seul truc (objet) dans le tableau
-console.log(imageData);
 
 const images = imageData.gridImages.map((currentImage) => {
   return {
@@ -25,7 +24,6 @@ const images = imageData.gridImages.map((currentImage) => {
     url: currentImage.asset._ref,
   };
 });
-console.log(images);
 const myClasses = ["personal", "tech"];
 </script>
   

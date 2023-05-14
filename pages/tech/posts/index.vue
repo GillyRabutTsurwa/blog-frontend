@@ -26,7 +26,6 @@ const router = useRouter();
 const query = groq`*[_type == "tech-post"]`;
 const { data, error } = await useSanityQuery(query);
 state.posts = data.value;
-console.log(state.posts);
 
 //TODO: put this into a composable. as I'm using it elsewhere
 const formatDate = (currentDate) => {

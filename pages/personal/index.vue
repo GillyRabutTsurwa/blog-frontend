@@ -14,10 +14,6 @@ const techIntro = allIntros.find((currentIntro) => {
 const introText = techIntro.aboutText;
 
 const user = useSupabaseUser();
-console.log("=======================")
-console.log(user.value);
-console.log("=======================")
-
 
 const route = useRoute();
 const routeName = route.name;

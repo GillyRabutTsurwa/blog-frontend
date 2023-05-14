@@ -9,7 +9,6 @@ const randomNumber = ref(0);
 const query = groq`*[_type == "author" && slug.current == "${url}"]`;
 const { data, pending, error } = await useSanityQuery(query);
 state.authour = data.value[0];
-console.log(state.authour);
 
 const { name, bio, image } = state.authour;
 
@@ -29,7 +28,6 @@ const serializers = {
         text: CustomText
     }
 }
-console.log(serializers)
 
 const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(480)));

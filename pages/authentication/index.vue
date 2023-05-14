@@ -9,29 +9,22 @@ const credentials = reactive({
 });
 
 const supabase = useSupabaseAuthClient(); //IMPORTANT: changing to this from useSupabaseClient()
-console.log(supabase);
 
 const router = useRouter();
 
 const signUp = async () => {
-    console.log("signup");
     const { user, error } = await supabase.auth.signUp({
         email: credentials.signUpEmail,
         password: credentials.signUpPassword
     });
-    console.log(user);
-    console.log(error);
     if (!error) await navigateTo("/personal");
 }
 
 const login = async () => {
-    console.log("login");
     const { user, error } = await supabase.auth.signInWithPassword({
         email: credentials.loginEmail,
         password: credentials.loginPassword
     });
-    console.log(user);
-    console.log(error);
     if (error) {
         console.log(error.status, error.name, error.message);
     }
