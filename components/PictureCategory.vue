@@ -10,21 +10,35 @@ state.posts = data.value;
 
 const { formatDate } = useFormatDate();
 console.log(instaposts.value);
-// NOTE: still cannot manipulate the data as needed, but this works for now. Trying to shuffle the instagram posts
-// NOTE: but for now it is working very well and I am pleased
+// instaposts.value.data.forEach((currentPost) => console.log(currentPost.caption));
 
-// Here you would use the useSanityQuery hook from @nuxtjs/sanity
-// to fetch the block content from Sanity and assign it to the blockContent ref
+function randomArray(arr) {
+    let newArray = [];
+    let numofPosts = 9;
 
+    //NOTE: using while loop for the 1st time in a while
+    // whenever the length of the new array is less than the number of posts
+    while (newArray.length < numofPosts) {
+        // generate a random number
+        const randomNumber = Math.round(Math.random() * arr.length - 1);
+        // and if that specific value does not already exist in the eventually returned array
+        if (!newArray.includes(arr[randomNumber])) {
+            // then push that value to that array
+            newArray.push(arr[randomNumber]);
+        }
+    }
+    return newArray;
+}
+
+const featuredInstaPosts = randomArray(instaposts.value.data);
 
 function getSnippet(blockContent) {
     const body = blockContent
-        .filter(block => block._type === 'block')
-        .map(block => block.children.map(child => child.text).join(''))
+        .filter(block => block._type === "block")
+        .map(block => block.children.map(child => child.text).join(""))
         .join('')
-    return body.slice(0, 500) + '...'
+    return body.slice(0, 500) + "...";
 }
-
 </script>
 <template>
     <div class="test">
@@ -39,8 +53,9 @@ function getSnippet(blockContent) {
                     <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
                     <p>{{ getSnippet(currentPost.body) }}</p>
                 </div>
-                <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more"><span>Read
-                        More</span> &rarr;</NuxtLink>
+                <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
+                    <span>Read More</span> &rarr;
+                </NuxtLink>
             </div>
 
 
@@ -76,7 +91,7 @@ function getSnippet(blockContent) {
             <div class="picture-category__category">
                 <h4 class="picture-category__category--title">Instagram</h4>
                 <div class="instagram-images">
-                    <figure v-for="currentInsta in instaposts.data.slice(2, 11)">
+                    <figure v-for="currentInsta in featuredInstaPosts">
                         <a :href="currentInsta.permalink" target="_blank" rel="noopener noreferrer">
                             <img :src="currentInsta.media_url" alt="">
                         </a>
