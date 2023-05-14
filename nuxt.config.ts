@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     sanity: {
         projectId: "g014cs9v",
     },
+    runtimeConfig: {
+        instagramAPIKey: process.env.INSTAGRAM_TOKEN,
+    },
     app: {
         head: {
             meta: [

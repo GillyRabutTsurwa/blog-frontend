@@ -1,4 +1,10 @@
 <script setup>
+const config = useRuntimeConfig();
+console.log(config);
+const { data: instaposts } = useAsyncData("instaposts", () => $fetch(`https://graph.instagram.com/me/media?fields=id,caption,permalink,media_type,media_url,username&access_token=${config.instagramAPIKey}`));
+
+// NOTE: still cannot manipulate the data as needed, but this works for now. Trying to shuffle the instagram posts
+// NOTE: but for now it is working very well and I am pleased
 
 </script>
 <template>
@@ -87,12 +93,11 @@
             <div class="picture-category__category">
                 <h4 class="picture-category__category--title">Instagram</h4>
                 <div class="instagram-images">
-                    <figure><img src="@/assets/img/instagram/thumb-card3.png" alt=""></figure>
-                    <figure><img src="@/assets/img/instagram/thumb-card4.png" alt=""></figure>
-                    <figure><img src="@/assets/img/instagram/thumb-card5.png" alt=""></figure>
-                    <figure><img src="@/assets/img/instagram/thumb-card6.png" alt=""></figure>
-                    <figure><img src="@/assets/img/instagram/thumb-card7.png" alt=""></figure>
-                    <figure><img src="@/assets/img/instagram/thumb-card8.png" alt=""></figure>
+                    <figure v-for="currentInsta in instaposts.data.slice(2, 11)">
+                        <a :href="currentInsta.permalink" target="_blank" rel="noopener noreferrer">
+                            <img :src="currentInsta.media_url" alt="">
+                        </a>
+                    </figure>
                 </div>
             </div>
             <div class="picture-category__category">
@@ -128,9 +133,13 @@ aside {
         width: 100%;
         height: 100%;
 
+        a,
         img {
             width: inherit;
             height: inherit;
+        }
+
+        img {
             object-fit: cover;
             -o-object-fit: cover;
         }

@@ -23,8 +23,8 @@
     display: grid;
     grid-template-columns: repeat(2, 55rem);
     // grid-template-columns: 1fr; will be great for responsiveness
-    -moz-column-gap: 3%;
-    column-gap: 3%;
+    -moz-gap: 7rem;
+    gap: 7rem;
     grid-template-rows: repeat(2, -webkit-min-content);
     grid-template-rows: repeat(2, min-content);
 
