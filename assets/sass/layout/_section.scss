@@ -17,7 +17,6 @@
 
 .picture-category {
     margin: 3rem 0;
-    border-bottom: 2px solid #333;
     padding: 5rem;
 
     display: grid;
@@ -74,11 +73,22 @@
     }
 
     &__caption {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: space-between;
+        // // align-items: flex-start;
         // align-items: flex-start;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 35rem repeat(4, -webkit-min-content);
+        grid-template-rows: 35rem repeat(4, min-content);
+        -moz-row-gap: 1.25rem;
+        row-gap: 1.25rem;
+        justify-items: start;
+
+        &--paragraph {
+            margin-bottom: 0;
+        }
     }
 
     &__popular-post {

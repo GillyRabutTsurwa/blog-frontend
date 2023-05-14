@@ -1,67 +1,51 @@
 <script setup>
 const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
+const state = reactive({
+    posts: [],
+});
 
+const query = groq`*[_type == "personal-post"]`;
+const { data, error } = await useSanityQuery(query);
+state.posts = data.value;
+
+const { formatDate } = useFormatDate();
 console.log(instaposts.value);
 // NOTE: still cannot manipulate the data as needed, but this works for now. Trying to shuffle the instagram posts
 // NOTE: but for now it is working very well and I am pleased
 
+// Here you would use the useSanityQuery hook from @nuxtjs/sanity
+// to fetch the block content from Sanity and assign it to the blockContent ref
+
+
+function getSnippet(blockContent) {
+    const body = blockContent
+        .filter(block => block._type === 'block')
+        .map(block => block.children.map(child => child.text).join(''))
+        .join('')
+    return body.slice(0, 500) + '...'
+}
+
 </script>
 <template>
     <div class="test">
-
         <section class="picture-category">
-            <div class="picture-category__caption blog">
+            <div v-for="currentPost in state.posts" :key="currentPost._id" class="picture-category__caption blog">
                 <div class="picture-category__picture">
-                    <img src="@/assets/img/Blog-post/blog1.png" alt="">
+                    <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
                 </div>
-                <h3 class="picture-category__caption--title">Women are getting more involved in hiking, biking and
-                    loving the outdoors thanks to photography</h3>
-                <p class="picture-category__caption--paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Et eos, quis mollitia nostrum facere
-                    doloremque voluptate asperiores ad aliquam at molestiae modi unde quisquam obcaecati sit harum quod
-                    dolor sint consequatur deleniti architecto ut laboriosam. Unde cupiditate fuga fugit saepe!</p>
-                <button class="button-secondary">
-                    <span>Read More</span> &rarr;</button>
-            </div>
-            <div class="picture-category__caption blog">
-                <div class="picture-category__picture">
-                    <img src="@/assets/img/Blog-post/blog1.png" alt="">
+                <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
+                <h5>{{ formatDate(currentPost.publishedAt) }}</h5>
+                <div class="picture-category__caption--paragraph">
+                    <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
+                    <p>{{ getSnippet(currentPost.body) }}</p>
                 </div>
-                <h3 class="picture-category__caption--title">Women are getting more involved in hiking, biking and
-                    loving the outdoors thanks to photography</h3>
-                <p class="picture-category__caption--paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Et eos, quis mollitia nostrum facere
-                    doloremque voluptate asperiores ad aliquam at molestiae modi unde quisquam obcaecati sit harum quod
-                    dolor sint consequatur deleniti architecto ut laboriosam. Unde cupiditate fuga fugit saepe!</p>
-                <button class="button-secondary">
-                    <span>Read More</span> &rarr;</button>
+                <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more"><span>Read
+                        More</span> &rarr;</NuxtLink>
             </div>
-            <div class="picture-category__caption blog">
-                <div class="picture-category__picture">
-                    <img src="@/assets/img/Blog-post/blog1.png" alt="">
-                </div>
-                <h3 class="picture-category__caption--title">Women are getting more involved in hiking, biking and
-                    loving the outdoors thanks to photography</h3>
-                <p class="picture-category__caption--paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Et eos, quis mollitia nostrum facere
-                    doloremque voluptate asperiores ad aliquam at molestiae modi unde quisquam obcaecati sit harum quod
-                    dolor sint consequatur deleniti architecto ut laboriosam. Unde cupiditate fuga fugit saepe!</p>
-                <button class="button-secondary">
-                    <span>Read More</span> &rarr;</button>
-            </div>
-            <div class="picture-category__caption blog">
-                <div class="picture-category__picture">
-                    <img src="@/assets/img/Blog-post/blog1.png" alt="">
-                </div>
-                <h3 class="picture-category__caption--title">Women are getting more involved in hiking, biking and
-                    loving the outdoors thanks to photography</h3>
-                <p class="picture-category__caption--paragraph">Lorem ipsum dolor sit, amet consectetur adipisicing
-                    elit. Et eos, quis mollitia nostrum facere
-                    doloremque voluptate asperiores ad aliquam at molestiae modi unde quisquam obcaecati sit harum quod
-                    dolor sint consequatur deleniti architecto ut laboriosam. Unde cupiditate fuga fugit saepe!</p>
-                <button class="button-secondary">
-                    <span>Read More</span> &rarr;</button>
-            </div>
+
+
+
+
         </section>
         <aside>
             <div class="picture-category__category">
@@ -121,6 +105,16 @@ aside {
     display: flex;
     flex-direction: column;
     margin: 3rem 0;
+}
+
+.read-more {
+
+    &,
+    &:link,
+    &:visited {
+        text-decoration: none;
+        color: currentColor;
+    }
 }
 
 .instagram-images {
