@@ -50,6 +50,11 @@ const goBack = () => (router.back());
         </a>
       </li>
       <li class="navigation__icons--icon">
+        <a href="https://www.instagram.com/rabuttsurwa96" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      <li class="navigation__icons--icon">
         <a href="https://open.spotify.com/user/tsurwagilly" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-spotify"></i>
         </a>
