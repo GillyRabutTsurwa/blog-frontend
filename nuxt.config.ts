@@ -33,11 +33,7 @@ export default defineNuxtConfig({
                 },
                 {
                     rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Antonio:wght@500&amp;family=Spartan:wght@400;700&amp;display=swap",
-                },
-                {
-                    rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Antonio:wght@500&amp;family=Spartan:wght@400;700&amp;display=swap",
+                    href: "https://fonts.googleapis.com/css2?family=Abel&family=League+Spartan:wght@300;400;600;700&family=Lexend+Deca:wght@100;300;400;500&display=swap",
                 },
             ],
             script: [

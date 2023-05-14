@@ -42,13 +42,14 @@ function getSnippet(blockContent) {
 </script>
 <template>
     <div class="test">
+        <h2>Posts</h2>
         <section class="picture-category">
             <div v-for="currentPost in state.posts" :key="currentPost._id" class="picture-category__caption blog">
                 <div class="picture-category__picture">
                     <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
                 </div>
                 <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
-                <h5>{{ formatDate(currentPost.publishedAt) }}</h5>
+                <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
                 <div class="picture-category__caption--paragraph">
                     <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
                     <p>{{ getSnippet(currentPost.body) }}</p>
@@ -114,6 +115,13 @@ function getSnippet(blockContent) {
 .test {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+
+    h2 {
+        grid-column: 1 / -1;
+        justify-self: center;
+        transform: translate(-30rem, 3rem);
+
+    }
 }
 
 aside {

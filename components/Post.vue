@@ -137,6 +137,7 @@ onMounted(() => {
       font-size: 1.75rem;
       margin: 3rem 0;
       line-height: 1.5;
+      color: #333;
     }
   }
 }
