@@ -38,13 +38,11 @@ const currentYear = computed(() => {
             <h4 class="links-footer__subtitle">Contact Me</h4>
             <li class="links-footer--item phone">
                 <a href="tel:+5404045270">
-                    <img src="~/assets/svg/phone.svg" alt="">
                     <span>540-404-5270</span>
                 </a>
             </li>
             <li class="links-footer--item email">
-                <a href="mailto:winprecars@yahoo.com">
-                    <img src="~/assets/svg/mail.svg" alt="">
+                <a href="mailto:tsurwagilbert@gmail.com">
                     <span>tsurwagilbert@gmail.com</span>
                 </a>
             </li>
