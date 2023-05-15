@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <PictureCategory />
+  <Main />
 </template>
   
 <script setup>

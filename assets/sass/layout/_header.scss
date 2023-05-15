@@ -5,7 +5,18 @@
     position: relative;
     height: 90vh;
 
-    &__video {
+    &::after {
+        position: absolute;
+        top: 0;
+        opacity: 0.6;
+        // z-index: 1000;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: abstracts.$colour-primary;
+    }
+
+    &__img {
         width: 100%;
         height: 100%;
         &--content {
@@ -35,6 +46,7 @@
         //IMPORTANT:
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
+        z-index: 1000;
 
         &--primary,
         &--secondary {
@@ -42,14 +54,14 @@
         }
 
         &--secondary {
-            font-family: "Lexend", cursive;
+            font-family: abstracts.$Lexend;
             font-size: 4.5rem;
             margin-bottom: 5rem;
         }
 
         &--primary {
             font-family: "Abel", cursive;
-            font-size: 2.5rem;
+            font-size: 3.5rem;
         }
     }
 }

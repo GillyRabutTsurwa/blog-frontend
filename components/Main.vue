@@ -2,15 +2,33 @@
 const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
 const state = reactive({
     posts: [],
+    currentPage: 1,
+    postsPerPage: 2
 });
 
 const query = groq`*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
 state.posts = data.value;
 
-const { formatDate } = useFormatDate();
 console.log(instaposts.value);
 // instaposts.value.data.forEach((currentPost) => console.log(currentPost.caption));
+
+const indexOfLastPost = computed(() => {
+    return state.currentPage * state.postsPerPage;
+});
+
+const indexOfFirstPost = computed(() => {
+    return indexOfLastPost.value - state.postsPerPage;
+});
+
+// this signifies the current posts on the page
+const currentPosts = computed(() => {
+    return state.posts.slice(indexOfFirstPost.value, indexOfLastPost.value);
+});
+
+onUpdated(() => {
+    console.log(currentPosts.value);
+})
 
 function randomArray(arr) {
     let newArray = [];
@@ -32,37 +50,18 @@ function randomArray(arr) {
 
 const featuredInstaPosts = randomArray(instaposts.value.data);
 
-function getSnippet(blockContent) {
-    const body = blockContent
-        .filter(block => block._type === "block")
-        .map(block => block.children.map(child => child.text).join(""))
-        .join('')
-    return body.slice(0, 500) + "...";
+// NEW:
+function renderPagination(eventPayload) {
+    state.currentPage = eventPayload;
+    console.log(eventPayload);
 }
+
+
 </script>
 <template>
     <div class="test">
         <h2>Posts</h2>
-        <section class="picture-category">
-            <div v-for="currentPost in state.posts" :key="currentPost._id" class="picture-category__caption blog">
-                <div class="picture-category__picture">
-                    <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
-                </div>
-                <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
-                <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
-                <div class="picture-category__caption--paragraph">
-                    <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
-                    <p>{{ getSnippet(currentPost.body) }}</p>
-                </div>
-                <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
-                    <span>Read More</span> &rarr;
-                </NuxtLink>
-            </div>
-
-
-
-
-        </section>
+        <PostList :posts="currentPosts" />
         <aside>
             <div class="picture-category__category">
                 <h4 class="picture-category__category--title">Category</h4>
@@ -107,6 +106,8 @@ function getSnippet(blockContent) {
                 </form>
             </div>
         </aside>
+        <Pagination :postsPerPage="state.postsPerPage" :postsLength="state.posts.length"
+            @paginate="renderPagination($event)" />
     </div>
 </template>
 
