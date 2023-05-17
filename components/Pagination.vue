@@ -39,7 +39,7 @@ function paginatePg(pageNum) {
   list-style: none;
   display: flex;
   justify-content: center;
-  grid-column: 1 / 2;
+  margin-bottom: 3rem;
 
   &__item {
     &:not(:last-child) {
