@@ -1,3 +1,19 @@
+<script setup>
+const query = groq`*[_type == "personal-post"]`;
+const { data, error } = await useSanityQuery(query);
+const randomPost = computed(() => {
+  return data.value[Math.floor(Math.random() * data.value.length - 1)];
+});
+console.log(randomPost.value);
+
+function getSnippet(blockContent) {
+  const body = blockContent
+    .filter(block => block._type === "block")
+    .map(block => block.children.map(child => child.text).join(""))
+    .join('')
+  return body.slice(0, 1500) + "...";
+}
+</script>
 <template>
   <header class="header">
     <div class="header__blog-intro">
@@ -5,34 +21,17 @@
     </div>
     <div class="header__post">
       <div class="header__post--content">
-        <h2 class="title">Post Title Goes Here</h2>
-        <p class="text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, quasi. Sequi inventore minima exercitationem
-          illum facilis impedit unde rem alias aut praesentium? Similique officia, temporibus quae doloremque illo
-          incidunt deserunt asperiores maiores commodi, enim beatae excepturi fugit natus unde cum? Facilis, aspernatur
-          libero suscipit inventore ullam deserunt voluptate in nesciunt enim sunt nam praesentium debitis vitae beatae
-          sed hic maiores officiis tempore consequatur et cum corrupti quidem delectus corporis. Corrupti dolorem earum
-          vel cum culpa minus officia suscipit totam omnis laudantium incidunt eos similique libero cupiditate illo
-          maiores obcaecati, harum tempore consectetur. Corrupti omnis vel aut ipsa mollitia ullam rerum nesciunt ea
-          itaque ipsam. Quas sapiente illo ullam mollitia vel commodi ipsum assumenda beatae culpa voluptatem, ipsam
-          perferendis illum facilis eaque! Unde suscipit magnam rerum quibusdam cumque aut adipisci eligendi facilis
-          laborum provident vero, nostrum est tempore reiciendis eum corrupti temporibus debitis qui eveniet asperiores
-          illum voluptatum nemo expedita? Harum voluptas similique pariatur optio animi ipsam deserunt porro ad quae
-          aperiam, doloribus totam exercitationem maiores. Nihil libero repellendus reiciendis eaque. Autem, cupiditate
-          nulla blanditiis quibusdam eaque voluptatibus voluptatum, numquam, nihil illum alias necessitatibus suscipit.
-          Harum ipsum sit ex. Accusamus voluptatum nisi enim impedit ea odio tenetur dolorem maxime doloremque obcaecati?
-        </p>
-        <button class="button button-secondary">Read Post</button>
+        <h2 class="title">{{ randomPost.title }}</h2>
+        <p class="text">{{ getSnippet(randomPost.body) }}</p>
+        <NuxtLink :to="`/personal/posts/${randomPost.slug.current}`" class="button button-secondary">Read Post</NuxtLink>
       </div>
     </div>
     <figure class="header__post--img">
-      <img src="@/assets/img/retrosupply-jLwVAUtLOAQ-unsplash.jpg" class="header__img--content" alt="main">
+      <SanityImage :asset-id="randomPost.thumbnail.asset._ref" auto="format" />
     </figure>
   </header>
 </template>
 
-<script setup>
-</script>
 
 <style lang="scss" scoped>
 @use "@/assets/sass/layout/header";

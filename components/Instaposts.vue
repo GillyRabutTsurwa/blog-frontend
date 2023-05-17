@@ -1,6 +1,6 @@
 <script setup>
 const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
-const featuredInstaPosts = randomArray(instaposts.value.data);
+const featuredInstaPosts = ref([]);
 function randomArray(arr) {
   let newArray = [];
   let numofPosts = 9;
@@ -18,6 +18,9 @@ function randomArray(arr) {
   }
   return newArray;
 }
+onMounted(() => {
+  featuredInstaPosts.value = randomArray(instaposts.value.data);
+});
 </script>
 
 <template>
