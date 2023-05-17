@@ -1,16 +1,16 @@
 <script setup>
-const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
+// const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
 const state = reactive({
     posts: [],
     currentPage: 1,
-    postsPerPage: 2
+    postsPerPage: 4
 });
 
 const query = groq`*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
 state.posts = data.value;
 
-console.log(instaposts.value);
+// console.log(instaposts.value);
 // instaposts.value.data.forEach((currentPost) => console.log(currentPost.caption));
 
 const indexOfLastPost = computed(() => {
@@ -30,25 +30,25 @@ onUpdated(() => {
     console.log(currentPosts.value);
 })
 
-function randomArray(arr) {
-    let newArray = [];
-    let numofPosts = 9;
+// function randomArray(arr) {
+//     let newArray = [];
+//     let numofPosts = 9;
 
-    //NOTE: using while loop for the 1st time in a while
-    // whenever the length of the new array is less than the number of posts
-    while (newArray.length < numofPosts) {
-        // generate a random number
-        const randomNumber = Math.round(Math.random() * arr.length - 1);
-        // and if that specific value does not already exist in the eventually returned array
-        if (!newArray.includes(arr[randomNumber])) {
-            // then push that value to that array
-            newArray.push(arr[randomNumber]);
-        }
-    }
-    return newArray;
-}
+//     //NOTE: using while loop for the 1st time in a while
+//     // whenever the length of the new array is less than the number of posts
+//     while (newArray.length < numofPosts) {
+//         // generate a random number
+//         const randomNumber = Math.round(Math.random() * arr.length - 1);
+//         // and if that specific value does not already exist in the eventually returned array
+//         if (!newArray.includes(arr[randomNumber])) {
+//             // then push that value to that array
+//             newArray.push(arr[randomNumber]);
+//         }
+//     }
+//     return newArray;
+// }
 
-const featuredInstaPosts = randomArray(instaposts.value.data);
+// const featuredInstaPosts = randomArray(instaposts.value.data);
 
 // NEW:
 function renderPagination(eventPayload) {
@@ -59,63 +59,18 @@ function renderPagination(eventPayload) {
 
 </script>
 <template>
-    <div class="test">
-        <h2>Posts</h2>
+    <main>
         <PostList :posts="currentPosts" />
-        <aside>
-            <div class="picture-category__category">
-                <h4 class="picture-category__category--title">Category</h4>
-                <ul class="picture-category__category--list">
-                    <li>
-                        <span>Software</span>
-                        <span>(05)</span>
-                    </li>
-                    <li>
-                        <span>Techonology</span>
-                        <span>(02)</span>
-                    </li>
-                    <li>
-                        <span>Lifestyle</span>
-                        <span>(07)</span>
-                    </li>
-                    <li>
-                        <span>Shopping</span>
-                        <span>(01)</span>
-                    </li>
-                    <li>
-                        <span>Food & Leisure</span>
-                        <span>(08)</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="picture-category__category">
-                <h4 class="picture-category__category--title">Instagram</h4>
-                <div class="instagram-images">
-                    <figure v-for="currentInsta in featuredInstaPosts">
-                        <a :href="currentInsta.permalink" target="_blank" rel="noopener noreferrer">
-                            <img :src="currentInsta.media_url" alt="">
-                        </a>
-                    </figure>
-                </div>
-            </div>
-            <div class="picture-category__category">
-                <h4 class="picture-category__category--title">NewsLetter</h4>
-                <form action="">
-                    <input type="text" name="" id="" placeholder="E-mail">
-                    <button type="submit" class="button-secondary" disabled>Subscribe</button>
-                </form>
-            </div>
-        </aside>
         <Pagination :postsPerPage="state.postsPerPage" :postsLength="state.posts.length"
             @paginate="renderPagination($event)" />
-    </div>
+    </main>
 </template>
 
 
 <style lang="scss" scoped>
 .test {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    // display: grid;
+    // grid-template-columns: repeat(2, 1fr);
 
     h2 {
         grid-column: 1 / -1;
@@ -125,60 +80,60 @@ function renderPagination(eventPayload) {
     }
 }
 
-aside {
-    display: flex;
-    flex-direction: column;
-    margin: 3rem 0;
-}
+// aside {
+//     display: flex;
+//     flex-direction: column;
+//     margin: 3rem 0;
+// }
 
-.read-more {
+// .read-more {
 
-    &,
-    &:link,
-    &:visited {
-        text-decoration: none;
-        color: currentColor;
-    }
-}
+//     &,
+//     &:link,
+//     &:visited {
+//         text-decoration: none;
+//         color: currentColor;
+//     }
+// }
 
-.instagram-images {
-    display: grid;
-    grid-template-columns: repeat(3, 15rem);
-    grid-auto-rows: 15rem;
+// .instagram-images {
+//     display: grid;
+//     grid-template-columns: repeat(3, 15rem);
+//     grid-auto-rows: 15rem;
 
-    figure {
-        width: 100%;
-        height: 100%;
+//     figure {
+//         width: 100%;
+//         height: 100%;
 
-        a,
-        img {
-            width: inherit;
-            height: inherit;
-        }
+//         a,
+//         img {
+//             width: inherit;
+//             height: inherit;
+//         }
 
-        img {
-            object-fit: cover;
-            -o-object-fit: cover;
-        }
-    }
-}
+//         img {
+//             object-fit: cover;
+//             -o-object-fit: cover;
+//         }
+//     }
+// }
 
-form {
-    display: flex;
-    flex-direction: column;
+// form {
+//     display: flex;
+//     flex-direction: column;
 
-    input {
-        // outline: none;
-        // border-radius: none;
-        font-size: 1.5rem;
-        color: #13113a;
-        padding: 0 1.5rem;
-        height: 5rem;
+//     input {
+//         // outline: none;
+//         // border-radius: none;
+//         font-size: 1.5rem;
+//         color: #13113a;
+//         padding: 0 1.5rem;
+//         height: 5rem;
 
-        &:focus {
-            outline: none;
-            border-color: #13113a;
-        }
-    }
-}
+//         &:focus {
+//             outline: none;
+//             border-color: #13113a;
+//         }
+//     }
+// }
 </style>

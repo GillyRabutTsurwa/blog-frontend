@@ -5,6 +5,10 @@
     position: relative;
     height: 90vh;
 
+    @include abstracts.breakpoint(1023) {
+        height: 40vh;
+    }
+
     &::after {
         position: absolute;
         top: 0;

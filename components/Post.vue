@@ -24,7 +24,7 @@ const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(480)));
 onMounted(() => {
   if (process.client) toggleElementOnResize(480);
-})
+});
 </script>
 
 <template>

@@ -18,6 +18,7 @@ function getSnippet(blockContent) {
 </script>
 
 <template>
+  <h2>Posts</h2>
   <section class="picture-category">
     <div v-for="currentPost in props.posts" :key="currentPost._id" class="picture-category__caption blog">
       <div class="picture-category__picture">
@@ -30,15 +31,28 @@ function getSnippet(blockContent) {
         <p>{{ getSnippet(currentPost.body) }}</p>
       </div>
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
-        <span>Read More</span> &rarr;
+        <span>Read Post</span> &rarr;
       </NuxtLink>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 // move this
 .read-more {
   text-decoration: none;
+
+  @include abstracts.breakpoint(480) {
+    margin: 0 auto;
+  }
+}
+
+h2 {
+  position: relative;
+  margin-top: 4rem;
+  font-size: 4rem;
+  left: 50%;
 }
 </style>

@@ -27,6 +27,12 @@
     grid-template-rows: repeat(2, -webkit-min-content);
     grid-template-rows: repeat(2, min-content);
 
+    @include abstracts.breakpoint(1023) {
+        grid-template-columns: 1fr;
+        width: 80%;
+        margin: 0 auto;
+    }
+
     &.second {
         grid-template-rows: 54rem -webkit-min-content;
         grid-template-rows: 54rem min-content;
@@ -87,6 +93,11 @@
         -moz-row-gap: 1.25rem;
         row-gap: 1.25rem;
         justify-items: start;
+
+        @include abstracts.breakpoint(480) {
+            grid-template-rows: 20rem repeat(4, -webkit-min-content);
+            grid-template-rows: 20rem repeat(4, min-content);
+        }
 
         &--paragraph {
             margin-bottom: 0;

@@ -40,7 +40,6 @@ function paginatePg(pageNum) {
   display: flex;
   justify-content: center;
   grid-column: 1 / 2;
-  transform: translateY(-19rem); //TESTING
 
   &__item {
     &:not(:last-child) {
