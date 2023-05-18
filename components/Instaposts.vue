@@ -9,7 +9,7 @@ function randomArray(arr) {
   // whenever the length of the new array is less than the number of posts
   while (newArray.length < numofPosts) {
     // generate a random number
-    const randomNumber = Math.round(Math.random() * arr.length - 1);
+    const randomNumber = Math.round(Math.random() * (arr.length - 1));
     // and if that specific value does not already exist in the eventually returned array
     if (!newArray.includes(arr[randomNumber])) {
       // then push that value to that array

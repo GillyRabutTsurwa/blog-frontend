@@ -2,7 +2,7 @@
 const query = groq`*[_type == "personal-post"]`;
 const { data, error } = await useSanityQuery(query);
 const randomPost = computed(() => {
-  return data.value[Math.floor(Math.random() * data.value.length - 1)];
+  return data.value[Math.floor(Math.random() * (data.value.length))];
 });
 console.log(randomPost.value);
 
