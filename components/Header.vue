@@ -11,7 +11,7 @@ function getSnippet(blockContent) {
     .filter(block => block._type === "block")
     .map(block => block.children.map(child => child.text).join(""))
     .join('')
-  return body.slice(0, 1500) + "...";
+  return body.slice(0, 1000) + "...";
 }
 </script>
 <template>

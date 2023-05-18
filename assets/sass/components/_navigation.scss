@@ -8,6 +8,7 @@
     height: 10vh;
     background-color: #f0f0f0;
     padding: 0 1.75rem;
+    background-color: abstracts.$colour-primary;
 
     .logo {
         font-size: 2.5rem;
@@ -31,15 +32,17 @@
             margin-right: 3.25rem;
 
             a {
+                &,
                 &:link,
                 &:visited {
+                    font-size: 1.75rem;
                     text-decoration: none;
-                    color: abstracts.$text-grey-light;
+                    color: abstracts.$whitish;
                 }
 
                 &:hover,
                 &:active {
-                    color: abstracts.$text-grey;
+                    font-weight: bold;
                 }
             }
         }
@@ -55,7 +58,7 @@
                 &:link,
                 &:visited {
                     text-decoration: none;
-                    color: abstracts.$midnight;
+                    color: abstracts.$whitish;
                 }
             }
         }
