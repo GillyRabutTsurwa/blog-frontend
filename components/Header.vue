@@ -1,9 +1,9 @@
 <script setup>
 const query = groq`*[_type == "personal-post"]`;
-const { data, pending, error } = await useLazySanityQuery(query);
+const { data, pending, error } = await useSanityQuery(query);
 pending.value = true; //NOTE: making pending value still true after info has loaded
 const randomPost = computed(() => {
-  return data.value[Math.floor(Math.random() * (data.value.length - 1))];
+  return data.value[Math.floor(Math.random() * (data.value.length))];
 });
 console.log(randomPost.value);
 

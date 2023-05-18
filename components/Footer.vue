@@ -56,7 +56,7 @@ const currentYear = computed(() => {
         <ul class="links-footer__follow">
             <h4 class="links-footer__subtitle">Links</h4>
             <li class="links-footer--item">
-                <NuxtLink to="/inventory">Blogs</NuxtLink>
+                <NuxtLink to="/personal/posts">Blogs</NuxtLink>
             </li>
             <li class="links-footer--item">
                 <NuxtLink to="/authours/gilbert-rabut-tsurwa" target="_blank" rel="noopener noreferrer">About Me</NuxtLink>
