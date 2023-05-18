@@ -46,7 +46,7 @@ onMounted(() => {
             <div class="authour__content--text">
                 <SanityContent :blocks="bio" :serializers="serializers" />
             </div>
-            <button @click="toggleElement">Toggle</button>
+            <button @click="toggleElement" class="button-secondary">Toggle</button>
         </div>
         <div class="authour__assets" v-if="!showElement">
             <figure class="authour__img" v-if="randomNumber % 2 === 0">

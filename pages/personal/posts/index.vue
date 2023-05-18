@@ -1,17 +1,3 @@
-<template>
-  <h3>Personal Posts</h3>
-  <ul>
-    <li v-for="(currentPost) in state.posts" :key="currentPost._id" class="">
-      <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`">
-        <SanityImage :asset-id="currentPost.mainImage.asset._ref" auto="format" />
-        <h4>{{ currentPost.title }}</h4>
-        <p>{{ formatDate(currentPost.publishedAt) }}</p>
-      </NuxtLink>
-    </li>
-  </ul>
-</template>
-    
-    
 <script setup>
 const state = reactive({
   posts: [],
@@ -23,42 +9,22 @@ state.posts = data.value;
 
 const { formatDate } = useFormatDate();
 </script> 
+  
+<template>
+  <div style="display: flex;">
+    <PostList :posts="state.posts" />
+    <div style="display: inherit; flex-direction: column; margin: 4rem 0; width: 100%;">
+      <Categories />
+      <!-- <h4 style="margin-bottom: 5rem;">Spotify Now playing Goes Here</h4> -->
+      <Newsletter />
+    </div>
+  </div>
+</template>
+    
+    
     
 <style scoped>
-ul {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 15rem));
-  padding: 3rem;
-  margin-top: 5rem;
-}
-
-h3 {
-  text-align: center;
+.margin-top {
   margin-top: 4rem;
-  font-size: 1.75rem;
-}
-
-li {
-  text-align: center;
-}
-
-li:hover img,
-li:active img {
-  filter: grayscale(0);
-}
-
-li a,
-li a:link,
-li a:visited {
-  color: currentColor;
-  text-decoration: none;
-}
-
-/* TESTING */
-img {
-  width: 100%;
-  height: 17.5rem;
-  filter: grayscale(100%);
 }
 </style>

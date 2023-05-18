@@ -23,19 +23,19 @@ const goBack = () => (router.back());
     <Logo />
     <ul class="navigation__list">
       <li class="navigation__list--item">
-        <a href="#">Home</a>
+        <NuxtLink to="/personal/posts">Blogs</NuxtLink>
       </li>
       <li class="navigation__list--item">
-        <a href="#">Category</a>
+        <NuxtLink to="/authours/gilbert-rabut-tsurwa">About Me</NuxtLink>
       </li>
       <li class="navigation__list--item">
-        <a href="#">Archive</a>
+        <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer noopener">Portfolio Site</a>
       </li>
       <li class="navigation__list--item">
-        <a href="#">Pages</a>
+        <a href="https://gilbertrabuttsurwa-shop.netlify.app" target="_blank" rel="noreferrer noopener">Shop</a>
       </li>
       <li class="navigation__list--item">
-        <a href="#">Contact Us</a>
+        <NuxtLink to="/contact">Contact Me</NuxtLink>
       </li>
     </ul>
     <ul class="navigation__icons">
