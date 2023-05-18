@@ -1,6 +1,7 @@
 <script setup>
 const query = groq`*[_type == "personal-post"]`;
-const { data, error } = await useSanityQuery(query);
+const { data, pending, error } = await useLazySanityQuery(query);
+pending.value = true; //NOTE: making pending value still true after info has loaded
 const randomPost = computed(() => {
   return data.value[Math.floor(Math.random() * (data.value.length))];
 });
@@ -13,9 +14,16 @@ function getSnippet(blockContent) {
     .join('')
   return body.slice(0, 1000) + "...";
 }
+
+onMounted(() => {
+  setTimeout(() => {
+    pending.value = false;
+  }, 3000);
+})
 </script>
 <template>
-  <header class="header">
+  <Loader v-if="pending" />
+  <header v-else class="header">
     <div class="header__blog-intro">
       <h2>Post of The Day</h2>
     </div>
@@ -33,6 +41,4 @@ function getSnippet(blockContent) {
 </template>
 
 
-<style lang="scss" scoped>
-@use "@/assets/sass/layout/header";
-</style>
+<style lang="scss" scoped></style>

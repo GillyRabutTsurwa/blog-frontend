@@ -1,6 +1,9 @@
 <script setup>
-const { data: instaposts } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
+const { data: instaposts, pending, error } = await useAsyncData("instaposts", () => $fetch("/api/instaposts"));
 const featuredInstaPosts = ref([]);
+
+pending.value = true;
+
 function randomArray(arr) {
   let newArray = [];
   let numofPosts = 9;
@@ -19,11 +22,15 @@ function randomArray(arr) {
   return newArray;
 }
 onMounted(() => {
-  featuredInstaPosts.value = randomArray(instaposts.value.data);
+  setTimeout(() => {
+    featuredInstaPosts.value = randomArray(instaposts.value.data);
+    pending.value = false;
+  }, 3000);
 });
 </script>
 
 <template>
+  <Loader v-if="pending" />
   <div class="picture-category__category">
     <h4 class="picture-category__category--title">Instagram</h4>
     <div class="instagram-images">
