@@ -13,13 +13,6 @@ const currentYear = computed(() => {
 
 <template>
     <footer class="footer dark">
-        <!-- for now -->
-        <!-- <div class="logo">
-            <NuxtLink to="/">
-                <Logo />
-            </NuxtLink>
-        </div> -->
-
         <ul class="links-footer__other-sites">
             <h4 class="links-footer__subtitle">Other Sites</h4>
             <li class="links-footer--item phone">

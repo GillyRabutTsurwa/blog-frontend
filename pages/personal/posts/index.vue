@@ -1,21 +1,15 @@
 <script setup>
-const state = reactive({
-  posts: [],
-});
-
-const query = `*[_type == "personal-post"]`;
-const { data, error } = await useSanityQuery(query);
-state.posts = data.value;
-
-const { formatDate } = useFormatDate();
+import { usePostsStore } from "@/stores/posts";
+const store = usePostsStore();
+store.fetchPosts();
 </script> 
   
 <template>
   <div style="display: flex;">
-    <PostList :posts="state.posts" />
+    <PostList :posts="store.filteredPosts" />
     <div style="display: inherit; flex-direction: column; margin: 4rem 0; width: 100%;">
       <Categories />
-      <!-- <h4 style="margin-bottom: 5rem;">Spotify Now playing Goes Here</h4> -->
+      <h4 style="margin-bottom: 5rem;">Spotify Now playing Goes Here</h4>
       <Newsletter />
     </div>
   </div>

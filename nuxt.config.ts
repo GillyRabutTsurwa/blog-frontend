@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase"],
+    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase", "@pinia/nuxt"],
     sanity: {
         projectId: "g014cs9v",
     },
