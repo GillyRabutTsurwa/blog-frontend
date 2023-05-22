@@ -5,7 +5,7 @@ store.fetchPosts();
 </script> 
   
 <template>
-  <div style="display: flex;">
+  <div class="containertings">
     <PostList :posts="store.filteredPosts" />
     <div style="display: inherit; flex-direction: column; margin: 4rem 0; width: 100%;">
       <Categories />
@@ -17,7 +17,17 @@ store.fetchPosts();
     
     
     
-<style scoped>
+<style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
+.containertings {
+  display: flex;
+
+  @include abstracts.breakpoint(1023) {
+    flex-direction: column;
+  }
+}
+
 .margin-top {
   margin-top: 4rem;
 }
