@@ -10,6 +10,17 @@
     padding: 0 1.75rem;
     background-color: abstracts.$colour-primary;
 
+    @include abstracts.breakpoint(480) {
+        height: 17.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & > *:not(:first-child) {
+            margin-top: 1.25rem;
+        }
+    }
+
     .logo {
         font-size: 2.5rem;
         font-weight: 500;

@@ -6,15 +6,33 @@ const props = defineProps({
   }
 });
 
+const snippetLength = computed(() => {
+  return showElement.value ? 300 : 1000;
+});
+
 const { formatDate } = useFormatDate();
+const { showElement, toggleElementOnResize } = useBreakpoints();
+
 
 function getSnippet(blockContent) {
   const body = blockContent
     .filter(block => block._type === "block")
     .map(block => block.children.map(child => child.text).join(""))
     .join('')
-  return body.slice(0, 500) + "...";
+  return body.slice(0, snippetLength.value) + "...";
 }
+
+if (process.client) {
+  window.addEventListener("resize", () => {
+    toggleElementOnResize(480);
+  })
+};
+
+onMounted(() => {
+  if (process.client) {
+    toggleElementOnResize(480);
+  }
+});
 </script>
 
 <template>
@@ -53,6 +71,10 @@ h2 {
   position: relative;
   margin-top: 4rem;
   font-size: 4rem;
-  left: 50%;
+  left: 46%;
+
+  @include abstracts.breakpoint(480) {
+    left: 37.5%;
+  }
 }
 </style>

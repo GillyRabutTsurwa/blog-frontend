@@ -12,6 +12,7 @@ export const useBreakpoints = () => {
             console.log(`Window is ${maxOrMinWidth === "max-width" ? "over" : "under"} ${breakpointInPx}px`);
             showElement.value = false;
         }
+        console.log(showElement.value);
     };
 
     return {

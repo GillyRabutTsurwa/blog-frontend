@@ -38,6 +38,10 @@ const myClasses = ["personal", "tech"];
   grid-auto-rows: 1fr;
   overflow: hidden;
 
+  @include abstracts.breakpoint(1023) {
+    height: 100%;
+  }
+
   @include abstracts.breakpoint(767) {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, calc(100% / 2));
@@ -71,12 +75,16 @@ const myClasses = ["personal", "tech"];
     display: flex;
     justify-content: center;
     align-items: center;
-    // opacity: 0;
+    opacity: 0;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
-    @media (hover: hover) {
-      opacity: 0;
+    // @media (hover: hover) {
+    //   opacity: 0;
+    // }
+
+    @include abstracts.breakpoint(1023) {
+      opacity: 1;
     }
 
     &--text {
@@ -103,7 +111,7 @@ const myClasses = ["personal", "tech"];
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
-    @media (hover: hover) {
+    @media(hover: hover) {
       -webkit-filter: blur(10px);
       filter: blur(10px);
     }
@@ -112,6 +120,12 @@ const myClasses = ["personal", "tech"];
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    //NEW: don't know if the other code to remove hover dans les écrans plus petits is working
+    @include abstracts.breakpoint(767) {
+      -webkit-filter: none;
+      filter: none;
     }
   }
 
@@ -148,14 +162,13 @@ const myClasses = ["personal", "tech"];
     display: flex;
     justify-content: center;
     align-items: center;
-    // opacity: 0;
+    opacity: 0;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
-    @media (hover: hover) {
-      opacity: 0;
+    @include abstracts.breakpoint(1023) {
+      opacity: 1;
     }
-
 
     &--text {
       position: absolute;
@@ -181,16 +194,21 @@ const myClasses = ["personal", "tech"];
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
 
-    @media (hover: hover) {
+    @media(hover: hover) {
       -webkit-filter: blur(10px);
       filter: blur(10px);
     }
-
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    //NEW
+    @include abstracts.breakpoint(767) {
+      -webkit-filter: none;
+      filter: none;
     }
   }
 

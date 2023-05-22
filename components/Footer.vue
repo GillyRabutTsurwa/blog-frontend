@@ -101,11 +101,14 @@ const currentYear = computed(() => {
     
     
 <style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
 .footer {
     position: relative;
     width: 100%;
     // height: 60rem;
-    height: 45rem;
+    // height: 45rem;
+    padding: 2rem 4rem;
     // padding: 0 4rem;
 
     display: grid;
@@ -116,6 +119,16 @@ const currentYear = computed(() => {
     row-gap: 2.5rem;
     background-color: #104f55;
     color: #fefefe;
+
+    @include abstracts.breakpoint(480) {
+        display: flex;
+        flex-direction: column;
+
+
+        &>*:not(:first-child) {
+            margin-top: 1.25rem;
+        }
+    }
 
     .logo {
         // width: 15rem;
