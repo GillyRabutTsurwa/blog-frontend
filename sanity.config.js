@@ -4,8 +4,8 @@ import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemas";
 
 export default defineConfig({
-    name: "staging",
-    title: "Staging",
+    name: "default",
+    title: "blog",
 
     projectId: "g014cs9v",
     dataset: import.meta.env.VITE_SANITY_ENV,
