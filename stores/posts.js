@@ -5,7 +5,7 @@ export const client = createClient({
     name: "default",
     title: "blog",
     projectId: "g014cs9v",
-    dataset: "staging",
+    dataset: "production",
     apiVersion: "2021-10-21",
 });
 
