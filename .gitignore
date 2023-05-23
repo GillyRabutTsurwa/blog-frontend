@@ -10,3 +10,4 @@ dist
 package-lock.json
 # Local Netlify folder
 .netlify
+sanity.config.js
