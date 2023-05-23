@@ -13,6 +13,6 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 3rem 0;
+    margin: 4rem;
 }
 </style>
