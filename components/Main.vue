@@ -2,7 +2,7 @@
 import { usePostsStore } from '@/stores/posts';
 const state = reactive({
     currentPage: 1,
-    postsPerPage: 4
+    postsPerPage: 8
 });
 const store = usePostsStore();
 await store.fetchPosts();

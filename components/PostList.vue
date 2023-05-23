@@ -38,19 +38,19 @@ onMounted(() => {
 <template>
   <h2>Posts</h2>
   <section class="picture-category">
-    <div v-for="currentPost in props.posts" :key="currentPost._id" class="picture-category__caption blog">
+    <div v-for="(currentPost, index) in props.posts" :key="currentPost._id" class="picture-category__caption blog item">
       <div class="picture-category__picture">
-        <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
+        <!-- <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" /> -->
+        <img :src="`https://source.unsplash.com/random/?nature&${index}`" alt="">
       </div>
-      <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
+      <!-- <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
       <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
       <div class="picture-category__caption--paragraph">
-        <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
         <p>{{ getSnippet(currentPost.body) }}</p>
-      </div>
+      </div> 
       <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
         <span>Read Post</span> &rarr;
-      </NuxtLink>
+      </NuxtLink> -->
     </div>
   </section>
 </template>
