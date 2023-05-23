@@ -1,11 +1,11 @@
 <script setup></script>
 
 <template>
-  <div class="picture-category__category">
-    <h4 class="picture-category__category--title">NewsLetter</h4>
-    <p>My newsletter is still under construction, but if you would like to stay in touch with my blog posts, or just
-      show some support, subscribe. In the meantime, read my blogs and follow me on my socials.</p>
-    <form action="">
+  <div class="newsletter-container">
+    <h4 class="newsletter__title">NewsLetter</h4>
+    <p>If you would like to stay updated with my blog, or simply show some support, consider subscribing to my newsletter.
+    </p>
+    <form action="" class="newsletter__form">
       <input type="text" name="" placeholder="Name">
       <input type="email" name="" id="" placeholder="E-mail">
       <textarea name="" id="" cols="30" rows="10" placeholder="Message (Optional)"></textarea>
@@ -15,37 +15,47 @@
 </template>
 
 <style lang="scss" scoped>
-p {
-  text-align: center;
-  padding: 1rem 9rem;
-}
+.newsletter-container {
+  width: 80%;
+  margin: 4rem auto 0 auto;
 
-form {
-  display: flex;
-  flex-direction: column;
+  h4 {
+    text-align: center;
+    font-size: 3rem;
+  }
 
-  input,
-  textarea {
-    font-size: 1.5rem;
-    color: #13113a;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+  p {
+    text-align: center;
+    padding: 1rem 3rem;
+  }
 
-    &:focus {
-      outline: none;
-      border-color: #13113a;
+  form {
+    display: flex;
+    flex-direction: column;
+
+    input,
+    textarea {
+      font-size: 1.5rem;
+      color: #13113a;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+
+      &:focus {
+        outline: none;
+        border-color: #13113a;
+      }
     }
-  }
 
 
-  input {
-    height: 5rem;
-  }
+    input {
+      height: 5rem;
+    }
 
 
-  button {
-    align-self: center;
-    font-size: 1.6rem;
+    button {
+      align-self: center;
+      font-size: 1.6rem;
+    }
   }
 }
 </style>

@@ -19,9 +19,9 @@ async function testFilter(category) {
 </script>
 
 <template>
-  <div class="picture-category__category">
-    <h4 class="picture-category__category--title">Category</h4>
-    <ul class="picture-category__category--list">
+  <div class="category">
+    <h4 class="category__title">Category</h4>
+    <ul class="category__list">
       <li v-for="currentCategory in categoriesList" :key="currentCategory" @click="testFilter(currentCategory)">
         <span>{{ currentCategory }}</span>
         <span>({{ getNumOfPostsByCategory(currentCategory) }})</span>
@@ -30,4 +30,38 @@ async function testFilter(category) {
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
+.category {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 4rem 0;
+  width: 100%; //TESTING
+
+  &__title {
+    align-self: center;
+  }
+
+  &__list {
+    list-style-type: none;
+    width: 70%;
+    margin-top: 1.5rem;
+
+    li {
+      margin-bottom: 2rem;
+      background-color: abstracts.$colour-primary;
+      color: abstracts.$whitish;
+      // font-weight: bold;
+      padding: 1.1rem 1.5rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+}
+</style>

@@ -42,6 +42,7 @@ onMounted(() => {
 
 .body-tings {
   display: flex;
+  // margin: 2.5rem;
 
   @include abstracts.breakpoint(1023) {
     flex-direction: column;
