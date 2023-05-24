@@ -5,10 +5,9 @@
 
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    // grid-template-columns: 1fr; will be great for responsiveness
-    // -moz-gap: 7rem;
-    gap: 2rem;
     grid-template-rows: repeat(12, 5vw);
+    -moz-gap: 7rem;
+    gap: 2rem;
 
     @include abstracts.breakpoint(1023) {
         grid-template-columns: 1fr;

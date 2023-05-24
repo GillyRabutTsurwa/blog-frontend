@@ -7,7 +7,7 @@ const props = defineProps({
 });
 
 const snippetLength = computed(() => {
-  return showElement.value ? 300 : 1000;
+  return showElement.value ? 300 : 400;
 });
 
 const { formatDate } = useFormatDate();
@@ -44,14 +44,16 @@ onMounted(() => {
         <!-- <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" /> -->
         <img :src="`https://source.unsplash.com/random/?nature&${index}`" alt="">
       </div>
-      <!-- <h3 class="blogs__item--title">{{ currentPost.title }}</h3>
-      <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
-      <div class="blogs__item--snippet">
-        <p>{{ getSnippet(currentPost.body) }}</p>
-      </div> 
-      <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
-        <span>Read Post</span> &rarr;
-      </NuxtLink> -->
+      <div class="blogs__item--content">
+        <h3 class="title">{{ currentPost.title }}</h3>
+        <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
+        <div class="snippet">
+          <p>{{ getSnippet(currentPost.body) }}</p>
+        </div>
+        <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
+          <span>Read Post</span> &rarr;
+        </NuxtLink>
+      </div>
     </div>
   </section>
 </template>
@@ -78,6 +80,11 @@ h2 {
   }
 
   &__item {
+    position: relative;
+
+    &:hover &--content {
+      opacity: 1;
+    }
 
     // TESTING:
     &:nth-child(8n + 1) {
@@ -138,17 +145,42 @@ h2 {
       }
     }
 
-    &--snippet {
-      margin-bottom: 0;
-    }
+    &--content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 3rem;
+      background-color: rgba(0, 0, 0, 0.75);
+      transition: opacity 0.5s ease-in;
+      padding: 1.5rem 3rem;
+      color: abstracts.$whitish;
 
-    .read-more {
-      text-decoration: none;
+      opacity: 0;
 
-      @include abstracts.breakpoint(480) {
-        margin: 0 auto;
+
+      .snippet {
+        margin-bottom: 0;
+        font-size: 1.5rem;
+      }
+
+      .read-more {
+        align-self: center;
+        text-decoration: none;
+
+        @include abstracts.breakpoint(480) {
+          margin: 0 auto;
+        }
       }
     }
+
   }
+
+
+
 }
 </style>
