@@ -41,8 +41,7 @@ onMounted(() => {
     <!-- <div v-for="(currentPost, index) in props.posts" :key="currentPost._id" class="picture-category__caption blog item"> -->
     <div v-for="(currentPost, index) in props.posts" :key="currentPost._id" class="blogs__item">
       <div class="blogs__item--picture">
-        <!-- <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" /> -->
-        <img :src="`https://source.unsplash.com/random/?nature&${index}`" alt="">
+        <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
       </div>
       <div class="blogs__item--content">
         <h3 class="title">{{ currentPost.title }}</h3>
