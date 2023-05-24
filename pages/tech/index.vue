@@ -1,29 +1,48 @@
 <template>
-  <div class="about">
-    <h3 class="about__title">{{ titleCategory }} Posts</h3>
-    <div class="about__text">
-      <SanityContent :blocks="introText" />
-    </div>
-
+  <div>
     <div class="marquee-container" v-if="!showElement">
       <Vue3Marquee :pauseOnHover="true">
-        <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)" class="word"
-          @mouseover="iconHovered = true" @mouseleave="iconHovered = false"></i>
+        <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)"
+          class="word"></i>
       </Vue3Marquee>
     </div>
+    <h2 style="text-align: center;">Posts</h2>
+    <div style="display: flex; align-items: start;">
+      <section class="picture-category">
+        <div v-for="(currentPost, index) in store.posts" :key="currentPost._id" class="picture-category__caption blog">
+          <div class="picture-category__picture">
+            <!-- <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" /> -->
+            <img :src="`https://source.unsplash.com/random/?night,sunset&${index}`" alt="">
 
-    <!-- NOTE: until I learn about links: https://www.sanity.io/guides/portable-text-internal-and-external-links, this will do for now -->
-    <div class="about__links">
-      <NuxtLink to="/tech/posts">Tech Posts</NuxtLink>
-      <NuxtLink to="/personal">Personal Page</NuxtLink>
-      <NuxtLink to="/personal/posts">Personal Posts</NuxtLink>
-      <a href="https://gilbertrabuttsurwa.tech" target="_blank">My Site</a>
+          </div>
+          <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
+          <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
+          <div class="picture-category__caption--paragraph">
+            <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
+            <p>{{ getSnippet(currentPost.body) }}</p>
+          </div>
+          <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
+            <span>Read Post</span> &rarr;
+          </NuxtLink>
+        </div>
+      </section>
+      <Aside />
     </div>
-
   </div>
 </template>
 
 <script setup>
+// NEW
+import { usePostsStore } from '@/stores/posts';
+const store = usePostsStore();
+store.fetchPosts();
+
+// NEW
+definePageMeta({
+  layout: "dark"
+})
+
+
 const query = groq`*[_type == "about"]`;
 const { data } = await useSanityQuery(query);
 const allIntros = data.value;
@@ -64,17 +83,29 @@ const iconNames = [
   ,
 ];
 
-const iconHovered = ref(false);
+const isColoured = ref(true);
 const colouredOrBW = computed(() => {
-  return iconHovered.value === true ? "plain colored" : "plain";
+  return isColoured.value === true ? "plain colored" : "plain";
 });
 
 const setIconName = (iconName) => {
   return `devicon-${iconName}-${colouredOrBW.value}`;
 };
-
 const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(767)));
+
+// NEW
+const { formatDate } = useFormatDate();
+const snippetLength = computed(() => {
+  return showElement.value ? 300 : 400;
+});
+function getSnippet(blockContent) {
+  const body = blockContent
+    .filter(block => block._type === "block")
+    .map(block => block.children.map(child => child.text).join(""))
+    .join('')
+  return body.slice(0, snippetLength.value) + "...";
+}
 
 onMounted(() => {
   if (process.client) toggleElementOnResize(767);
@@ -138,31 +169,6 @@ onMounted(() => {
 
 /* = */
 
-.vue3-marquee {
-  position: absolute;
-}
-
-.vue3-marquee[data-order="1"] {
-  top: 0;
-}
-
-.vue3-marquee[data-order="2"] {
-  width: 100%;
-  top: 0;
-  left: 840px;
-  transform: rotate(90deg);
-}
-
-.vue3-marquee[data-order="3"] {
-  bottom: 0;
-}
-
-.vue3-marquee[data-order="4"] {
-  width: 100%;
-  top: 0;
-  right: 840px;
-  transform: rotate(270deg);
-}
 
 .about__links {
   display: flex;
@@ -234,5 +240,122 @@ onMounted(() => {
 .hide {
   display: none;
   visibility: hidden;
+}
+
+
+
+// NEW
+.picture-category {
+  margin: 3rem 0;
+  padding: 5rem;
+
+  display: grid;
+  grid-template-columns: repeat(2, 55rem);
+  // grid-template-columns: 1fr; will be great for responsiveness
+  -moz-gap: 7rem;
+  gap: 7rem;
+  grid-template-rows: repeat(2, -webkit-min-content);
+  grid-template-rows: repeat(2, min-content);
+
+  @include abstracts.breakpoint(1023) {
+    grid-template-columns: 1fr;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &.second {
+    grid-template-rows: 54rem -webkit-min-content;
+    grid-template-rows: 54rem min-content;
+  }
+
+  &__picture {
+    // WORKS....
+    -o-object-fit: cover;
+    object-fit: cover;
+
+    img {
+      // LIKE GOD!
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__category {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4rem;
+    width: 100%; //TESTING
+
+    &--title {
+      align-self: center;
+    }
+
+    &--list {
+      list-style-type: none;
+      width: 70%;
+      margin-top: 1.5rem;
+
+      li {
+        margin-bottom: 2rem;
+        background-color: abstracts.$colour-primary;
+        color: abstracts.$whitish;
+        font-weight: bold;
+        padding: 1.1rem 1.5rem;
+        border-radius: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__caption {
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: space-between;
+    // // align-items: flex-start;
+    // align-items: flex-start;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 35rem repeat(4, -webkit-min-content);
+    grid-template-rows: 35rem repeat(4, min-content);
+    -moz-row-gap: 1.25rem;
+    row-gap: 1.25rem;
+    justify-items: start;
+
+    @include abstracts.breakpoint(480) {
+      grid-template-rows: 20rem repeat(4, -webkit-min-content);
+      grid-template-rows: 20rem repeat(4, min-content);
+    }
+
+    &--paragraph {
+      margin-bottom: 0;
+    }
+  }
+
+  &__popular-post {
+    display: grid;
+    // grid-template-rows: -webkit-min-content 5rem -webkit-min-content;
+    // grid-template-rows: -webkit-min-content 50rem -webkit-min-content;
+    grid-template-rows: -webkit-min-content 20rem -webkit-min-content;
+    grid-template-rows: min-content 20rem min-content;
+
+    &--thumbnail {
+      -o-object-fit: cover;
+      object-fit: cover;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &--paragraph {
+      font-size: 1.4rem;
+    }
+  }
 }
 </style>

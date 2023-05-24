@@ -29,6 +29,10 @@ const goBack = () => (router.back());
         <NuxtLink to="/authours/gilbert-rabut-tsurwa">About Me</NuxtLink>
       </li>
       <li class="navigation__list--item">
+        <NuxtLink :to="`/${$route.name === 'tech' ? 'personal' : 'tech'}`">{{ $route.name === 'tech' ? 'Personal' : 'Tech'
+        }} Page</NuxtLink>
+      </li>
+      <li class="navigation__list--item">
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer noopener">Portfolio Site</a>
       </li>
       <li class="navigation__list--item">

@@ -21,6 +21,9 @@ const { showElement, toggleElementOnResize } = useBreakpoints();
 if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(1023)));
 
 // NEW
+definePageMeta({
+  layout: "default"
+});
 
 
 onMounted(() => {
@@ -37,7 +40,7 @@ onMounted(() => {
 </template>
   
   
-<style lang="scss">
+<style lang="scss" scoped>
 @use "@/assets/sass/abstracts/" as abstracts;
 
 .body-tings {
