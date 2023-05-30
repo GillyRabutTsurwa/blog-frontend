@@ -8,7 +8,7 @@ export default defineConfig({
     title: "Staging",
 
     projectId: "g014cs9v",
-    dataset: "staging",
+    dataset: import.meta.env.VITE_SANITY_ENV,
 
     plugins: [deskTool(), visionTool()],
 
