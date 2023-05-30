@@ -9,7 +9,7 @@
       <input type="text" name="" placeholder="Name">
       <input type="email" name="" id="" placeholder="E-mail">
       <textarea name="" id="" cols="30" rows="10" placeholder="Message (Optional)"></textarea>
-      <button type="submit" class="button-secondary">Subscribe</button>
+      <Button text="Subscribe" :isLink="false" />
     </form>
   </div>
 </template>

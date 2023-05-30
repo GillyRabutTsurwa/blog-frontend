@@ -48,7 +48,7 @@ onMounted(() => {
       <div class="header__post--content">
         <h2 class="title">{{ randomPost.title }}</h2>
         <p class="text">{{ getSnippet(randomPost.body) }}</p>
-        <NuxtLink :to="`/personal/posts/${randomPost.slug.current}`" class="button button-secondary">Read Post</NuxtLink>
+        <Button isLink :path="`/personal/posts/${randomPost.slug.current}`" />
       </div>
     </div>
     <figure class="header__post--img">

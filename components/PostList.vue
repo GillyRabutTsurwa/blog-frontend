@@ -50,9 +50,7 @@ onMounted(() => {
         <div class="snippet">
           <p>{{ getSnippet(currentPost.body) }}</p>
         </div>
-        <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
-          <span>Read Post</span> &rarr;
-        </NuxtLink>
+        <Button isLink :path="`/personal/posts/${currentPost.slug.current}`" />
       </div>
     </div>
   </section>
@@ -154,6 +152,7 @@ h2 {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      align-items: flex-start;
       padding-bottom: 3rem;
       background-color: rgba(0, 0, 0, 0.75);
       transition: opacity 0.5s ease-in;
@@ -167,17 +166,7 @@ h2 {
         margin-bottom: 0;
         font-size: 1.5rem;
       }
-
-      .read-more {
-        align-self: center;
-        text-decoration: none;
-
-        @include abstracts.breakpoint(480) {
-          margin: 0 auto;
-        }
-      }
     }
-
   }
 
 
