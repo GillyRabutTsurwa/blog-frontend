@@ -1,10 +1,4 @@
-import { createClient } from "@sanity/client";
-
-const config = useRuntimeConfig();
-const client = createClient({
-    projectId: config.public.sanity.projectId,
-    dataset: config.public.sanity.dataset,
-});
+import { client } from "~/sanity.client.nuxt";
 
 export async function fetchPosts() {
     const query = groq`*[_type == "personal-post"]`;

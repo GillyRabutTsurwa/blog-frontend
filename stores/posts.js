@@ -1,13 +1,5 @@
 import { defineStore } from "pinia";
-import { createClient } from "@sanity/client";
-
-export const client = createClient({
-    name: "default",
-    title: "blog",
-    projectId: "g014cs9v",
-    dataset: "production",
-    apiVersion: "2021-10-21",
-});
+import { client } from "~/sanity.client.vite";
 
 export const usePostsStore = defineStore("posts", {
     state: () => {
