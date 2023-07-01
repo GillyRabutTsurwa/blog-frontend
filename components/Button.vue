@@ -19,7 +19,10 @@ const props = defineProps({
   <NuxtLink v-if="props.isLink" :to="`${props.isLink ? props.path : null}`" class="button button-secondary">
     {{ props.text }}
   </NuxtLink>
-  <button v-else class="button-secondary">Subscribe</button>
+  <button v-else class="button button-secondary">{{ props.text }}</button>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+// @use "../assets/sass/components/buttons";
+@import"../assets/sass/components/buttons";
+</style>
