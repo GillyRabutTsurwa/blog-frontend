@@ -1,11 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: ["@nuxtjs/sanity", "@nuxtjs/supabase", "@pinia/nuxt"],
-    sanity: {
-        projectId: "g014cs9v",
-    },
     runtimeConfig: {
+        sanityProjectID: process.env.SANITY_PROJECT_ID,
         instagramAPIKey: process.env.INSTAGRAM_TOKEN,
+
+        public: {
+            sanity: {
+                projectId: process.env.SANITY_PROJECT_ID,
+                dataset: process.env.VITE_SANITY_ENV,
+            },
+        },
+    },
+    sanity: {
+        projectId: process.env.SANITY_PROJECT_ID,
+        dataset: process.env.VITE_SANITY_ENV,
     },
     app: {
         head: {
