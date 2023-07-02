@@ -1,5 +1,11 @@
 <script setup>
 import { usePostsStore } from '@/stores/posts';
+const props = defineProps({
+  listDisplay: {
+    type: String,
+    default: "column"
+  }
+})
 const store = usePostsStore();
 await store.fetchPosts();
 
@@ -24,18 +30,29 @@ function getNumOfPostsByCategory(category) {
 async function testFilter(category) {
   await store.filterPosts(category)
 }
+
+// NOTE: style
+const listStyle = computed(() => {
+  const displayStyle = {
+    display: props.listDisplay === "row" ? "flex" : "block",
+    justifyContent: props.listDisplay === "row" ? "space-around" : ""
+  }
+  return displayStyle;
+})
 </script>
 
 <template>
   <div class="category">
-    <h4 class="category__title">Category</h4>
-    <ul class="category__list">
+    <h4 class="category__title">Categories</h4>
+    <ul class="category__list" :style="listStyle">
       <li @click="store.fetchPosts()">
         <span>All</span>
+        <span>&nbsp;</span>
         <span>({{ store.posts.length }})</span>
       </li>
       <li v-for="currentCategory in categoriesList" :key="currentCategory" @click="testFilter(currentCategory)">
         <span>{{ currentCategory }}</span>
+        <span>&nbsp;</span>
         <span>({{ getNumOfPostsByCategory(currentCategory) }})</span>
       </li>
     </ul>
@@ -55,6 +72,7 @@ async function testFilter(category) {
 
   &__title {
     align-self: center;
+    font-size: 4rem;
   }
 
   &__list {
@@ -75,5 +93,11 @@ async function testFilter(category) {
       cursor: pointer;
     }
   }
+}
+
+// dynamic class
+.row {
+  display: flex;
+  justify-content: space-around;
 }
 </style>
