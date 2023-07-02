@@ -5,8 +5,8 @@ function capitalise(str: string): string {
 }
 
 async function filterPosts<T>(category: string): Promise<T[]> {
-    const posts = await fetchPosts();
-    const filteredPosts = posts.filter((currentPost: any) => currentPost.categories.includes(capitalise(category)));
+    const posts: T[] = await fetchPosts();
+    const filteredPosts: T[] = posts.filter((currentPost: any) => currentPost.categories.includes(capitalise(category)));
     console.log(filteredPosts);
     return filteredPosts;
 }

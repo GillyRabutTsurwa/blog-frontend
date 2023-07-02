@@ -3,11 +3,16 @@ import { usePostsStore } from '@/stores/posts';
 const store = usePostsStore();
 await store.fetchPosts();
 
-
 const categories = store.posts.map((currentPost) => currentPost.categories);
 const categoriesList = computed(() => {
-  return [...new Set(categories.flat())];
+  //NOTE: i think this may have been the issue
+  // if i don't give the posts a category, this array gets populated with a value of undefined for that post
+  // so, therefore, the solution must be to remove the undefined values from this array (in case i forget to add a category to the post)
+  // i do this below
+  return [...new Set(categories.flat())].filter((currentValue) => currentValue !== undefined);
 });
+
+console.log(categoriesList.value);
 
 function getNumOfPostsByCategory(category) {
   return store.posts.filter((currentPost) => currentPost.categories.includes(category)).length;
@@ -20,13 +25,13 @@ async function testFilter(category) {
 
 <template>
   <div class="category">
-    <h4 class="category__title">Category</h4>
+    <!-- <h4 class="category__title">Category</h4>
     <ul class="category__list">
       <li v-for="currentCategory in categoriesList" :key="currentCategory" @click="testFilter(currentCategory)">
         <span>{{ currentCategory }}</span>
         <span>({{ getNumOfPostsByCategory(currentCategory) }})</span>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
