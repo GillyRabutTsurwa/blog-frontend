@@ -15,6 +15,9 @@ const categoriesList = computed(() => {
 console.log(categoriesList.value);
 
 function getNumOfPostsByCategory(category) {
+  //NOTE: site still breaks because this does not (and should not) filter posts that have no category tags
+  // so it's trying to look the the category property from a post that has none, ie undefined
+  // so the solution is to ALWAYS put category tags on all posts
   return store.posts.filter((currentPost) => currentPost.categories.includes(category)).length;
 }
 
@@ -25,13 +28,17 @@ async function testFilter(category) {
 
 <template>
   <div class="category">
-    <!-- <h4 class="category__title">Category</h4>
+    <h4 class="category__title">Category</h4>
     <ul class="category__list">
+      <li @click="store.fetchPosts()">
+        <span>All</span>
+        <span>({{ store.posts.length }})</span>
+      </li>
       <li v-for="currentCategory in categoriesList" :key="currentCategory" @click="testFilter(currentCategory)">
         <span>{{ currentCategory }}</span>
         <span>({{ getNumOfPostsByCategory(currentCategory) }})</span>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 

@@ -6,12 +6,9 @@ store.fetchPosts();
   
 <template>
   <div class="containertings">
+    <Categories class="row" />
     <PostList :posts="store.filteredPosts" />
-    <div style="display: inherit; flex-direction: column; margin: 4rem 0; width: 100%;">
-      <Categories />
-      <h4 style="margin-bottom: 5rem;">Spotify Now playing Goes Here</h4>
-      <Newsletter />
-    </div>
+    <Newsletter />
   </div>
 </template>
     
@@ -22,10 +19,11 @@ store.fetchPosts();
 
 .containertings {
   display: flex;
+  flex-direction: column;
 
-  @include abstracts.breakpoint(1023) {
-    flex-direction: column;
-  }
+  // @include abstracts.breakpoint(1023) {
+  //   flex-direction: column;
+  // }
 }
 
 .margin-top {

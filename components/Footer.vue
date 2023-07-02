@@ -31,7 +31,7 @@ const currentYear = computed(() => {
             <h4 class="links-footer__subtitle">Contact Me</h4>
             <li class="links-footer--item phone">
                 <a href="tel:+5404045270">
-                    <span>540-404-5270</span>
+                    <span>612-450-6115</span>
                 </a>
             </li>
             <li class="links-footer--item email">
@@ -108,12 +108,14 @@ const currentYear = computed(() => {
     width: 100%;
     // height: 60rem;
     // height: 45rem;
-    padding: 2rem 4rem;
+    padding: 20rem 10rem;
     // padding: 0 4rem;
 
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr) 10rem;
+    // grid-template-rows: repeat(2, 1fr) 10rem;
+    grid-template-rows: 1fr 10rem;
+
     place-items: center;
     // align-content: center;
     row-gap: 2.5rem;

@@ -36,6 +36,7 @@ onMounted(() => {
     </figure>
 
     <div class="blog-content">
+      <Button isLink path="/personal/posts/" text="All Posts" />
       <h1 class="blog-content__title">{{ title }}</h1>
       <h3 class="blog-content__author">
         <span>By: </span>
@@ -50,6 +51,7 @@ onMounted(() => {
       <div class="blog-content__description">
         <SanityContent :blocks="body" :serializers="serializers" />
       </div>
+      <Button isLink path="/personal/posts/" text="All Posts" />
     </div>
   </article>
 </template>
@@ -62,7 +64,6 @@ onMounted(() => {
   grid-template-columns: repeat(2, 1fr);
   column-gap: 2rem;
   height: 100vh;
-
 
   @include abstracts.breakpoint(1023) {
     grid-template-columns: 1fr;
@@ -97,7 +98,7 @@ onMounted(() => {
 
   .blog-content {
     position: relative;
-    padding: 0 3rem 2rem 3rem;
+    padding: 4rem 3rem 2rem 3rem;
     overflow: hidden scroll;
 
     @include abstracts.breakpoint(1023) {

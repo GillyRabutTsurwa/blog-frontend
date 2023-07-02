@@ -71,6 +71,21 @@ h2 {
 
 // =====================================
 .blogs {
+  margin: 3rem 0;
+  padding: 5rem;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(12, 5vw);
+  -moz-gap: 7rem;
+  gap: 2rem;
+
+  @include abstracts.breakpoint(1023) {
+    grid-template-columns: 1fr;
+    width: 80%;
+    margin: 0 auto;
+  }
+
   &.second {
     grid-template-rows: 54rem -webkit-min-content;
     grid-template-rows: 54rem min-content;
@@ -160,14 +175,24 @@ h2 {
 
       opacity: 0;
 
+      .title {
+        font-size: 2.5rem;
+      }
+
 
       .snippet {
         margin: 1rem 0 0 0;
         font-size: 1.5rem;
 
         p {
-          line-height: 1 !important;
+          line-height: 1.175 !important;
+          margin-bottom: 0;
         }
+      }
+
+      // NOTE: nuxt link button component
+      a {
+        margin: 2rem auto 0 auto;
       }
     }
   }
