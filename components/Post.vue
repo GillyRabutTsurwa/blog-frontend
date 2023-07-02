@@ -14,9 +14,11 @@ const { formatDate } = useFormatDate();
  * more on resolveComponent helper function here: https://vuejs.org/api/render-function.html#resolvecomponent
  */
 const CustomText = resolveComponent("CustomText");
+const CustomLink = resolveComponent("CustomLink");
 const serializers = {
   types: {
-    text: CustomText
+    text: CustomText,
+    link: CustomLink //NOTE: it works
   }
 }
 
