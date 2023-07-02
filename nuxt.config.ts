@@ -4,23 +4,29 @@ export default defineNuxtConfig({
     runtimeConfig: {
         sanityProjectID: process.env.VITE_SANITY_PROJECT_ID,
         instagramAPIKey: process.env.INSTAGRAM_TOKEN,
-
-        // public: {
-        //     sanity: {
-        //         projectId: process.env.VITE_SANITY_PROJECT_ID,
-        //         dataset: process.env.VITE_SANITY_ENV,
-        //         apiVersion: process.env.VITE_SANITY_API_VERSION,
-        //         useCdn: false,
-        //     },
-        // },
+        // NOTE: ok. it seems both pieces of code do the same thing
+        // so i can have the sanity config code here...
+        // ... or below where I have commented it out
+        // tested it multiple times.
+        // if i comment both of them out, they break (test)
+        // i will decide which piece i want to keep
+        // will keep the one that is more comprehensive to me
+        public: {
+            sanity: {
+                projectId: process.env.VITE_SANITY_PROJECT_ID,
+                dataset: process.env.VITE_SANITY_ENV_STAGE,
+                apiVersion: process.env.VITE_SANITY_API_VERSION,
+                useCdn: false,
+            },
+        },
     },
     // NOTE: wait, i don't need this if it's specified above?
-    sanity: {
-        projectId: process.env.VITE_SANITY_PROJECT_ID,
-        dataset: process.env.VITE_SANITY_ENV,
-        apiVersion: process.env.VITE_SANITY_API_VERSION,
-        useCdn: false,
-    },
+    // sanity: {
+    //     projectId: process.env.VITE_SANITY_PROJECT_ID,
+    //     dataset: process.env.VITE_SANITY_ENV,
+    //     apiVersion: process.env.VITE_SANITY_API_VERSION,
+    //     useCdn: false,
+    // },
     app: {
         head: {
             meta: [
