@@ -14,7 +14,7 @@ export default defineNuxtConfig({
         public: {
             sanity: {
                 projectId: process.env.VITE_SANITY_PROJECT_ID,
-                dataset: process.env.VITE_SANITY_ENV_STAGE,
+                dataset: process.env.VITE_SANITY_ENV_PROD,
                 apiVersion: process.env.VITE_SANITY_API_VERSION,
                 useCdn: false,
             },
