@@ -185,7 +185,8 @@ h2 {
         font-size: 1.5rem;
 
         p {
-          line-height: 1.175 !important;
+          font-size: 1.65rem;
+          line-height: 1.175;
           margin-bottom: 0;
         }
       }
