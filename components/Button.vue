@@ -11,55 +11,53 @@ const props = defineProps({
   path: {
     type: String,
     required: false
+  },
+  colourPrimary: {
+    type: String,
+    required: false
+  },
+  colourSecondary: {
+    type: String,
+    required: true
+  }
+});
+
+//NEW
+const isHovered = ref(false)
+
+//NEW
+const btnStyles = computed(() => {
+  return {
+    backgroundColor: isHovered.value ? props.colourSecondary : props.colourPrimary,
+    color: isHovered.value ? props.colourPrimary : props.colourSecondary,
   }
 })
 </script>
 
 <template>
-  <NuxtLink v-if="props.isLink" :to="`${props.isLink ? props.path : null}`" class="button button-secondary">
+  <NuxtLink @mouseover="isHovered = true" @mouseleave="isHovered = false" v-if="props.isLink"
+    :to="`${props.isLink ? props.path : null}`" class="button" :style="btnStyles">
     {{ props.text }}
   </NuxtLink>
-  <button v-else class="button button-secondary">{{ props.text }}</button>
+  <button @mouseover="isHovered = true" @mouseleave="isHovered = false" v-else class="button" :style="btnStyles">
+    {{ props.text }}
+  </button>
 </template>
 
 <style lang="scss" scoped>
 @use "../assets/sass/abstracts/" as abstracts;
 
 .button {
-  padding: 2.5rem 3.5rem;
+  @include abstracts.button-config(1.5rem, 2.2rem, 0.5rem);
+  font-size: 1.6rem;
+  border: 2px solid transparent;
+  transition: transform 0.5s ease;
 
-  &-primary {
-    @include abstracts.button-config(1.5rem, 3.5rem, 3rem);
-    font-size: 1.5rem;
-
-    background-color: abstracts.$colour-primary;
-    color: abstracts.$whitish;
-    transition: transform 0.5s ease;
-
-    &:active {
-      transform: translateY(0.5rem);
-    }
-  }
-
-  &-secondary {
-
-    &,
-    &:link,
-    &:active {
-      @include abstracts.button-config(1rem, 2.2rem, 0.5rem);
-      background-color: abstracts.$colour-primary;
-      color: abstracts.$whitish;
-    }
-
-    &:hover,
-    &:active {
-      background-color: abstracts.$whitish;
-      color: abstracts.$colour-primary;
-    }
-
-    span {
-      padding-right: 0.15rem;
-    }
+  //NOTE: ça, je vais faire avec css et pas Javascript. pour mes besoins
+  // dans ce cas-ci, je veux que la couleur du contour ne change pas
+  &:hover,
+  &:active {
+    border: 2px solid abstracts.$colour-primary;
   }
 }
 </style>
