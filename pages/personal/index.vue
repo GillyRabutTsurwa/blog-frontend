@@ -1,42 +1,58 @@
 <script setup>
-// sanity logic
-const query = groq`*[_type == "about"]`;
-const { data } = await useSanityQuery(query);
-const allIntros = data.value;
-const techIntro = allIntros.find((currentIntro) => {
-  return currentIntro.aboutTitle.includes("Personal");
+import { usePostsStore } from '@/stores/posts';
+
+const state = reactive({
+  currentPage: 1,
+  postsPerPage: 8
 });
-const introText = techIntro.aboutText;
+const store = usePostsStore();
+await store.fetchPosts();
 
-const user = useSupabaseUser();
 
-const route = useRoute();
-const routeName = route.name;
-
-const titleCategory = computed(() => {
-  return routeName.charAt(0).toUpperCase() + routeName.slice(1);
+const indexOfLastPost = computed(() => {
+  return state.currentPage * state.postsPerPage;
 });
 
-const { showElement, toggleElementOnResize } = useBreakpoints();
-if (process.client) window.addEventListener("resize", () => (toggleElementOnResize(1023)));
+const indexOfFirstPost = computed(() => {
+  return indexOfLastPost.value - state.postsPerPage;
+});
 
-// NEW
+const currentPosts = computed(() => {
+  return store.filteredPosts.slice(indexOfFirstPost.value, indexOfLastPost.value);
+});
+
+function renderPagination(eventPayload) {
+  state.currentPage = eventPayload;
+  console.log(eventPayload);
+}
+
 definePageMeta({
   layout: "default"
 });
 
+// onMounted(() => {
+//   if (process.client) toggleElementOnResize(1023);
+// });
 
-onMounted(() => {
-  if (process.client) toggleElementOnResize(1023);
+onUpdated(() => {
+  console.log(currentPosts.value);
 })
 </script>
 
 <template>
   <Header />
-  <div class="body-tings">
-    <Main />
+  <FlexContainer>
+    <Main>
+      <template v-slot:post-list>
+        <PostsPersonal :posts="currentPosts" />
+      </template>
+      <template v-slot:pagination>
+        <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredPosts.length"
+          @paginate="renderPagination($event)" />
+      </template>
+    </Main>
     <Aside />
-  </div>
+  </FlexContainer>
 </template>
   
   

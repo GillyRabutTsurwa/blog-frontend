@@ -34,7 +34,7 @@ function renderPagination(eventPayload) {
 <template>
   <div class="containertings">
     <Categories listDisplay="row" />
-    <PostList :posts="store.filteredPosts" />
+    <PostsPersonal :posts="store.filteredPosts" />
     <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredPosts.length"
       @paginate="renderPagination($event)" />
     <Newsletter />

@@ -51,7 +51,7 @@ onMounted(() => {
       <div class="blog-content__description">
         <SanityContent :blocks="body" :serializers="serializers" />
       </div>
-      <Button isLink path="/personal/posts/" text="All Posts" />
+      <Button isLink path="/personal/posts/" text="All Posts" colourPrimary="#104f55" colourSecondary="#f0f0f0" />
     </div>
   </article>
 </template>

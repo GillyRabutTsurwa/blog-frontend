@@ -9,21 +9,18 @@
     <h2 style="text-align: center;">Posts</h2>
     <div style="display: flex; align-items: start;">
       <section class="picture-category">
-        <div v-for="(currentPost, index) in store.posts" :key="currentPost._id" class="picture-category__caption blog">
+        <div v-for="(currentPost, index) in store.techPosts" :key="currentPost._id"
+          class="picture-category__caption blog">
           <div class="picture-category__picture">
-            <!-- <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" /> -->
-            <img :src="`https://source.unsplash.com/random/?night,sunset&${index}`" alt="">
-
+            <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
           </div>
           <h3 class="picture-category__caption--title">{{ currentPost.title }}</h3>
           <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
           <div class="picture-category__caption--paragraph">
-            <!-- <SanityContent :blocks="currentPost.body" :serializers="serializers" /> -->
             <p>{{ getSnippet(currentPost.body) }}</p>
           </div>
-          <NuxtLink :to="`/personal/posts/${currentPost.slug.current}`" class="button-secondary read-more">
-            <span>Read Post</span> &rarr;
-          </NuxtLink>
+          <Button isLink :path="`/tech/posts/${currentPost.slug.current}`" colourPrimary="#104f55"
+            colourSecondary="#f0f0f0" />
         </div>
       </section>
       <Aside />
@@ -35,7 +32,7 @@
 // NEW
 import { usePostsStore } from '@/stores/posts';
 const store = usePostsStore();
-store.fetchPosts();
+store.fetchTechPosts();
 
 // NEW
 definePageMeta({

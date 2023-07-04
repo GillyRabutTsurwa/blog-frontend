@@ -32,9 +32,8 @@ function renderPagination(eventPayload) {
 </script>
 <template>
     <main>
-        <PostList :posts="currentPosts" />
-        <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredPosts.length"
-            @paginate="renderPagination($event)" />
+        <slot name="post-list"></slot>
+        <slot name="pagination"></slot>
     </main>
 </template>
 
