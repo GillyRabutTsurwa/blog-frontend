@@ -6,7 +6,7 @@ const props = defineProps({
   },
   isLink: {
     type: Boolean,
-    default: true
+    default: false
   },
   path: {
     type: String,

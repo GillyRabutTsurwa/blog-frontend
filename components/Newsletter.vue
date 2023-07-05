@@ -8,8 +8,8 @@
     <form action="" class="newsletter__form">
       <input type="text" name="" placeholder="Name">
       <input type="email" name="" id="" placeholder="E-mail">
-      <textarea name="" id="" cols="30" rows="10" placeholder="Message (Optional)"></textarea>
-      <Button text="Subscribe" :isLink="false" />
+      <textarea name="" id="" cols="30" rows="10" placeholder="Leave me a nice message (Optional)"></textarea>
+      <Button text="Subscribe" colourPrimary="#104f55" colourSecondary="#f0f0f0" />
     </form>
   </div>
 </template>
@@ -35,7 +35,8 @@
 
     input,
     textarea {
-      font-size: 1.5rem;
+      font-family: inherit;
+      font-size: 1.9rem;
       color: #13113a;
       padding: 1.5rem;
       margin-bottom: 2rem;
