@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase", "@pinia/nuxt"],
+    modules: ["@nuxtjs/sanity", "@nuxtjs/supabase", "@nuxtjs/google-fonts", "@pinia/nuxt"],
     runtimeConfig: {
         sanityProjectID: process.env.VITE_SANITY_PROJECT_ID,
         instagramAPIKey: process.env.INSTAGRAM_TOKEN,
@@ -67,27 +67,11 @@ export default defineNuxtConfig({
                     name: "author",
                     content: "Gilbert Rabut Tsurwa",
                 },
-                // ============================================================================================================
             ],
             link: [
                 {
                     rel: "stylesheet",
                     href: "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css",
-                },
-                // NEW: adding fonts
-                {
-                    rel: "preconnect",
-                    href: "https://fonts.googleapis.com",
-                },
-                {
-                    rel: "preconnect",
-                    href: "https://fonts.gstatic.com",
-                    // @ts-ignore - google fonts has this value as an empty string, but using null shows an error. faites-entrer @ts-ignore
-                    crossorigin: null,
-                },
-                {
-                    rel: "stylesheet",
-                    href: "https://fonts.googleapis.com/css2?family=Abel&family=League+Spartan:wght@200;300;400;600;700&family=Lexend+Deca:wght@100;300;400;500&display=swap",
                 },
             ],
             script: [
@@ -99,4 +83,17 @@ export default defineNuxtConfig({
         },
     },
     css: ["@/assets/sass/main.scss"],
+    googleFonts: {
+        display: "swap",
+        preconnect: true,
+        families: {
+            Abel: true,
+            "League+Spartan": {
+                wght: [200, 300, 400, 600, 700],
+            },
+            "Lexend+Deca": {
+                wght: [100, 300, 400, 500],
+            },
+        },
+    },
 });

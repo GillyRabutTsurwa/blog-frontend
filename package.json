@@ -10,6 +10,7 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
+    "@nuxtjs/google-fonts": "^3.0.1",
     "@nuxtjs/supabase": "^0.3.1",
     "@storybook/addon-essentials": "^7.0.18",
     "@storybook/addon-interactions": "^7.0.18",
