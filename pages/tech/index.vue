@@ -1,24 +1,15 @@
-<template>
-  <div>
-    <div class="marquee-container" v-if="!showElement">
-      <Vue3Marquee :pauseOnHover="true">
-        <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)"
-          class="word"></i>
-      </Vue3Marquee>
-    </div>
-    <h2 style="text-align: center;">Posts</h2>
-    <div style="display: flex; align-items: start;">
-      <PostsTech :posts="store.techPosts" />
-      <Aside />
-    </div>
-  </div>
-</template>
-
 <script setup>
 // NEW
 import { usePostsStore } from '@/stores/posts';
+
+const state = reactive({
+  currentPage: 1,
+  postsPerPage: 8
+});
+
 const store = usePostsStore();
 store.fetchTechPosts();
+
 
 // NEW
 definePageMeta({
@@ -94,7 +85,48 @@ onMounted(() => {
   if (process.client) toggleElementOnResize(767);
 })
 
+// NEW: Pagination code
+const indexOfLastPost = computed(() => {
+  return state.currentPage * state.postsPerPage;
+});
+
+const indexOfFirstPost = computed(() => {
+  return indexOfLastPost.value - state.postsPerPage;
+});
+
+const currentPosts = computed(() => {
+  return store.filteredPosts.slice(indexOfFirstPost.value, indexOfLastPost.value);
+});
+
+function renderPagination(eventPayload) {
+  state.currentPage = eventPayload;
+  console.log(eventPayload);
+}
 </script>
+
+<template>
+  <div>
+    <div class="marquee-container" v-if="!showElement">
+      <Vue3Marquee :pauseOnHover="true">
+        <i v-for="(currentIconName, index) in iconNames" :key="index" :class="setIconName(currentIconName)"
+          class="word"></i>
+      </Vue3Marquee>
+    </div>
+    <FlexContainer>
+      <Main>
+        <template v-slot:post-list>
+          <PostsTech :posts="store.techPosts" />
+        </template>
+        <template v-slot:pagination>
+          <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredTechPosts.length"
+            @paginate="renderPagination($event)" />
+        </template>
+      </Main>
+      <Aside />
+    </FlexContainer>
+  </div>
+</template>
+
 
 <style lang="scss" scoped>
 @use "@/assets/sass/abstracts/" as abstracts;

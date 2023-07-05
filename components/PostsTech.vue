@@ -40,6 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
+    <h2>Posts</h2>
     <section class="picture-category">
         <div v-for="(currentPost, index) in store.techPosts" :key="currentPost._id" class="picture-category__caption blog">
             <div class="picture-category__picture">
@@ -59,6 +60,18 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use "@/assets/sass/abstracts/" as abstracts;
+
+h2 {
+    position: relative;
+    margin-top: 4rem;
+    font-size: 4rem;
+    left: 46%;
+    bottom: 5rem;
+
+    @include abstracts.breakpoint(480) {
+        left: 37.5%;
+    }
+}
 
 .picture-category {
     margin: 3rem 0;
