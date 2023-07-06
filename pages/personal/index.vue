@@ -26,13 +26,18 @@ function renderPagination(eventPayload) {
   console.log(eventPayload);
 }
 
-definePageMeta({
-  layout: "default"
-});
+const { pixels, toggleElementOnResize } = useBreakpoints();
 
-// onMounted(() => {
-//   if (process.client) toggleElementOnResize(1023);
-// });
+
+const flexDir = ref("");
+onMounted(() => {
+  if (process.client) {
+    const mediaQueryList = window.matchMedia("(max-width: 1023px)");
+    console.log(mediaQueryList);
+    flexDir.value = mediaQueryList.matches ? "column" : "row";
+
+  }
+});
 
 onUpdated(() => {
   console.log(currentPosts.value);
@@ -41,7 +46,7 @@ onUpdated(() => {
 
 <template>
   <Header />
-  <FlexContainer>
+  <FlexContainer :layout="flexDir">
     <Main>
       <template v-slot:post-list>
         <PostsPersonal :posts="currentPosts" />

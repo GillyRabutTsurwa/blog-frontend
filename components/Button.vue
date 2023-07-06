@@ -52,6 +52,7 @@ const btnStyles = computed(() => {
   font-size: 1.6rem;
   border: 2px solid transparent;
   transition: transform 0.5s ease;
+  font-family: inherit;
 
   //NOTE: ça, je vais faire avec css et pas Javascript. pour mes besoins
   // dans ce cas-ci, je veux que la couleur du contour ne change pas

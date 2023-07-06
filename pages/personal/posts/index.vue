@@ -32,13 +32,13 @@ function renderPagination(eventPayload) {
 </script> 
   
 <template>
-  <div class="containertings">
+  <FlexContainer layout="column">
     <Categories listDisplay="row" />
     <PostsPersonal :posts="store.filteredPosts" />
     <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredPosts.length"
       @paginate="renderPagination($event)" />
     <Newsletter />
-  </div>
+  </FlexContainer>
 </template>
     
     

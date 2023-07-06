@@ -82,6 +82,8 @@ h2 {
 
   @include abstracts.breakpoint(1023) {
     grid-template-columns: 1fr;
+    grid-template-rows: unset;
+    grid-auto-rows: 50rem;
     width: 80%;
     margin: 0 auto;
   }
@@ -93,6 +95,11 @@ h2 {
 
   &__item {
     position: relative;
+
+    @include abstracts.breakpoint(1023) {
+      grid-column: 1 / -1 !important;
+      grid-row: auto !important;
+    }
 
     &:hover &--content {
       opacity: 1;
@@ -139,10 +146,10 @@ h2 {
       grid-row: 10 / 13;
     }
 
-    @include abstracts.breakpoint(480) {
-      grid-template-rows: 20rem repeat(4, -webkit-min-content);
-      grid-template-rows: 20rem repeat(4, min-content);
-    }
+    // @include abstracts.breakpoint(480) {
+    //   grid-template-rows: 20rem repeat(4, -webkit-min-content);
+    //   grid-template-rows: 20rem repeat(4, min-content);
+    // }
 
 
     &--picture {
