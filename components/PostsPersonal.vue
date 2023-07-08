@@ -39,9 +39,9 @@ onMounted(() => {
   <h2>Posts</h2>
   <section class="blogs">
     <div v-for="(currentPost, index) in props.posts" :key="currentPost._id" class="blogs__item">
-      <div class="blogs__item--picture">
+      <figure class="blogs__item--picture">
         <SanityImage :asset-id="currentPost.thumbnail.asset._ref" auto="format" />
-      </div>
+      </figure>
       <div class="blogs__item--content">
         <h3 class="title">{{ currentPost.title }}</h3>
         <h5 style="font-weight: 500;">{{ formatDate(currentPost.publishedAt) }}</h5>
@@ -204,8 +204,5 @@ h2 {
       }
     }
   }
-
-
-
 }
 </style>

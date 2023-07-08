@@ -81,10 +81,6 @@ function getSnippet(blockContent) {
   return body.slice(0, snippetLength.value) + "...";
 }
 
-onMounted(() => {
-  if (process.client) toggleElementOnResize(767);
-})
-
 // NEW: Pagination code
 const indexOfLastPost = computed(() => {
   return state.currentPage * state.postsPerPage;
@@ -102,6 +98,17 @@ function renderPagination(eventPayload) {
   state.currentPage = eventPayload;
   console.log(eventPayload);
 }
+
+const flexDir = ref("");
+
+onMounted(() => {
+  if (process.client) {
+    toggleElementOnResize(767);
+    const mediaQueryList = window.matchMedia("(max-width: 1023px)");
+    console.log(mediaQueryList);
+    flexDir.value = mediaQueryList.matches ? "column" : "row";
+  }
+})
 </script>
 
 <template>
@@ -112,7 +119,7 @@ function renderPagination(eventPayload) {
           class="word"></i>
       </Vue3Marquee>
     </div>
-    <FlexContainer>
+    <FlexContainer :layout="flexDir">
       <Main>
         <template v-slot:post-list>
           <PostsTech :posts="store.techPosts" />

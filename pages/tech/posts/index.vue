@@ -1,45 +1,61 @@
-<template>
-  <div style="display: grid; place-items: center; height: 100%; overflow: hidden;">
-    <!-- <h4>Tech Posts</h4>
-    <div v-for="(currentPost) in state.posts" :key="currentPost._id">
-      <NuxtLink :to="`/tech/posts/${currentPost.slug.current}`">
-        <SanityImage :asset-id="currentPost.mainImage.asset._ref" auto="format" />
-        <h4>{{ currentPost.title }}</h4>
-      </NuxtLink>
-    </div> -->
-    <h2 style="font-size: 7rem">
-      <span style="display: block;">Tech Posts Coming Soon</span>
-      <span @click="goBack" style="font-size: 3rem; text-decoration: underline; cursor: pointer;">Go Back</span>
-    </h2>
-  </div>
-</template>
-  
-  
 <script setup>
+import { usePostsStore } from "@/stores/posts";
+const store = usePostsStore();
+store.fetchTechPosts();
+
 const state = reactive({
-  posts: [],
+  currentPage: 1,
+  postsPerPage: 8
 });
 
-// NOTE: temporary
-const router = useRouter();
+const indexOfLastPost = computed(() => {
+  return state.currentPage * state.postsPerPage;
+});
 
-const query = groq`*[_type == "tech-post"]`;
-const { data, error } = await useSanityQuery(query);
-state.posts = data.value;
+const indexOfFirstPost = computed(() => {
+  return indexOfLastPost.value - state.postsPerPage;
+});
 
-//TODO: put this into a composable. as I'm using it elsewhere
-const formatDate = (currentDate) => {
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  return new Date(currentDate).toLocaleDateString("en-GB", options);
-};
+// this signifies the current posts on the page
+const currentPosts = computed(() => {
+  return store.filteredTechPosts.slice(indexOfFirstPost.value, indexOfLastPost.value);
+});
 
-const goBack = () => {
-  router.back();
+onUpdated(() => {
+  console.log(currentPosts.value);
+})
+
+function renderPagination(eventPayload) {
+  state.currentPage = eventPayload;
+  console.log(eventPayload);
 }
-</script>
+</script> 
   
-<style></style>
+<template>
+  <FlexContainer layout="column">
+    <Categories listDisplay="row" />
+    <PostsTech :posts="store.filteredTechPosts" />
+    <Pagination :postsPerPage="state.postsPerPage" :postsLength="store.filteredPosts.length"
+      @paginate="renderPagination($event)" />
+    <!-- <Newsletter /> NOTE: je suis pas sur que je vais le rendre ici ou pas -->
+  </FlexContainer>
+</template>
+    
+    
+    
+<style lang="scss" scoped>
+@use "@/assets/sass/abstracts" as abstracts;
+
+.containertings {
+  display: flex;
+  flex-direction: column;
+
+  // @include abstracts.breakpoint(1023) {
+  //   flex-direction: column;
+  // }
+}
+
+.margin-top {
+  margin-top: 4rem;
+}
+</style>
