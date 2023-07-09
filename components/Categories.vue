@@ -68,7 +68,7 @@ const listStyle = computed(() => {
   justify-content: flex-start;
   align-items: center;
   margin: 4rem 0;
-  width: 100%; //TESTING
+  width: inherit;
 
   &__title {
     align-self: center;
