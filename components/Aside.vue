@@ -14,5 +14,6 @@ aside {
     flex-direction: column;
     justify-content: center;
     margin: 4rem;
+    width: 50rem;
 }
 </style>
