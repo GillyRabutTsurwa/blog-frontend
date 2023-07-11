@@ -1,17 +1,24 @@
 <script setup>
+import hljs from "highlight.js";
+// import "../node_modules/highlight.js/styles/night-owl.css";
+import "@/node_modules/highlight.js/styles/night-owl.css";
+
+
 const props = defineProps({
     code: {
-        type: Object,
+        type: String, //NOTE: oops, forgot to revert it to String
         // required: true,
     },
     language: {
         type: String
     }
 });
-// const codeNode = computed(() => {
-//     return props.block.code;
-// });
-// console.log(codeNode.value);
+useHead({
+    // script: [{ innerHTML: 'hljs.highlightAll();' }]
+});
+onMounted(() => {
+    hljs.highlightAll();
+})
 console.log(props);
 </script>
 
@@ -19,7 +26,6 @@ console.log(props);
     <pre>
       <code :class="`language-${props.language}`">{{ props.code }}</code>
     </pre>
-    <slot></slot>
 </template>
   
   
