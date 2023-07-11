@@ -15,10 +15,12 @@ const { formatDate } = useFormatDate();
  */
 const CustomText = resolveComponent("CustomText");
 const CustomLink = resolveComponent("CustomLink");
+const CustomCode = resolveComponent("CustomCode");
 const serializers = {
   types: {
     text: CustomText,
-    link: CustomLink //NOTE: it works
+    link: CustomLink, //NOTE: it works
+    code: CustomCode
   }
 }
 
