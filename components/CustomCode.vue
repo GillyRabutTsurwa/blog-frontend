@@ -11,11 +11,13 @@ const props = defineProps({
     },
     language: {
         type: String
+    },
+    filename: {
+        type: String
     }
 });
-useHead({
-    // script: [{ innerHTML: 'hljs.highlightAll();' }]
-});
+const code = ref(null); //this will be parsed code
+
 onMounted(() => {
     hljs.highlightAll();
 })
@@ -23,17 +25,22 @@ console.log(props);
 </script>
 
 <template>
-    <span class="indicator">{{ props.language }}</span>
     <pre>
-        <code :class="`language-${props.language}`">{{ props.code }}</code>
+        <code :class="`language-${props.language}`" :data-language="props.language">{{ props.code }}</code>
     </pre>
 </template>
   
 <style lang="scss" scoped>
-.indicator {
+code {
+    // NOTE: styling that will display indicator as intended and NOT affect general styling provided by package
     position: relative;
-    left: 90%;
-    top: 5.5rem;
-    color: whitesmoke;
+
+    &::after {
+        content: attr(data-language);
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: #f0f0f0;
+    }
 }
 </style>
