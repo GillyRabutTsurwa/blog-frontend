@@ -1,4 +1,6 @@
-<script setup>
+<script setup lang="ts">
+const { data: user } = await useFetch("/api/session");
+console.log(user.value);
 const { status, signIn, signOut } = useAuth();
 const router = useRouter();
 const logOut = async () => {
@@ -39,37 +41,16 @@ const goBack = () => (router.back());
         <NuxtLink to="/contact">Contact Me</NuxtLink>
       </li>
     </ul>
-    <ul class="navigation__icons">
-      <li class="navigation__icons--icon">
-        <a href="https://www.facebook.com/rabuttsurwa" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-facebook-f"></i>
-        </a>
+    <ul class="navigation__list">
+      <!-- account username -->
+      <li v-if="isLoggedIn" class="navigation__list--item">
+        <span class="username">{{ user.user.name }}</span>
       </li>
-      <li class="navigation__icons--icon">
-        <a href="https://www.instagram.com/rabuttsurwa96" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-instagram"></i>
-        </a>
-      </li>
-      <li class="navigation__icons--icon">
-        <a href="https://www.instagram.com/rabuttsurwa96" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="navigation__icons--icon">
-        <a href="https://open.spotify.com/user/tsurwagilly" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-spotify"></i>
-        </a>
-      </li>
-      <li class="navigation__icons--icon">
-        <a href="https://www.linkedin.com/in/gilberttsurwa" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </li>
-      <li v-if="isLoggedIn">
+      <li v-if="isLoggedIn" class="navigation__list--item">
         <span @click="signOut" style="color: #fefefe;">Sign Out</span>
       </li>
-      <li v-else>
-        <span @click="signIn" style="color: #fefefe;">Sign In</span>
+      <li v-else class="navigation__list--item">
+        <NuxtLink to="/login">Sign In</NuxtLink>
       </li>
 
     </ul>
@@ -135,6 +116,11 @@ const goBack = () => (router.back());
         &:active {
           font-weight: bold;
         }
+      }
+
+      .username {
+        font-size: 1.8rem;
+        color: #fefefe;
       }
     }
   }

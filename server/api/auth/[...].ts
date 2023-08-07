@@ -27,6 +27,7 @@ export default NuxtAuthHandler({
                 console.log("Credentials", credentials);
                 const users = await User.find();
                 console.log("Users", users);
+                // NOTE: login will only works if there's an existing account with the right credentials inserted
                 const user = await User.findOne({ email: credentials?.email, password: credentials.password });
                 return user;
             },
