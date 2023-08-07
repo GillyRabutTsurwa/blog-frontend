@@ -9,17 +9,35 @@ const formLogin = reactive({
 });
 
 const formRegister = reactive({
+    email: "",
     username: "",
     password: "",
-})
+    isSubscribed: false
+});
 
-
-
-const signUp = async () => {
-    console.log("Register Settings");
+const logState = (e: Event) => {
+    const input = e.target as HTMLInputElement;
+    console.log(input.checked);
+    formRegister.isSubscribed = input.checked;
 }
 
-const login = async () => {
+const registerUser = async () => {
+    const { data: user } = await useFetch("/api/user", {
+        method: "POST",
+        body: {
+            email: formRegister.email,
+            username: formRegister.username,
+            password: formRegister.password,
+            isSubscribed: formRegister.isSubscribed
+        }
+    });
+    console.log(user.value);
+    // NOTE: clear form input
+    formRegister.username = "";
+    formRegister.password = "";
+}
+
+const loginUser = async () => {
     console.log("Login Settings");
 }
 
@@ -32,7 +50,7 @@ if (status.value === "authenticated") await navigateTo("/uncensored");
 <template>
     <div class="container" id="container" ref="container">
         <div class="form-container sign-up-container">
-            <form @submit.prevent="signUp" netlify>
+            <div class="form-test">
                 <h1 style="margin-bottom: 2rem;">Create Login</h1>
                 <!-- hide for now -->
                 <div class="social-container" style="display: none; visibility: hidden;">
@@ -41,50 +59,50 @@ if (status.value === "authenticated") await navigateTo("/uncensored");
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span style="display: none; visibility: hidden;">or use your email for registration</span>
-                <input v-model="formRegister.username" type="text" placeholder="Username (or E-mail)" required />
-                <input v-model="formRegister.password" type="password" placeholder="Password" required />
-                <div class="newsletter"
-                    style="display: grid; grid-template-columns: min-content 1fr; width: 100%; align-items: center;">
-                    <input type="checkbox" name="newsletter" id="newsletter">
-                    <label for="newsletter" style="font-size: 1.4rem; justify-self: start; margin-left: 2rem;">Subscribe to
-                        my weekly
-                        newsletter</label>
+                <form @submit.prevent="registerUser" netlify>
+                    <input v-model="formRegister.email" type="email" placeholder="E-mail" required />
+                    <input v-model="formRegister.username" type="text" placeholder="Username" required />
+                    <input v-model="formRegister.password" type="password" placeholder="Password" required />
+                    <div class="newsletter"
+                        style="display: grid; grid-template-columns: min-content 1fr; width: 100%; align-items: center;">
+                        <input @change="logState($event)" type="checkbox" name="newsletter" id="newsletter"
+                            style="width: 1.5rem;">
+                        <label for="newsletter" style="font-size: 1.4rem; justify-self: start; margin-left: 2rem;">Subscribe
+                            to
+                            my monthly
+                            newsletter</label>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+                <p class="login-alernative">Or Login With</p>
+                <div class="oauth">
+                    <Icon @click="signIn('google')" name="google" :pxSize="42" />
+                    <Icon @click="signIn('github')" name="github" :pxSize="42" />
                 </div>
-                <button>Sign Up</button>
-                <button @click="signIn('google')" class="ghost">
-                    <Icon name="google" />
-                    <span>Login With Google</span>
-                </button>
-                <button @click="signIn('github')" class="ghost">
-                    <Icon name="github" />
-                    <span>Login With Github</span>
-                </button>
-            </form>
+            </div>
         </div>
         <div class="form-container sign-in-container">
-            <form @submit.prevent="login">
-                <h1 style="margin-bottom: 2rem;">Sign in</h1>
-                <!-- also hide for now: -->
+            <div class="form-test">
+                <h1 style="margin-bottom: 2rem;">Sign In</h1>
+                <!-- hide for now -->
                 <div class="social-container" style="display: none; visibility: hidden;">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
-                <span style="display: none; visibility: hidden;">or use your account</span>
-                <input type="email" placeholder="Email" v-model="formLogin.username" />
-                <input type="password" placeholder="Password" v-model="formLogin.password" />
-                <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
-                <button @click="signIn('google')" class="ghost">
-                    <Icon name="google" />
-                    <span>Login With Google</span>
-                </button>
-                <button @click="signIn('github')" class="ghost">
-                    <Icon name="github" />
-                    <span>Login With Github</span>
-                </button>
-            </form>
-            <span @click="goBack" style="position: absolute; bottom: 2rem; left: 2rem;">Back</span>
+                <span style="display: none; visibility: hidden;">or use your email for registration</span>
+                <form @submit.prevent="registerUser">
+                    <input v-model="formRegister.username" type="text" placeholder="Username (or E-mail)" required />
+                    <input v-model="formRegister.password" type="password" placeholder="Password" required />
+                    <button type="submit">Sign In</button>
+                </form>
+                <p class="login-alernative">Or Login With</p>
+                <div class="oauth">
+                    <Icon @click="signIn('google')" name="google" :pxSize="42" />
+                    <Icon @click="signIn('github')" name="github" :pxSize="42" />
+
+                </div>
+            </div>
         </div>
         <div class="overlay-container">
             <div class="overlay">
@@ -129,6 +147,10 @@ button {
     display: flex;
     align-items: center;
 
+    &[type="submit"] {
+        margin: 3rem 0;
+    }
+
     span {
         margin-left: 1.5rem;
     }
@@ -149,7 +171,8 @@ button.ghost {
     color: #07343f;
 }
 
-form {
+// form,
+.form-test {
     background-color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -159,6 +182,16 @@ form {
     width: 100%;
     height: 100%;
     text-align: center;
+
+    .login-alernative {
+        margin-bottom: 2rem;
+    }
+
+    .oauth {
+        display: flex;
+        width: 12rem;
+        justify-content: space-around;
+    }
 }
 
 input {

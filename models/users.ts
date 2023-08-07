@@ -2,7 +2,9 @@ import mongoose, { Schema } from "mongoose";
 
 interface IUser {
     email: string;
+    username: string;
     password: string;
+    isSubscribed: boolean;
 }
 
 const UserSchema: Schema = new mongoose.Schema<IUser>(
@@ -12,8 +14,16 @@ const UserSchema: Schema = new mongoose.Schema<IUser>(
             required: true,
             unique: true,
         },
+        username: {
+            type: String,
+            required: true,
+        },
         password: {
             type: String,
+            required: false,
+        },
+        isSubscribed: {
+            type: Boolean,
             required: false,
         },
     },
