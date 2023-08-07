@@ -1,4 +1,5 @@
-import { fetchPosts } from ".";
+import type { H3Event } from "h3";
+import { fetchPosts } from "..";
 
 function capitalise(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -12,7 +13,7 @@ async function filterPosts<T>(category: string): Promise<T[]> {
 }
 
 export default defineEventHandler(async (event: H3Event) => {
-    console.log(await filterPosts(event.context.params?.category));
+    console.log(await filterPosts(event.context?.params.category));
     return await filterPosts<object>(event.context?.params.category);
 });
 
