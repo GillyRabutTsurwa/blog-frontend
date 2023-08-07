@@ -1,16 +1,13 @@
 <script setup>
 const route = useRoute();
 const router = useRouter();
-const user = useSupabaseUser(); //NOTE: using to render posts according to user status
-const supabase = useSupabaseAuthClient(); //NOTE: using to logout
 
 const isHeaderPlaced = computed(() => {
   return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "authentication" && route.name !== "authours-slug";
 });
 
 const logOut = async () => {
-  const { error } = await supabase.auth.signOut();
-  navigateTo("/authentication");
+  console.log("Logout Settings");
 }
 
 const isDropDownHovered = ref(false);
@@ -30,7 +27,7 @@ const goBack = () => (router.back());
       </li>
       <li class="navigation__list--item">
         <NuxtLink :to="`/${$route.name === 'tech' ? 'personal' : 'tech'}`">{{ $route.name === 'tech' ? 'Personal' : 'Tech'
-        }} Page</NuxtLink>
+                  }} Page</NuxtLink>
       </li>
       <li class="navigation__list--item">
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer noopener">Portfolio Site</a>

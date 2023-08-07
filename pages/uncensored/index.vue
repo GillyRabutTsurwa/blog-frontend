@@ -1,17 +1,4 @@
-<script setup>
-definePageMeta({
-    middleware: ["auth"]
-});
-const user = useSupabaseUser();
-
-onMounted(() => {
-    watchEffect(() => {
-        if (!user.value) {
-            navigateTo("/authentication");
-        }
-    });
-});
-</script>
+<script setup></script>
 
 <template>
     <div>

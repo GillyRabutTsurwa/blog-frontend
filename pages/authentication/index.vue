@@ -8,29 +8,14 @@ const credentials = reactive({
 
 });
 
-const supabase = useSupabaseAuthClient(); //IMPORTANT: changing to this from useSupabaseClient()
-
 const router = useRouter();
 
 const signUp = async () => {
-    const { user, error } = await supabase.auth.signUp({
-        email: credentials.signUpEmail,
-        password: credentials.signUpPassword
-    });
-    if (!error) await navigateTo("/personal");
+    console.log("Register Settings");
 }
 
 const login = async () => {
-    const { user, error } = await supabase.auth.signInWithPassword({
-        email: credentials.loginEmail,
-        password: credentials.loginPassword
-    });
-    if (error) {
-        console.log(error.status, error.name, error.message);
-    }
-    else {
-        await navigateTo("/personal");
-    };
+    console.log("Login Settings");
 }
 
 const addRightPanel = () => {
