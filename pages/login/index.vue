@@ -41,8 +41,7 @@ const goBack = () => (router.back());
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span style="display: none; visibility: hidden;">or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" required v-model="credentials.signUpEmail" />
+                <input type="text" placeholder="Username (or E-mail)" required v-model="credentials.signUpEmail" />
                 <input type="password" placeholder="Password" required v-model="credentials.signUpPassword" />
                 <div class="newsletter"
                     style="display: grid; grid-template-columns: min-content 1fr; width: 100%; align-items: center;">
@@ -52,6 +51,14 @@ const goBack = () => (router.back());
                         newsletter</label>
                 </div>
                 <button>Sign Up</button>
+                <button class="ghost">
+                    <Icon name="google" />
+                    <span>Login With Google</span>
+                </button>
+                <button class="ghost">
+                    <Icon name="github" />
+                    <span>Login With Github</span>
+                </button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -68,6 +75,14 @@ const goBack = () => (router.back());
                 <input type="password" placeholder="Password" v-model="credentials.loginPassword" />
                 <a href="#">Forgot your password?</a>
                 <button>Sign In</button>
+                <button class="ghost">
+                    <Icon name="google" />
+                    <span>Login With Google</span>
+                </button>
+                <button class="ghost">
+                    <Icon name="github" />
+                    <span>Login With Github</span>
+                </button>
             </form>
             <span @click="goBack" style="position: absolute; bottom: 2rem; left: 2rem;">Back</span>
         </div>
@@ -99,8 +114,8 @@ a {
 }
 
 button {
-    border-radius: 20px;
-    border: 1px solid #07343f;
+    border-radius: 1.5rem;
+    border: 2px solid #07343f;
     background-color: #07343f;
     color: #FFFFFF;
     font-size: 12px;
@@ -110,6 +125,13 @@ button {
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     cursor: pointer;
+    //TESTING:
+    display: flex;
+    align-items: center;
+
+    span {
+        margin-left: 1.5rem;
+    }
 }
 
 button:active {
@@ -168,6 +190,13 @@ input {
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container,
+.sign-up-container {
+    button {
+        margin-bottom: 2.5rem;
+    }
 }
 
 .sign-in-container {
