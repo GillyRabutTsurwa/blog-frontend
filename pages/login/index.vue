@@ -1,12 +1,17 @@
-<script setup>
+<script setup lang="ts">
+const { signIn } = useAuth();
 const container = ref(null); //NOTE: template ref for addressing form styles
-const credentials = reactive({
-    signUpEmail: "",
-    signUpPassword: "",
-    loginEmail: "",
-    loginPassword: ""
 
+const formLogin = reactive({
+    username: "",
+    password: "",
 });
+
+const formRegister = reactive({
+    username: "",
+    password: "",
+})
+
 
 const router = useRouter();
 
@@ -41,8 +46,8 @@ const goBack = () => (router.back());
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span style="display: none; visibility: hidden;">or use your email for registration</span>
-                <input type="text" placeholder="Username (or E-mail)" required v-model="credentials.signUpEmail" />
-                <input type="password" placeholder="Password" required v-model="credentials.signUpPassword" />
+                <input v-model="formRegister.username" type="text" placeholder="Username (or E-mail)" required />
+                <input v-model="formRegister.password" type="password" placeholder="Password" required />
                 <div class="newsletter"
                     style="display: grid; grid-template-columns: min-content 1fr; width: 100%; align-items: center;">
                     <input type="checkbox" name="newsletter" id="newsletter">
@@ -51,11 +56,11 @@ const goBack = () => (router.back());
                         newsletter</label>
                 </div>
                 <button>Sign Up</button>
-                <button class="ghost">
+                <button @click="signIn('google')" class="ghost">
                     <Icon name="google" />
                     <span>Login With Google</span>
                 </button>
-                <button class="ghost">
+                <button @click="signIn('github')" class="ghost">
                     <Icon name="github" />
                     <span>Login With Github</span>
                 </button>
@@ -71,15 +76,15 @@ const goBack = () => (router.back());
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span style="display: none; visibility: hidden;">or use your account</span>
-                <input type="email" placeholder="Email" v-model="credentials.loginEmail" />
-                <input type="password" placeholder="Password" v-model="credentials.loginPassword" />
+                <input type="email" placeholder="Email" v-model="formLogin.username" />
+                <input type="password" placeholder="Password" v-model="formLogin.password" />
                 <a href="#">Forgot your password?</a>
                 <button>Sign In</button>
-                <button class="ghost">
+                <button @click="signIn('google')" class="ghost">
                     <Icon name="google" />
                     <span>Login With Google</span>
                 </button>
-                <button class="ghost">
+                <button @click="signIn('github')" class="ghost">
                     <Icon name="github" />
                     <span>Login With Github</span>
                 </button>

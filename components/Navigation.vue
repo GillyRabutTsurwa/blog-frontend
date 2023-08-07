@@ -1,16 +1,12 @@
 <script setup>
-const route = useRoute();
+const { status, signIn, signOut } = useAuth();
 const router = useRouter();
-
-const isHeaderPlaced = computed(() => {
-  return route.fullPath !== "/" && route.name !== "tech" && route.name !== "personal-posts-slug" && route.name !== "authentication" && route.name !== "authours-slug";
-});
-
 const logOut = async () => {
   console.log("Logout Settings");
 }
+const isLoggedIn = computed(() => status.value === "authenticated");
 
-const isDropDownHovered = ref(false);
+
 
 const goBack = () => (router.back());
 </script>
@@ -26,8 +22,12 @@ const goBack = () => (router.back());
         <NuxtLink to="/authours/gilbert-rabut-tsurwa">About Me</NuxtLink>
       </li>
       <li class="navigation__list--item">
-        <NuxtLink :to="`/${$route.name === 'tech' ? 'personal' : 'tech'}`">{{ $route.name === 'tech' ? 'Personal' : 'Tech'
-                  }} Page</NuxtLink>
+        <NuxtLink :to="`/${$route.name === 'tech' ? 'personal' : 'tech'}`">
+          {{ $route.name === 'tech' ? 'Personal' : 'Tech' }} Page
+        </NuxtLink>
+      </li>
+      <li class="navigation__list--item">
+        <NuxtLink to="/uncensored">Uncensored Posts</NuxtLink>
       </li>
       <li class="navigation__list--item">
         <a href="https://gilbertrabuttsurwa.tech" target="_blank" rel="noreferrer noopener">Portfolio Site</a>
@@ -60,12 +60,18 @@ const goBack = () => (router.back());
           <i class="fab fa-spotify"></i>
         </a>
       </li>
-
       <li class="navigation__icons--icon">
         <a href="https://www.linkedin.com/in/gilberttsurwa" target="_blank" rel="noopener noreferrer">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
+      <li v-if="isLoggedIn">
+        <span @click="signOut" style="color: #fefefe;">Sign Out</span>
+      </li>
+      <li v-else>
+        <span @click="signIn" style="color: #fefefe;">Sign In</span>
+      </li>
+
     </ul>
   </nav>
 </template>
