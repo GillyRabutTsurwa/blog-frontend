@@ -33,12 +33,16 @@ const registerUser = async () => {
     });
     console.log(user.value);
     // NOTE: clear form input
+    formRegister.email = "";
     formRegister.username = "";
     formRegister.password = "";
 }
 
 const loginUser = async () => {
-    console.log("Login Settings");
+    await signIn("credentials", {
+        name: formLogin.username,
+        password: formLogin.password
+    });
 }
 
 const goBack = () => (router.back());
@@ -91,9 +95,9 @@ if (status.value === "authenticated") await navigateTo("/uncensored");
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span style="display: none; visibility: hidden;">or use your email for registration</span>
-                <form @submit.prevent="registerUser">
-                    <input v-model="formRegister.username" type="text" placeholder="Username (or E-mail)" required />
-                    <input v-model="formRegister.password" type="password" placeholder="Password" required />
+                <form @submit.prevent="loginUser">
+                    <input v-model="formLogin.username" type="text" placeholder="Username (or E-mail)" required />
+                    <input v-model="formLogin.password" type="password" placeholder="Password" required />
                     <button type="submit">Sign In</button>
                 </form>
                 <p class="login-alernative">Or Login With</p>

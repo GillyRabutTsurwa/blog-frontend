@@ -44,7 +44,7 @@ const goBack = () => (router.back());
     <ul class="navigation__list">
       <!-- account username -->
       <li v-if="isLoggedIn" class="navigation__list--item">
-        <span class="username">{{ user.user.name }}</span>
+        <span class="username">{{ user.user.name || user.user.email }}</span>
       </li>
       <li v-if="isLoggedIn" class="navigation__list--item">
         <span @click="signOut" style="color: #fefefe;">Sign Out</span>
